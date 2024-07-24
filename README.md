@@ -10,16 +10,19 @@ sphinx-apidoc -o source/ .
 Build the documentation as Markdown
 sphinx-build -b markdown source/ build/
 
-mv build/* docs/
+mv build/alignValues.md docs/
 
 
-## Set up docsify to generate documentation from formatted code
-Install nvm
-Install Node.js and npm
+## Set up docsify to generate documentation from markdown
+install nvm
+install Node.js and npm
+
+npm install -g docsify-cli
 
 docsify init ./docs
 Edit docs/_sidebar.md to include your generated documentation links:
 * [Home](/)
-* [API Reference](api.md)
+* [API Reference](xxx.md)
 
 docsify serve docs
+
