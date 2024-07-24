@@ -1,14 +1,16 @@
 # Ignore everything
 *
 
-# Except for .py files
-!*.py
-
 # Allow directories to be tracked
 !*/
 
 # Ignore everything inside directories
 */*
+
+# Except for .py, .md, and .rst files
+!*.py
+!*.md
+!*.rst
 
 # Except for .gitignore and .gitkeep files
 !.gitignore
