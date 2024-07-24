@@ -159,6 +159,12 @@ class AlignValues:
 
 
     def save_results_to_text(self, optimized_lambda, success):
+        """
+         Save the results to text file. This is used to generate the results file and save it to disk
+         
+         :param optimized_lambda: list of optimized lambda values
+         :param success: True if success False if failure ( NaN in case of failure
+        """
         file_path = 'results/alignValues.txt' 
         c_str = ','.join(f'{v:.3f}' for v in self.c.tolist())
         optimized_lambda_str = ','.join(f'{v:.3f}' for v in optimized_lambda)
