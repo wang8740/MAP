@@ -131,8 +131,9 @@ class RewardProcessor:
             list_rewards = np.array([entry[value] for entry in data])
             sorted_rewards = np.sort(list_rewards)
             quant.append(np.searchsorted(sorted_rewards, c_list[i]) / len(sorted_rewards))
-        print(f"quant: {','.join(f'{q:.3f}' for q in quant)}")
-        return 
+        res = f"quant: {','.join(f'{q:.3f}' for q in quant)}"
+        print(res)
+        return quant
 
     def assess_original_value(self, evaluation_mode = False):
 
@@ -275,7 +276,7 @@ class RewardProcessor:
             elif scaling < 0:
                 random_lam = np.random.uniform(0, scaling_MAX) * random_alpha
                 random_lam = random_lam.tolist()
-                random_lam[1] *= 15  # for diversity
+                # random_lam[1] *= 15  # for diversity
             else:
                 random_lam = scaling * random_alpha
                 random_lam = random_lam.tolist()

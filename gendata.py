@@ -75,7 +75,7 @@ class TextGeneration:
                     output_scores=False
                 )
 
-            decoded_outputs = self.tokenizer_generate.batch_decode(generate_ids, skip_special_tokens=True)
+            decoded_outputs = self.tokenizer_generate.batch_decode(generate_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True)
             perplexities = get_reward(decoded_outputs, "perplexity", model=self.basemodel, tokenizer=self.tokenizer_generate)
             for prompt, gen_text, perplexity in zip(batch_prompts, decoded_outputs, perplexities):
                 results.append({"prompt": prompt, "generated": gen_text, "perplexity": perplexity})
@@ -156,7 +156,7 @@ class TextGeneration:
                     output_scores=False
                 )
 
-            decoded_outputs = self.tokenizer_generate.batch_decode(generate_ids, skip_special_tokens=True)
+            decoded_outputs = self.tokenizer_generate.batch_decode(generate_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True)
             # clean_outputs = clean_and_trim_to_last_sentence(batch_prompts, decoded_outputs)
                 
             # Memory cleanup after a large operation

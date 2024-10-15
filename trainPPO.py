@@ -78,7 +78,7 @@ def build_dataset(config, tokenizer, data_name):
     return ds
 
 
-def main(lam_list, value_list, model_name, data_name, learning_rate=1e-6, batch_size=20, mini_batch_size=2, nepoch=1):
+def main(lam_list, value_list, model_name, data_name, save_path, learning_rate=1e-6, batch_size=20, mini_batch_size=2, nepoch=1):
 
     if model_name=="opt1.3b": 
         model_path_name = "facebook/opt-1.3b" 
@@ -195,10 +195,8 @@ def main(lam_list, value_list, model_name, data_name, learning_rate=1e-6, batch_
             print("Training Stats:", stats)
 
         # Save the model
-        save_directory = "./ppoModels/"
-        os.makedirs(save_directory, exist_ok=True)
-        save_path = os.path.join(save_directory, f"{model_name}-{data_name}-lam={lam_str}-val={values_str}")
         save_path = convert_ppo_modelname_to_huggingface_valid(save_path)
+        os.makedirs(save_path, exist_ok=True)
         ppo_trainer.save_pretrained(save_path)
         print("Training complete!")
 

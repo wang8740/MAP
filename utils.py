@@ -1,4 +1,5 @@
 import re
+import os
 from datasets import load_dataset
 import torch
 from transformers import (
@@ -12,12 +13,15 @@ from transformers import (
     OPTForCausalLM
 )
 import numpy as np
-import glob
-import json
+# import glob
+# import json
 import nltk
+# nltk.download('punkt_tab') # run one time only and figure out the path
+nltk.data.path.append('/users/5/wang8740/nltk_data')
+
+
 from nltk.tokenize import word_tokenize
 from scipy.spatial.distance import cosine
-import os
 import subprocess
 # from trl.core import LengthSampler
 import random
@@ -25,10 +29,10 @@ import random
 TASK_NAME = 'conversation' # 'conversation', 'sentiment_control'
 if TASK_NAME == 'conversation':
     ALL_SUPPORTED_VALUES = ["humor", "gpt2-helpful", "gpt2-harmless", "diversity", "coherence", "perplexity"]
-    ALL_SUPPORTED_VALUES_plotnames = ["Humor", "Helpful", "Harmless", "Diversity", "Coherence", "Perplexity"]
+    ALL_SUPPORTED_VALUES_plotnames = ["Humor", "Helpfulness", "Harmlessness", "Diversity", "Coherence", "Perplexity"]
 elif TASK_NAME == 'sentiment_control':
     ALL_SUPPORTED_VALUES = ["positive", "gpt2-helpful", "gpt2-harmless", "diversity", "coherence", "perplexity"]
-    ALL_SUPPORTED_VALUES_plotnames = ["Positive", "Helpful", "Harmless", "Diversity", "Coherence", "Perplexity"]
+    ALL_SUPPORTED_VALUES_plotnames = ["Positiveness", "Helpfulness", "Harmlessness", "Diversity", "Coherence", "Perplexity"]
 
 
 def get_device():
