@@ -1,18 +1,23 @@
-# Ignore everything
+# Ignore everything by default
 *
 
 # Allow directories to be tracked
 !*/
 
-# Ignore everything inside directories
-*/*
-
-# Except for .py, .md, and .rst files
+# Allow only .py, .md, .rst, .gitignore, and .gitkeep files
 !*.py
 !*.md
 !*.rst
-
-# Except for .gitignore and .gitkeep files
 !.gitignore
 !.gitkeep
+
+# Ignore the opencompass/ folder
+opencompass/
+
+# Ignore everything inside all folders, except docs/
+**/*
+!docs/**
+
+# Ensure all contents of docs/ are tracked
+docs/*
 
