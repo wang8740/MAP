@@ -1,23 +1,29 @@
 # Ignore everything by default
-*
+**
 
-# Allow directories to be tracked
-!*/
-
-# Allow only .py, .md, .rst, .gitignore, and .gitkeep files
+# Allow only Python files
 !*.py
-!*.md
-!*.rst
-!.gitignore
-!.gitkeep
 
-# Ignore the opencompass/ folder
-opencompass/
+# Special case: Ignore __pycache__ folders and Python bytecode files
+__pycache__/
+*.py[cod]
 
-# Ignore everything inside all folders, except docs/
-**/*
-!docs/**
+# Ignore all other directories
+!/
 
-# Ensure all contents of docs/ are tracked
-docs/*
+# Manually include Python scripts from root directory (if needed)
+!alignValues.py
+!rewardProcessor.py
+!rewardTrainer.py
+!submit_DPO_job.py
+!submit_MAP-DPO-PPO_comparison.py
+!submit_MC-aligned_pipeline.py
+!submit_PPO-aligned_pipeline.py
+!submit_jobs.py
+!submit_perplexity_correction.py
+!submit_soup.py
+!tokenValueDecoder.py
+!trainDPO.py
+!trainPPO.py
+!utils.py
 
