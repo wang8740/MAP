@@ -8,8 +8,9 @@
 __pycache__/
 *.py[cod]
 
-# Ignore all other directories
-!/
+# Allow the docs/ folder and all its contents
+!docs/
+!docs/**
 
 # Manually include Python scripts from root directory (if needed)
 !alignValues.py
