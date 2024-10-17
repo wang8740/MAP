@@ -1,0 +1,32 @@
+submit_MAP-DPO-PPO_comparison
+=============================
+
+.. py:module:: submit_MAP-DPO-PPO_comparison
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   submit_MAP-DPO-PPO_comparison.commands
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   submit_MAP-DPO-PPO_comparison.random_string
+   submit_MAP-DPO-PPO_comparison.ensure_dir
+
+
+Module Contents
+---------------
+
+.. py:function:: random_string(length=8)
+
+.. py:function:: ensure_dir(directory)
+
+.. py:data:: commands
+

@@ -1,0 +1,43 @@
+plot_reward_dist
+================
+
+.. py:module:: plot_reward_dist
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   plot_reward_dist.file_path
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   plot_reward_dist.plot_hist
+   plot_reward_dist.plot_weighted_unweighted_histograms
+   plot_reward_dist.plot_hist_positive
+
+
+Module Contents
+---------------
+
+.. py:function:: plot_hist(json_file)
+
+   Intend to input a path to sentences along with calculated rewards to show the distribution of each reward
+
+
+.. py:function:: plot_weighted_unweighted_histograms(file_path, values_to_evaluate, values_to_align, lam, subplot_names, save_path)
+
+.. py:function:: plot_hist_positive(json_file)
+
+   Intends to input a path to a JSON file with a "positive" column and plot the distribution of these values.
+
+
+.. py:data:: file_path
+   :value: 'results/llama2_chat-Anthropic-harmless.json'
+
+

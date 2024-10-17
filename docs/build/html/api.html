@@ -1,0 +1,521 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>submit_DPO_job &mdash; MAP v0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=34cd777e"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.13.5/mermaid.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="autoapi/index.html" />
+    <link rel="prev" title="Welcome to MAP Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MAP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">submit_DPO_job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#plot-sequential-baseline">plot_sequential_baseline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#plot-rand-lambda-map-region">plot_rand_lambda_MAP_region</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plot-lambdas-3d">plot_lambdas_3D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-lambdas-2d-subplots">plot_lambdas_2D_subplots</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#gendatagui">gendataGUI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#generategui-from-original-model">generateGUI_from_original_model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#submit-map-dpo-ppo-comparison">submit_MAP-DPO-PPO_comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#tokenvaluedecoder">tokenValueDecoder</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#generate-value-aligned">generate_value_aligned</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#generate-alpacafinetune">generate-alpacaFinetune</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#gendata">gendata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#mergeprocessor">mergeProcessor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mergeprocessor-objects">MergeProcessor Objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#merge-added-rewards">merge_added_rewards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#merge-gendata-bypattern">merge_gendata_bypattern</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#plot-tab-in-quantiles">plot_tab_in_quantiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#rewardtrainer">rewardTrainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#plot-radar-tabresults">plot_radar_tabresults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#submit-ppo-aligned-pipeline">submit_PPO-aligned_pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#plot-cal-winrate">plot_cal_winrate</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#collect-multiple-results">collect_multiple_results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#render-latex-table">render_latex_table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-helpful-vs-harmless">plot_helpful_vs_harmless</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#submit-soup">submit_soup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#submit-jobs">submit_jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#traindpo">trainDPO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#utils">utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#task-name">TASK_NAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#convert-ppo-modelname-to-huggingface-valid">convert_ppo_modelname_to_huggingface_valid</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#trainppo">trainPPO</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#build-dataset">build_dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#plot-reward-dist">plot_reward_dist</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plot-hist">plot_hist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-hist-positive">plot_hist_positive</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#submit-mc-aligned-pipeline">submit_MC-aligned_pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#plot-pairwise-pareto">plot_pairwise_pareto</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plot-matrix-scatterplot">plot_matrix_scatterplot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#submit-perplexity-correction">submit_perplexity_correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#alignvalues">alignValues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#alignvalues-objects">AlignValues Objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#save-results-to-text">save_results_to_text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save-results-to-csv">save_results_to_csv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gen-rand-map-lambda">gen_rand_MAP_lambda</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#gendpodata">genDPOdata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preprocess-data">preprocess_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gen-mixed-preference-data">gen_mixed_preference_data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#rewardprocessor">rewardProcessor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rewardprocessor-objects">RewardProcessor Objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#add-reward">add_reward</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#getdposoup">getDPOsoup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#soup">soup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MAP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">submit_DPO_job</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to MAP Documentation" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="autoapi/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="submit-dpo-job">
+<h1>submit_DPO_job<a class="headerlink" href="#submit-dpo-job" title="Link to this heading"></a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="plot-sequential-baseline">
+<h1>plot_sequential_baseline<a class="headerlink" href="#plot-sequential-baseline" title="Link to this heading"></a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="plot-rand-lambda-map-region">
+<h1>plot_rand_lambda_MAP_region<a class="headerlink" href="#plot-rand-lambda-map-region" title="Link to this heading"></a></h1>
+<section id="plot-lambdas-3d">
+<h2>plot_lambdas_3D<a class="headerlink" href="#plot-lambdas-3d" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_lambdas_3D</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">x_value</span><span class="p">,</span> <span class="n">y_value</span><span class="p">,</span> <span class="n">z_value</span><span class="p">,</span> <span class="n">output_prefix</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Function to plot optimized_lambda and Dirichlet_lambda_ref in a 3D plot</p>
+<p>with semi-transparent dots, overlaying one over the other.</p>
+<p><strong>Arguments</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file_path</span></code>: Path to the CSV file containing lambda values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_value</span></code>: The name of the value for the x-axis (e.g., ‘gpt2-helpful’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y_value</span></code>: The name of the value for the y-axis (e.g., ‘gpt2-harmless’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z_value</span></code>: The name of the value for the z-axis</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output_prefix</span></code>: Path to save the output PDF</p></li>
+</ul>
+</section>
+<section id="plot-lambdas-2d-subplots">
+<h2>plot_lambdas_2D_subplots<a class="headerlink" href="#plot-lambdas-2d-subplots" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_lambdas_2D_subplots</span><span class="p">(</span><span class="n">file_paths</span><span class="p">,</span> <span class="n">x_value</span><span class="p">,</span> <span class="n">y_value</span><span class="p">,</span> <span class="n">output_prefix</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Function to create several subplots, one for each file, in a 2D plot</p>
+<p>with semi-transparent dots. The Dirichlet_lambda_ref is plotted file-specific
+for each subplot.</p>
+<p><strong>Arguments</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file_paths</span></code>: List of paths to the CSV files containing lambda values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_value</span></code>: The name of the value for the x-axis (e.g., ‘gpt2-helpful’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y_value</span></code>: The name of the value for the y-axis (e.g., ‘gpt2-harmless’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output_prefix</span></code>: Path to save the output PDF</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="gendatagui">
+<h1>gendataGUI<a class="headerlink" href="#gendatagui" title="Link to this heading"></a></h1>
+<section id="generategui-from-original-model">
+<h2>generateGUI_from_original_model<a class="headerlink" href="#generategui-from-original-model" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generateGUI_from_original_model</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span>
+                                    <span class="n">temperature</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                                    <span class="n">top_k</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                                    <span class="n">num_beams</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                    <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate text based on the input prompt and other parameters.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="submit-map-dpo-ppo-comparison">
+<h1>submit_MAP-DPO-PPO_comparison<a class="headerlink" href="#submit-map-dpo-ppo-comparison" title="Link to this heading"></a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tokenvaluedecoder">
+<h1>tokenValueDecoder<a class="headerlink" href="#tokenvaluedecoder" title="Link to this heading"></a></h1>
+<section id="generate-value-aligned">
+<h2>generate_value_aligned<a class="headerlink" href="#generate-value-aligned" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate_value_aligned</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span>
+                           <span class="n">max_decode_length</span><span class="p">,</span>
+                           <span class="n">top_k</span><span class="p">,</span>
+                           <span class="n">model</span><span class="p">,</span>
+                           <span class="n">tokenizer</span><span class="p">,</span>
+                           <span class="n">value</span><span class="p">,</span>
+                           <span class="n">value_param</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">interval</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                           <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>max_decode_length: maximum length of the generated text</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="generate-alpacafinetune">
+<h1>generate-alpacaFinetune<a class="headerlink" href="#generate-alpacafinetune" title="Link to this heading"></a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="gendata">
+<h1>gendata<a class="headerlink" href="#gendata" title="Link to this heading"></a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="mergeprocessor">
+<h1>mergeProcessor<a class="headerlink" href="#mergeprocessor" title="Link to this heading"></a></h1>
+<section id="mergeprocessor-objects">
+<h2>MergeProcessor Objects<a class="headerlink" href="#mergeprocessor-objects" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MergeProcessor</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="merge-added-rewards">
+<h3>merge_added_rewards<a class="headerlink" href="#merge-added-rewards" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">merge_added_rewards</span><span class="p">(</span><span class="n">original_file_path</span><span class="p">,</span> <span class="n">save_to_temp_folder</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>save_to_temp_folder=True if we save to a temp folder, otherwise overwriting the original file with more entries (rewards) in each row</p>
+</section>
+<section id="merge-gendata-bypattern">
+<h3>merge_gendata_bypattern<a class="headerlink" href="#merge-gendata-bypattern" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">merge_gendata_bypattern</span><span class="p">(</span><span class="n">json_file_pattern</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Merges JSON files matched by a specific pattern into a single file and moves it to the directory level
+one above ‘temp/’. Assumes that the JSON file pattern includes a ‘temp/’ directory at its end
+and that all files are located within this directory. The final filename has the pattern ‘_<em>to</em>’
+removed before saving.</p>
+<p><strong>Arguments</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">json_file_pattern</span></code> <em>str</em> - The glob pattern to match JSON files for merging.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Example</span></code> - ‘results/temp/*<em>val=all</em><em>to</em>.json’</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="plot-tab-in-quantiles">
+<h1>plot_tab_in_quantiles<a class="headerlink" href="#plot-tab-in-quantiles" title="Link to this heading"></a></h1>
+<p>This script turns the tab results namely the real c levels into quantile representations.
+But we leave the details out of the paper as they are not perfectly close to the target and can cause reader confusions.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="rewardtrainer">
+<h1>rewardTrainer<a class="headerlink" href="#rewardtrainer" title="Link to this heading"></a></h1>
+<p>python <a class="reference external" href="http://rewardTrainer.py">rewardTrainer.py</a> –model_name_or_path=gpt2 –output_dir=“results/reward_modeling_anthropic_hh” –per_device_train_batch_size=64 –num_train_epochs=1 –gradient_accumulation_steps=16 –gradient_checkpointing=True –learning_rate=1.41e-5 –report_to=“wandb” –remove_unused_columns=False –optim=“adamw_torch” –logging_steps=10 –evaluation_strategy=“steps” –max_length=512</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="plot-radar-tabresults">
+<h1>plot_radar_tabresults<a class="headerlink" href="#plot-radar-tabresults" title="Link to this heading"></a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="submit-ppo-aligned-pipeline">
+<h1>submit_PPO-aligned_pipeline<a class="headerlink" href="#submit-ppo-aligned-pipeline" title="Link to this heading"></a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="plot-cal-winrate">
+<h1>plot_cal_winrate<a class="headerlink" href="#plot-cal-winrate" title="Link to this heading"></a></h1>
+<section id="collect-multiple-results">
+<h2>collect_multiple_results<a class="headerlink" href="#collect-multiple-results" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">collect_multiple_results</span><span class="p">(</span><span class="n">model_files</span><span class="p">,</span>
+                             <span class="n">base_model_file</span><span class="p">,</span>
+                             <span class="n">file_prefix</span><span class="p">,</span>
+                             <span class="n">metrics</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>summarize multiple results into a list and save to json</p>
+</section>
+<section id="render-latex-table">
+<h2>render_latex_table<a class="headerlink" href="#render-latex-table" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">render_latex_table</span><span class="p">(</span><span class="n">win_rate_results_list</span><span class="p">,</span> <span class="n">file_prefix</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Render and save LaTeX table</p>
+</section>
+<section id="plot-helpful-vs-harmless">
+<h2>plot_helpful_vs_harmless<a class="headerlink" href="#plot-helpful-vs-harmless" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_helpful_vs_harmless</span><span class="p">(</span><span class="n">win_rate_results_list</span><span class="p">,</span> <span class="n">harmless_ratios</span><span class="p">,</span>
+                             <span class="n">file_prefix</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plot helpful and harmless win rates over the harmless_ratios</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="submit-soup">
+<h1>submit_soup<a class="headerlink" href="#submit-soup" title="Link to this heading"></a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="submit-jobs">
+<h1>submit_jobs<a class="headerlink" href="#submit-jobs" title="Link to this heading"></a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="traindpo">
+<h1>trainDPO<a class="headerlink" href="#traindpo" title="Link to this heading"></a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="utils">
+<h1>utils<a class="headerlink" href="#utils" title="Link to this heading"></a></h1>
+<section id="task-name">
+<h2>TASK_NAME<a class="headerlink" href="#task-name" title="Link to this heading"></a></h2>
+<p>‘conversation’, ‘sentiment_control’</p>
+</section>
+<section id="convert-ppo-modelname-to-huggingface-valid">
+<h2>convert_ppo_modelname_to_huggingface_valid<a class="headerlink" href="#convert-ppo-modelname-to-huggingface-valid" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">convert_ppo_modelname_to_huggingface_valid</span><span class="p">(</span><span class="n">ppo_model_name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>convert a ppo trained model name to ensure that it is a valid huggingface model path name</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="trainppo">
+<h1>trainPPO<a class="headerlink" href="#trainppo" title="Link to this heading"></a></h1>
+<section id="build-dataset">
+<h2>build_dataset<a class="headerlink" href="#build-dataset" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_dataset</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">data_name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Build dataset for training using prompts from get_prompts_from_imdb and apply tokenization.</p>
+<p><strong>Arguments</strong>:</p>
+<p>data_name (<code class="docutils literal notranslate"><span class="pre">str</span></code>):
+The name of the dataset to be loaded.</p>
+<p><strong>Returns</strong>:</p>
+<p>dataloader (<code class="docutils literal notranslate"><span class="pre">torch.utils.data.DataLoader</span></code>):
+The dataloader for the dataset.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="plot-reward-dist">
+<h1>plot_reward_dist<a class="headerlink" href="#plot-reward-dist" title="Link to this heading"></a></h1>
+<section id="plot-hist">
+<h2>plot_hist<a class="headerlink" href="#plot-hist" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_hist</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Intend to input a path to sentences along with calculated rewards to show the distribution of each reward</p>
+</section>
+<section id="plot-hist-positive">
+<h2>plot_hist_positive<a class="headerlink" href="#plot-hist-positive" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_hist_positive</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Intends to input a path to a JSON file with a “positive” column and plot the distribution of these values.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="submit-mc-aligned-pipeline">
+<h1>submit_MC-aligned_pipeline<a class="headerlink" href="#submit-mc-aligned-pipeline" title="Link to this heading"></a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="plot-pairwise-pareto">
+<h1>plot_pairwise_pareto<a class="headerlink" href="#plot-pairwise-pareto" title="Link to this heading"></a></h1>
+<section id="plot-matrix-scatterplot">
+<h2>plot_matrix_scatterplot<a class="headerlink" href="#plot-matrix-scatterplot" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_matrix_scatterplot</span><span class="p">(</span><span class="n">csv_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Intend to input a path to randomly generated c values to show Tradeoffs and Pareto Fronts</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="submit-perplexity-correction">
+<h1>submit_perplexity_correction<a class="headerlink" href="#submit-perplexity-correction" title="Link to this heading"></a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="alignvalues">
+<h1>alignValues<a class="headerlink" href="#alignvalues" title="Link to this heading"></a></h1>
+<section id="alignvalues-objects">
+<h2>AlignValues Objects<a class="headerlink" href="#alignvalues-objects" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AlignValues</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="save-results-to-text">
+<h3>save_results_to_text<a class="headerlink" href="#save-results-to-text" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">save_results_to_text</span><span class="p">(</span><span class="n">optimized_lambda</span><span class="p">,</span>
+                         <span class="n">success</span><span class="p">,</span>
+                         <span class="n">save_prefix</span><span class="o">=</span><span class="s1">&#39;results/alignValues&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Save the results to text file. This is used to generate the results file and save it to disk</p>
+<p><strong>Arguments</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">optimized_lambda</span></code>: list of optimized lambda values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">success</span></code>: True if success False if failure ( NaN in case of failure</p></li>
+</ul>
+</section>
+<section id="save-results-to-csv">
+<h3>save_results_to_csv<a class="headerlink" href="#save-results-to-csv" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">save_results_to_csv</span><span class="p">(</span><span class="n">optimized_lambda</span><span class="p">,</span>
+                        <span class="n">dirichlet_lambda</span><span class="p">,</span>
+                        <span class="n">save_prefix</span><span class="o">=</span><span class="s1">&#39;results/alignValues&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Save the results to a CSV file. This function appends new data each time it’s called.</p>
+<p><strong>Arguments</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">optimized_lambda</span></code>: list of optimized lambda values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dirichlet_lambda</span></code>: list of Dirichlet reference lambda values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save_prefix</span></code>: prefix for the save file path</p></li>
+</ul>
+</section>
+<section id="gen-rand-map-lambda">
+<h3>gen_rand_MAP_lambda<a class="headerlink" href="#gen-rand-map-lambda" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_rand_MAP_lambda</span><span class="p">(</span><span class="n">num_lambda</span><span class="p">,</span>
+                        <span class="n">scaling_MAX</span><span class="p">,</span>
+                        <span class="n">save_prefix</span><span class="o">=</span><span class="s1">&#39;rand_MAP_lambda&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate random MAP lambda values by drawing each c_i randomly between the current c_i</p>
+<p>and the maximum reward corresponding to value i. This function modifies the c values,
+recalculates lambda, and returns a list of lambda values constrained by scaling_MAX.</p>
+<p><strong>Arguments</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">num_lambda</span></code>: Number of valid lambda values to generate</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scaling_MAX</span></code>: Maximum allowed L1 norm for the generated lambda values</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>Tuple containing list of generated lambda values and success rate</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="gendpodata">
+<h1>genDPOdata<a class="headerlink" href="#gendpodata" title="Link to this heading"></a></h1>
+<section id="preprocess-data">
+<h2>preprocess_data<a class="headerlink" href="#preprocess-data" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">preprocess_data</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">max_words</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that many examples have the chosen=rejected in the first round of dialog, so the sample size cannot be too small.</p>
+</section>
+<section id="gen-mixed-preference-data">
+<h2>gen_mixed_preference_data<a class="headerlink" href="#gen-mixed-preference-data" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_mixed_preference_data</span><span class="p">(</span><span class="n">data_source</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">,</span> <span class="n">split</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>data_source is a dict that currently supports {“harmless”: p, “helpful”: 1-p} format
+split = ‘train’ or ‘test’</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="rewardprocessor">
+<h1>rewardProcessor<a class="headerlink" href="#rewardprocessor" title="Link to this heading"></a></h1>
+<section id="rewardprocessor-objects">
+<h2>RewardProcessor Objects<a class="headerlink" href="#rewardprocessor-objects" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RewardProcessor</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="add-reward">
+<h3>add_reward<a class="headerlink" href="#add-reward" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_reward</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">basemodel_for_perplexity</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The process is non-invasive, meaning that if the original json files has existing rewards for values not equal to value, it will not be overwritten or emptied</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="getdposoup">
+<h1>getDPOsoup<a class="headerlink" href="#getdposoup" title="Link to this heading"></a></h1>
+<section id="soup">
+<h2>soup<a class="headerlink" href="#soup" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">soup</span><span class="p">(</span><span class="n">basemodel_name</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">harmless_lambda</span><span class="p">,</span> <span class="n">save_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>beta: same as in <a class="reference external" href="http://trainDPO.py">trainDPO.py</a>
+harmless_lambda: Interpolation factor in [0, 1]</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to MAP Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="autoapi/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinran Wang.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

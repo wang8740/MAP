@@ -29,6 +29,10 @@ extensions = [
     'sphinxcontrib.mermaid',
 ]
 
+extensions.append('autoapi.extension')
+autoapi_dirs = ['/Users/dingj/Documents/GitRepos/MAP/']  # Adjust this to your code directory
+
+
 # Set font size for image-based math rendering
 imgmath_image_format = 'svg'
 imgmath_font_size = 13  # Adjust font size here (in pt)
@@ -58,8 +62,6 @@ myst_enable_extensions = [
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_rtd_theme'
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-html_static_path = ['_static']
 html_css_files = [
     # 'custom.css',
 ]
@@ -76,7 +78,7 @@ html_theme_options = {
     'canonical_url': '',
     # 'analytics_id': 'G-ZDQXZS0531',  #  Provided by Google in your dashboard
     'logo_only': False,
-    'display_version': False,
+    # 'display_version': False,
     'prev_next_buttons_location': 'both', #'bottom',
     'style_external_links': False,
     'vcs_pageview_mode': '',

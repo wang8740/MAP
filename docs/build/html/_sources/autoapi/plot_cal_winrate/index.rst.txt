@@ -1,0 +1,55 @@
+plot_cal_winrate
+================
+
+.. py:module:: plot_cal_winrate
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   plot_cal_winrate.base_model_file
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   plot_cal_winrate.calculate_win_rate
+   plot_cal_winrate.collect_multiple_results
+   plot_cal_winrate.render_latex_table
+   plot_cal_winrate.plot_helpful_vs_harmless
+   plot_cal_winrate.plot_winrate
+   plot_cal_winrate.plot_cLevels
+
+
+Module Contents
+---------------
+
+.. py:function:: calculate_win_rate(model_file, base_model_file, metrics=None)
+
+.. py:function:: collect_multiple_results(model_files, base_model_file, file_prefix, metrics=None)
+
+   summarize multiple results into a list and save to json
+
+
+.. py:function:: render_latex_table(win_rate_results_list, file_prefix)
+
+   Render and save LaTeX table
+
+
+.. py:function:: plot_helpful_vs_harmless(win_rate_results_list, harmless_ratios, file_prefix)
+
+   Plot helpful and harmless win rates over the harmless_ratios
+
+
+.. py:data:: base_model_file
+   :value: 'results/opt1.3b-Anthropic-harmless.json'
+
+
+.. py:function:: plot_winrate()
+
+.. py:function:: plot_cLevels()
+

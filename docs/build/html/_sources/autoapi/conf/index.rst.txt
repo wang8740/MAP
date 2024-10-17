@@ -1,0 +1,99 @@
+conf
+====
+
+.. py:module:: conf
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   conf.project
+   conf.copyright
+   conf.author
+   conf.release
+   conf.extensions
+   conf.autoapi_dirs
+   conf.imgmath_image_format
+   conf.imgmath_font_size
+   conf.templates_path
+   conf.exclude_patterns
+   conf.myst_enable_extensions
+   conf.html_theme
+   conf.html_css_files
+   conf.html_js_files
+   conf.html_show_sourcelink
+   conf.html_show_sphinx
+   conf.html_theme_options
+
+
+Module Contents
+---------------
+
+.. py:data:: project
+   :value: 'MAP'
+
+
+.. py:data:: copyright
+   :value: '2024, Xinran Wang'
+
+
+.. py:data:: author
+   :value: 'Xinran Wang'
+
+
+.. py:data:: release
+   :value: 'v0.1'
+
+
+.. py:data:: extensions
+   :value: ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'myst_parser', 'sphinx.ext.mathjax',...
+
+
+.. py:data:: autoapi_dirs
+   :value: ['/Users/dingj/Documents/GitRepos/MAP/']
+
+
+.. py:data:: imgmath_image_format
+   :value: 'svg'
+
+
+.. py:data:: imgmath_font_size
+   :value: 13
+
+
+.. py:data:: templates_path
+   :value: ['_templates']
+
+
+.. py:data:: exclude_patterns
+   :value: []
+
+
+.. py:data:: myst_enable_extensions
+   :value: ['amsmath', 'attrs_inline', 'attrs_block', 'colon_fence', 'deflist', 'dollarmath', 'fieldlist',...
+
+
+.. py:data:: html_theme
+   :value: 'sphinx_rtd_theme'
+
+
+.. py:data:: html_css_files
+   :value: []
+
+
+.. py:data:: html_js_files
+   :value: ['https://code.jquery.com/jquery-3.6.0.min.js',...
+
+
+.. py:data:: html_show_sourcelink
+   :value: False
+
+
+.. py:data:: html_show_sphinx
+   :value: False
+
+
+.. py:data:: html_theme_options
+

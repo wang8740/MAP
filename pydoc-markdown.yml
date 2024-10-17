@@ -1,0 +1,13 @@
+loaders:
+  - type: python
+    search_path: ["./"]
+
+renderer:
+  type: markdown
+  insert_header_anchors: false  # Avoid raw <a> tags
+  use_fixed_header_levels: true  # Ensures consistent headers
+  header_level_by_type:
+    module: 2  # H2 for modules
+    class: 3   # H3 for classes
+    function: 4  # H4 for functions
+  filename: "docs/source/api.md"

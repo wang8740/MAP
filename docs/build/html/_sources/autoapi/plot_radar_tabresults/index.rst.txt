@@ -1,0 +1,31 @@
+plot_radar_tabresults
+=====================
+
+.. py:module:: plot_radar_tabresults
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   plot_radar_tabresults.categories
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   plot_radar_tabresults.plot_radar_chart
+
+
+Module Contents
+---------------
+
+.. py:function:: plot_radar_chart(categories, model_scores, title_text, output_file, model_name, art_set=0)
+
+.. py:data:: categories
+   :value: ['Humor', 'Helpful', 'Harmless', 'Diversity', 'Coherence', 'Perplexity']
+
+

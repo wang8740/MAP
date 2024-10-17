@@ -11,7 +11,7 @@ This repository contains the source codes and API documentation for the MAP proj
 To build the documentation locally, ensure you have the following Python packages installed:
 
 ```bash
-pip install pydoc-markdown sphinx myst-parser sphinx_rtd_theme sphinxcontrib-mermaid sphinx-markdown-builder
+pip install pydoc-markdown sphinx myst-parser sphinx_rtd_theme sphinxcontrib-mermaid sphinx-markdown-builder linkify-it-py
 ```
 
 ### Building the Documentation Locally
@@ -73,6 +73,11 @@ loaders:
 
 renderer:
   type: markdown
+  use_fixed_header_levels: true
+  header_level_by_type:
+    module: 2
+    class: 3
+    function: 4
   filename: "docs/source/api.md"
 ```
 

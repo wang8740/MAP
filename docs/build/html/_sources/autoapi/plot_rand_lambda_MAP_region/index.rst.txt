@@ -1,0 +1,54 @@
+plot_rand_lambda_MAP_region
+===========================
+
+.. py:module:: plot_rand_lambda_MAP_region
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   plot_rand_lambda_MAP_region.x_value
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   plot_rand_lambda_MAP_region.plot_lambdas_3D
+   plot_rand_lambda_MAP_region.plot_lambdas_2D_subplots
+
+
+Module Contents
+---------------
+
+.. py:function:: plot_lambdas_3D(file_path, x_value, y_value, z_value, output_prefix)
+
+   Function to plot optimized_lambda and Dirichlet_lambda_ref in a 3D plot
+   with semi-transparent dots, overlaying one over the other.
+
+   :param file_path: Path to the CSV file containing lambda values
+   :param x_value: The name of the value for the x-axis (e.g., 'gpt2-helpful')
+   :param y_value: The name of the value for the y-axis (e.g., 'gpt2-harmless')
+   :param z_value: The name of the value for the z-axis
+   :param output_prefix: Path to save the output PDF
+
+
+.. py:function:: plot_lambdas_2D_subplots(file_paths, x_value, y_value, output_prefix)
+
+   Function to create several subplots, one for each file, in a 2D plot
+   with semi-transparent dots. The Dirichlet_lambda_ref is plotted file-specific
+   for each subplot.
+
+   :param file_paths: List of paths to the CSV files containing lambda values
+   :param x_value: The name of the value for the x-axis (e.g., 'gpt2-helpful')
+   :param y_value: The name of the value for the y-axis (e.g., 'gpt2-harmless')
+   :param output_prefix: Path to save the output PDF
+
+
+.. py:data:: x_value
+   :value: 'gpt2-helpful'
+
+

@@ -1,0 +1,19 @@
+trainDPO
+========
+
+.. py:module:: trainDPO
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   trainDPO.train_dpo
+
+
+Module Contents
+---------------
+
+.. py:function:: train_dpo(sample_size: int, beta: float, harmless_ratio: float, save_path, use_lora: bool = False)
+
