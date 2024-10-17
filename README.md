@@ -170,4 +170,5 @@ Enable GitHub Pages:
 
 Go to your repository’s Settings > Pages.
 Select the gh-pages branch as the source for your GitHub Pages.
-The site will be available at https://<your-username>.github.io/<your-repository>/.
+
+The site will be available at https://<your-username>.github.io/<your-repository>/, e.g., https://wang8740.github.io/MAP/
