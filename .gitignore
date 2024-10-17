@@ -1,24 +1,28 @@
 # Ignore everything by default
-**
+*
 
-# Allow only Python files
+# Allow directories
+!*/
+
+# Allow Python files
 !*.py
 
-# Special case: Ignore __pycache__ folders and Python bytecode files
+# Allow specific configuration files
+!.gitignore
+!pydoc-markdown.yml
+!.github/workflows/*.yml
+
+# Allow documentation files
+!docs/**
+
+# Ignore __pycache__ folders and Python bytecode files
 __pycache__/
 *.py[cod]
 
-# Allow the docs/ folder and all its contents
-!docs/
-!docs/**
+# Ignore build artifacts
+docs/build/
 
-# allow github workflow config
-!.github/workflows/docs_build_deploy.yml
-
-# Track pydoc-markdown.yml explicitly
-!pydoc-markdown.yml
-
-# Manually include Python scripts from root directory (if needed)
+# Explicitly include specific Python scripts (if needed)
 !alignValues.py
 !rewardProcessor.py
 !rewardTrainer.py
@@ -33,4 +37,3 @@ __pycache__/
 !trainDPO.py
 !trainPPO.py
 !utils.py
-
