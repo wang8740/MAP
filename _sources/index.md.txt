@@ -4,11 +4,11 @@ Author: [Xinran Wang](https://wang8740.github.io)
 
 Contact: wang8740@umn.edu
 
-This is the API documentation for MAP.
+This is the API documentation for MAP. Enjoy!
 
 ```{toctree}
 :maxdepth: 1
 :caption: API Reference:
 
-api.md
+autoapi/index
 ```
