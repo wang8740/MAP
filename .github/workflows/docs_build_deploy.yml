@@ -5,6 +5,10 @@ on:
     branches:
       - main  # or your default branch name
 
+# Add this permissions block
+permissions:
+  contents: write
+  
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -25,10 +29,6 @@ jobs:
       run: |
         pip list
     
-    - name: Check sphinx-autoapi installation
-      run: |
-        python -c "import autoapi; print(autoapi.__version__)"
-        
     - name: Build MAP's API documentation
       run: |
         cd docs
@@ -39,3 +39,4 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/build/html
+        publish_branch: gh-pages  # Specify the branch explicitly
