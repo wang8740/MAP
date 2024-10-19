@@ -11,7 +11,8 @@ This repository contains the source codes and API documentation for the MAP proj
 To build the documentation locally, ensure you have the following Python packages installed:
 
 ```bash
-pip install pydoc-markdown sphinx myst-parser sphinx_rtd_theme sphinxcontrib-mermaid sphinx-markdown-builder linkify-it-py
+pip install sphinx myst-parser sphinx_rtd_theme sphinxcontrib-mermaid sphinx-markdown-builder linkify-it-py sphinx-autoapi
+# pip install pydoc-markdown 
 ```
 
 ### Building the Documentation Locally
@@ -63,7 +64,7 @@ def example_function(param1: int, param2: str) -> bool:
     return True
 ```
 
-### Convert Code to Markdown Files
+### (Depreciated) Convert Code to Markdown Files Using Pydoc 
 
 Create a pydoc-markdown configuration file `pydoc-markdown.yml` in your project root:
 ```yaml
@@ -93,6 +94,8 @@ If you clone this repo, the sphinx has been initated, so simply re-build the doc
 cd docs
 make html
 ```
+
+### Use sphinx-autoapi
 
 ### (Optionally) Re-create the Documentation under docs/
 
