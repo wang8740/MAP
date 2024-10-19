@@ -27,11 +27,13 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.imgmath',  # Use this if rendering math as images
     'sphinxcontrib.mermaid',
+    'autoapi.extension',
 ]
 
-extensions.append('autoapi.extension')
-autoapi_dirs = ['/Users/dingj/Documents/GitRepos/MAP/']  # Adjust this to your code directory
-
+# autoapi_dirs = ['/Users/dingj/Documents/GitRepos/MAP/']  # Adjust this to your code directory
+autoapi_dirs = ['../../']
+autoapi_type = 'python'
+autoapi_python_use_implicit_namespaces = True
 
 # Set font size for image-based math rendering
 imgmath_image_format = 'svg'
