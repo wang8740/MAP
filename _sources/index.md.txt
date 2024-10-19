@@ -9,7 +9,7 @@ Contact: wang8740@umn.edu
 This is the API documentation for MAP. Enjoy using it!
 
 ```{toctree}
-:maxdepth: 1
+:maxdepth: 2
 :caption: API Reference:
 
 autoapi/index
