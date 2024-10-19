@@ -1,0 +1,109 @@
+MAP.docs.source.conf
+====================
+
+.. py:module:: MAP.docs.source.conf
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   MAP.docs.source.conf.project
+   MAP.docs.source.conf.copyright
+   MAP.docs.source.conf.author
+   MAP.docs.source.conf.release
+   MAP.docs.source.conf.extensions
+   MAP.docs.source.conf.autoapi_dirs
+   MAP.docs.source.conf.autoapi_type
+   MAP.docs.source.conf.autoapi_python_use_implicit_namespaces
+   MAP.docs.source.conf.imgmath_image_format
+   MAP.docs.source.conf.imgmath_font_size
+   MAP.docs.source.conf.templates_path
+   MAP.docs.source.conf.exclude_patterns
+   MAP.docs.source.conf.myst_enable_extensions
+   MAP.docs.source.conf.html_theme
+   MAP.docs.source.conf.html_css_files
+   MAP.docs.source.conf.html_js_files
+   MAP.docs.source.conf.html_show_sourcelink
+   MAP.docs.source.conf.html_show_sphinx
+   MAP.docs.source.conf.html_theme_options
+
+
+Module Contents
+---------------
+
+.. py:data:: project
+   :value: 'MAP'
+
+
+.. py:data:: copyright
+   :value: '2024, Xinran Wang'
+
+
+.. py:data:: author
+   :value: 'Xinran Wang'
+
+
+.. py:data:: release
+   :value: 'v0.1'
+
+
+.. py:data:: extensions
+   :value: ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'myst_parser', 'sphinx.ext.mathjax',...
+
+
+.. py:data:: autoapi_dirs
+   :value: ['../../']
+
+
+.. py:data:: autoapi_type
+   :value: 'python'
+
+
+.. py:data:: autoapi_python_use_implicit_namespaces
+   :value: True
+
+
+.. py:data:: imgmath_image_format
+   :value: 'svg'
+
+
+.. py:data:: imgmath_font_size
+   :value: 13
+
+
+.. py:data:: templates_path
+   :value: ['_templates']
+
+
+.. py:data:: exclude_patterns
+   :value: []
+
+
+.. py:data:: myst_enable_extensions
+   :value: ['amsmath', 'attrs_inline', 'attrs_block', 'colon_fence', 'deflist', 'dollarmath', 'fieldlist',...
+
+
+.. py:data:: html_theme
+   :value: 'sphinx_rtd_theme'
+
+
+.. py:data:: html_css_files
+   :value: []
+
+
+.. py:data:: html_js_files
+   :value: ['https://code.jquery.com/jquery-3.6.0.min.js',...
+
+
+.. py:data:: html_show_sourcelink
+   :value: False
+
+
+.. py:data:: html_show_sphinx
+   :value: False
+
+
+.. py:data:: html_theme_options
+

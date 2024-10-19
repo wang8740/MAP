@@ -1,0 +1,38 @@
+MAP.gendataGUI
+==============
+
+.. py:module:: MAP.gendataGUI
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   MAP.gendataGUI.device
+   MAP.gendataGUI.iface
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   MAP.gendataGUI.generateGUI_from_original_model
+   MAP.gendataGUI.generateGUI_from_MC_aligned_model
+
+
+Module Contents
+---------------
+
+.. py:data:: device
+
+.. py:function:: generateGUI_from_original_model(prompt, temperature=1.0, top_k=50, num_beams=1, max_new_tokens=50)
+
+   Generate text based on the input prompt and other parameters.
+
+
+.. py:function:: generateGUI_from_MC_aligned_model(prompt, model_choice, value_list, lam_list, MC_nsamples, temperature, top_k, num_beams, max_new_tokens)
+
+.. py:data:: iface
+

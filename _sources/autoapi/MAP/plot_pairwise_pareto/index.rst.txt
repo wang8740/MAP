@@ -1,0 +1,40 @@
+MAP.plot_pairwise_pareto
+========================
+
+.. py:module:: MAP.plot_pairwise_pareto
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   MAP.plot_pairwise_pareto.model
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   MAP.plot_pairwise_pareto.plot_matrix_scatterplot
+   MAP.plot_pairwise_pareto.quantile_transform
+   MAP.plot_pairwise_pareto.plot_pareto
+
+
+Module Contents
+---------------
+
+.. py:function:: plot_matrix_scatterplot(csv_path)
+
+   Intend to input a path to randomly generated c values to show Tradeoffs and Pareto Fronts
+
+
+.. py:function:: quantile_transform(value1, value2, filename, x_list, y_list)
+
+.. py:function:: plot_pareto(column_names, csv_path, alignment_data=None, reward_filepath=None, use_quantile_transform=True, xlim=[0, 1.04], ylim=[0, 1.04])
+
+.. py:data:: model
+   :value: 'llama2_chat'
+
+

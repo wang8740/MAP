@@ -1,0 +1,31 @@
+MAP.generate-alpacaFinetune
+===========================
+
+.. py:module:: MAP.generate-alpacaFinetune
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   MAP.generate-alpacaFinetune.device
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   MAP.generate-alpacaFinetune.main
+
+
+Module Contents
+---------------
+
+.. py:data:: device
+   :value: 'cuda'
+
+
+.. py:function:: main(load_8bit: bool = True, base_model: str = '', lora_weights: str = 'tloen/alpaca-lora-7b', prompt_template: str = '', server_name: str = '0.0.0.0', share_gradio: bool = True)
+

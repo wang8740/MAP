@@ -1,0 +1,63 @@
+MAP.rewardProcessor
+===================
+
+.. py:module:: MAP.rewardProcessor
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   MAP.rewardProcessor.RewardProcessor
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   MAP.rewardProcessor.genGaussian
+
+
+Module Contents
+---------------
+
+.. py:function:: genGaussian(n, rho, colnames, sd=0.5)
+
+.. py:class:: RewardProcessor(values_to_evaluate=None, values_to_align=None, file_path=None, batch_size=32)
+
+   .. py:attribute:: values_to_align_str
+      :value: None
+
+
+
+   .. py:attribute:: values_to_evaluate_str
+      :value: None
+
+
+
+   .. py:attribute:: file_path
+
+
+   .. py:attribute:: batch_size
+
+
+   .. py:method:: add_reward(value, basemodel_for_perplexity=None)
+
+      The process is non-invasive, meaning that if the original json files has existing rewards for values not equal to value, it will not be overwritten or emptied
+
+
+
+   .. py:method:: quantile_transform_single_c(c_list)
+
+
+   .. py:method:: assess_original_value(evaluation_mode=False)
+
+
+   .. py:method:: _assess_postalignment_singlevalue(singlevalue_to_evaluate, lam, debug=True)
+
+
+   .. py:method:: assess_postalignment_multivalue(lam=None, k=100, scaling=1.0, scaling_MAX=1)
+
+
