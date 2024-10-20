@@ -9,15 +9,48 @@ import os
 
 
 class AlignValues:
+    """A class for obtaining the most appropriate lambda values, namely linear coefficients for combining multiple rewards.
+
+    This class handles the calculation of lambda values using a given set of (prompt, continuation) pairs generated from the reference model, and specified palette (c) if any.
+
+    Attributes:
+        c (torch.Tensor): Target palette.
+        value_list (list): List of values (str) to be aligned.
+        file_path (str): Path to the JSON file containing (prompt, continuation) pairs.
+        rewards (torch.Tensor): Tensor of rewards for each value and sample, shape (k, n) where k is the number of values and n is the sample size in file_path.
+
+    Example:
+        >>> c_list = -0.5
+        >>> value_list = "humor"
+        >>> file_path = "results/Llama27b-chat-Anthropic-harmless.json"
+        >>> aligner = AlignValues(value_list, file_path, c_list)
+        >>> lambda_vals, success = aligner.optimize_lambda()
+        >>> print(f"Optimized lambda values: {lambda_vals}")
+        >>> print(f"Optimization success: {success}")
+
+        # For multiple values:
+        >>> c_list = [-1.016, -2.508, -1.214, -0.139, 0.848, 0.521, -1.375]
+        >>> value_list = "all"
+        >>> file_path = "results/Llama27b-chat-Anthropic-harmless.json"
+        >>> aligner = AlignValues(value_list, file_path, c_list)
+        >>> lambda_vals, success = aligner.optimize_lambda()
+        >>> print(f"Optimized lambda values: {lambda_vals}")
+        >>> print(f"Optimization success: {success}")
+
+    Command-line usage:
+        python alignValues.py --c_list=-0.5 --value_list="humor" --file_path="results/Llama27b-chat-Anthropic-harmless.json" optimize_lambda
+        python alignValues.py --c_list=-1.016,-2.508,-1.214,-0.139,0.848,0.521,-1.375 --value_list="all" --file_path="results/Llama27b-chat-Anthropic-harmless.json" optimize_lambda
+    """
+
     def __init__(self, value_list, file_path, c_list=None):
 
-        # file_path is the json file that contains the pretrained model-generated responses for numerical calculation of lambda given c values
+        """Initialize the AlignValues instance.
 
-        # c should be 1D with length k (number of constraints)
-        # rewards should be 2D with shape [k, n] (k constraints and n samples)      
-          
-        # print(f"input c_list is {c_list} (type {type(c_list)}), value_list is {value_list} (type {type(value_list)})")
-        # Note: for 1D input, the types are float, str), and for 2D input, the types are (tuple, tuple)
+        Args:
+            value_list (str or tuple): Values to be aligned. Can be a comma-separated string or a tuple of strings.
+            file_path (str): Path to the JSON file containing (prompt, continuation) pairs.
+            c_list (float or tuple, optional): Constraint value(s). Defaults to None.
+        """
 
         # Load constraints. Make it a list if it's a single scalar
         if c_list:
@@ -38,7 +71,6 @@ class AlignValues:
         self.file_path = file_path
         if self.c is not None:  print(f"Input c is {self.c} for aligning {value_list}, using json file {self.file_path}")
 
-        # Load data
         with open(self.file_path, 'r') as file:
             data = json.load(file)
         
@@ -57,11 +89,25 @@ class AlignValues:
                 tensor_rewards = torch.tensor(value_rewards, dtype=torch.float32)
                 self.rewards.append(tensor_rewards)
                 print(f"Average {value} reward: {torch.mean(tensor_rewards).item():.4f}")
-            self.rewards = torch.stack(self.rewards, dim=0) # dimension is k x n
-
-        # print(f"stacked self.rewards is {self.rewards}")
+            self.rewards = torch.stack(self.rewards, dim=0) # shape [k, n] (k constraints and n samples)    
 
     def optimize_lambda(self, lambda_init=None, optimize_indices=None, verbose=True):
+
+        """Optimize lambda values for the given palatte and rewards.
+
+        This method uses gradient descent to find optimal lambda values that
+        maximize the dual objective function.
+
+        Args:
+            lambda_init (list, optional): Initial lambda values. Defaults to None.
+            optimize_indices (list, optional): Indices of lambda values to optimize. Defaults to None.
+            verbose (bool, optional): Whether to print detailed information during optimization. Defaults to True.
+
+        Returns:
+            tuple: A tuple containing:
+                - list: Optimized lambda values.
+                - bool: True if optimization was successful, False otherwise.
+        """
 
         print("\nRunning AlignValues.optimize_lambda")
 
@@ -353,14 +399,4 @@ class AlignValues:
 if __name__ == '__main__':
     fire.Fire(AlignValues)
 
-# Command line usage examples
-# For a single constraint or value
-# python alignValues.py --c_list=-0.5 --value_list="humor" --file_path="results/Llama27b-chat-Anthropic-harmless.json"
 
-# For multiple constraints or values
-# python alignValues.py --c_list=-0.5,-0.5 --value_list="humor,humor" --file_path="results/Llama27b-chat-Anthropic-harmless.json"
-
-# To optimize
-# python alignValues.py --c_list=-0.5 --value_list="humor" --file_path="results/Llama27b-chat-Anthropic-harmless.json" optimize_lambda
-
-# !python alignValues.py --c_list=-1.016,-2.508,-1.214,-0.139,0.848,0.521,-1.375 --value_list="all" --file_path="results/Llama27b-chat-Anthropic-harmless.json" optimize_lambda
