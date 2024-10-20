@@ -78,7 +78,7 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#MAP.alignValues.AlignValues" title="MAP.alignValues.AlignValues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlignValues</span></code></a></p></td>
-<td><p></p></td>
+<td><p>A class for obtaining the most appropriate lambda values, namely linear coefficients for combining multiple rewards.</p></td>
 </tr>
 </tbody>
 </table>
@@ -88,15 +88,109 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="MAP.alignValues.AlignValues">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MAP.alignValues.</span></span><span class="sig-name descname"><span class="pre">AlignValues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues" title="Link to this definition"></a></dt>
-<dd><dl class="py attribute">
+<dd><p>A class for obtaining the most appropriate lambda values, namely linear coefficients for combining multiple rewards.</p>
+<p>This class handles the calculation of lambda values using a given set of (prompt, continuation) pairs generated from the reference model, and specified palette (c) if any.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MAP.alignValues.AlignValues.c">
+<span class="sig-name descname"><span class="pre">c</span></span><a class="headerlink" href="#MAP.alignValues.AlignValues.c" title="Link to this definition"></a></dt>
+<dd><p>Target palette.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MAP.alignValues.AlignValues.value_list">
+<span class="sig-name descname"><span class="pre">value_list</span></span><a class="headerlink" href="#MAP.alignValues.AlignValues.value_list" title="Link to this definition"></a></dt>
+<dd><p>List of values (str) to be aligned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="MAP.alignValues.AlignValues.file_path">
 <span class="sig-name descname"><span class="pre">file_path</span></span><a class="headerlink" href="#MAP.alignValues.AlignValues.file_path" title="Link to this definition"></a></dt>
+<dd><p>Path to the JSON file containing (prompt, continuation) pairs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MAP.alignValues.AlignValues.rewards">
+<span class="sig-name descname"><span class="pre">rewards</span></span><a class="headerlink" href="#MAP.alignValues.AlignValues.rewards" title="Link to this definition"></a></dt>
+<dd><p>Tensor of rewards for each value and sample, shape (k, n) where k is the number of values and n is the sample size in file_path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c_list</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value_list</span> <span class="o">=</span> <span class="s2">&quot;humor&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;results/Llama27b-chat-Anthropic-harmless.json&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="n">value_list</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">c_list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lambda_vals</span><span class="p">,</span> <span class="n">success</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">optimize_lambda</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optimized lambda values: </span><span class="si">{</span><span class="n">lambda_vals</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optimization success: </span><span class="si">{</span><span class="n">success</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p># For multiple values:
+&gt;&gt;&gt; c_list = [-1.016, -2.508, -1.214, -0.139, 0.848, 0.521, -1.375]
+&gt;&gt;&gt; value_list = “all”
+&gt;&gt;&gt; file_path = “results/Llama27b-chat-Anthropic-harmless.json”
+&gt;&gt;&gt; aligner = AlignValues(value_list, file_path, c_list)
+&gt;&gt;&gt; lambda_vals, success = aligner.optimize_lambda()
+&gt;&gt;&gt; print(f”Optimized lambda values: {lambda_vals}”)
+&gt;&gt;&gt; print(f”Optimization success: {success}”)</p>
+<dl class="simple">
+<dt>Command-line usage:</dt><dd><p>python alignValues.py –c_list=-0.5 –value_list=”humor” –file_path=”results/Llama27b-chat-Anthropic-harmless.json” optimize_lambda
+python alignValues.py –c_list=-1.016,-2.508,-1.214,-0.139,0.848,0.521,-1.375 –value_list=”all” –file_path=”results/Llama27b-chat-Anthropic-harmless.json” optimize_lambda</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">file_path</span></span><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MAP.alignValues.AlignValues.optimize_lambda">
 <span class="sig-name descname"><span class="pre">optimize_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues.optimize_lambda" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Optimize lambda values for the given palatte and rewards.</p>
+<p>This method uses gradient descent to find optimal lambda values that
+maximize the dual objective function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lambda_init</strong> (<em>list</em><em>, </em><em>optional</em>) – Initial lambda values. Defaults to None.</p></li>
+<li><p><strong>optimize_indices</strong> (<em>list</em><em>, </em><em>optional</em>) – Indices of lambda values to optimize. Defaults to None.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to print detailed information during optimization. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A tuple containing:</dt><dd><ul class="simple">
+<li><p>list: Optimized lambda values.</p></li>
+<li><p>bool: True if optimization was successful, False otherwise.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MAP.alignValues.AlignValues.dual_objective">

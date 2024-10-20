@@ -17,10 +17,82 @@ Module Contents
 
 .. py:class:: AlignValues(value_list, file_path, c_list=None)
 
+   A class for obtaining the most appropriate lambda values, namely linear coefficients for combining multiple rewards.
+
+   This class handles the calculation of lambda values using a given set of (prompt, continuation) pairs generated from the reference model, and specified palette (c) if any.
+
+   .. attribute:: c
+
+      Target palette.
+
+      :type: torch.Tensor
+
+   .. attribute:: value_list
+
+      List of values (str) to be aligned.
+
+      :type: list
+
+   .. attribute:: file_path
+
+      Path to the JSON file containing (prompt, continuation) pairs.
+
+      :type: str
+
+   .. attribute:: rewards
+
+      Tensor of rewards for each value and sample, shape (k, n) where k is the number of values and n is the sample size in file_path.
+
+      :type: torch.Tensor
+
+   .. rubric:: Example
+
+   >>> c_list = -0.5
+   >>> value_list = "humor"
+   >>> file_path = "results/Llama27b-chat-Anthropic-harmless.json"
+   >>> aligner = AlignValues(value_list, file_path, c_list)
+   >>> lambda_vals, success = aligner.optimize_lambda()
+   >>> print(f"Optimized lambda values: {lambda_vals}")
+   >>> print(f"Optimization success: {success}")
+
+   # For multiple values:
+   >>> c_list = [-1.016, -2.508, -1.214, -0.139, 0.848, 0.521, -1.375]
+   >>> value_list = "all"
+   >>> file_path = "results/Llama27b-chat-Anthropic-harmless.json"
+   >>> aligner = AlignValues(value_list, file_path, c_list)
+   >>> lambda_vals, success = aligner.optimize_lambda()
+   >>> print(f"Optimized lambda values: {lambda_vals}")
+   >>> print(f"Optimization success: {success}")
+
+   Command-line usage:
+       python alignValues.py --c_list=-0.5 --value_list="humor" --file_path="results/Llama27b-chat-Anthropic-harmless.json" optimize_lambda
+       python alignValues.py --c_list=-1.016,-2.508,-1.214,-0.139,0.848,0.521,-1.375 --value_list="all" --file_path="results/Llama27b-chat-Anthropic-harmless.json" optimize_lambda
+
+
    .. py:attribute:: file_path
 
 
    .. py:method:: optimize_lambda(lambda_init=None, optimize_indices=None, verbose=True)
+
+      Optimize lambda values for the given palatte and rewards.
+
+      This method uses gradient descent to find optimal lambda values that
+      maximize the dual objective function.
+
+      :param lambda_init: Initial lambda values. Defaults to None.
+      :type lambda_init: list, optional
+      :param optimize_indices: Indices of lambda values to optimize. Defaults to None.
+      :type optimize_indices: list, optional
+      :param verbose: Whether to print detailed information during optimization. Defaults to True.
+      :type verbose: bool, optional
+
+      :returns:
+
+                A tuple containing:
+                    - list: Optimized lambda values.
+                    - bool: True if optimization was successful, False otherwise.
+      :rtype: tuple
+
 
 
    .. py:method:: dual_objective(lambda_vals)
