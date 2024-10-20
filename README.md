@@ -3,9 +3,6 @@
 This repository contains the source codes and API documentation for the MAP project.
 
 
-
-
-
 ## Prerequisites
 
 To build the documentation locally, ensure you have the following Python packages installed:
