@@ -30,17 +30,18 @@ extensions = [
     'autoapi.extension',
 ]
 
-# autoapi_dirs = ['/Users/dingj/Documents/GitRepos/MAP/']  # Adjust this to your code directory
-autoapi_dirs = ['../../']
-autoapi_type = 'python'
-autoapi_python_use_implicit_namespaces = True
+autoapi_dirs = ['../src']
+
+templates_path = ['_templates']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+
 
 # Set font size for image-based math rendering
 imgmath_image_format = 'svg'
 imgmath_font_size = 13  # Adjust font size here (in pt)
 
 templates_path = ['_templates']
-exclude_patterns = []
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 myst_enable_extensions = [
     "amsmath",

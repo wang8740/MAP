@@ -20,7 +20,7 @@ __pycache__/
 *.py[cod]
 
 # Ignore build artifacts
-docs/build/
+docs/_build/
 
 # Explicitly include specific Python scripts (if needed)
 !alignValues.py
