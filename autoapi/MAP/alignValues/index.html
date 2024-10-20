@@ -193,76 +193,228 @@ maximize the dual objective function.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MAP.alignValues.AlignValues.dual_objective">
-<span class="sig-name descname"><span class="pre">dual_objective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vals</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues.dual_objective" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="MAP.alignValues.AlignValues._dual_objective">
+<span class="sig-name descname"><span class="pre">_dual_objective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vals</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues._dual_objective" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MAP.alignValues.AlignValues.sequential_optimize_lambda">
 <span class="sig-name descname"><span class="pre">sequential_optimize_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues.sequential_optimize_lambda" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Sequentially optimize lambda for each human value.</p>
+<p>This method aligns each value sequentially, storing the obtained lambda values.
+It starts with lambda_init = None if not provided. Future support may replace
+optimize_indices = [idx] with block-wise updates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lambda_init</strong> (<em>list</em><em>, </em><em>optional</em>) – Initial lambda values. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optimized lambda values after sequential optimization.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function can be considered as a full-lambda optimization with
+freezing of values not currently being aligned.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/opt1.3b-Anthropic-harmless.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.513</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.967</span><span class="p">,</span> <span class="mf">0.937</span><span class="p">,</span> <span class="mf">0.876</span><span class="p">,</span> <span class="mf">0.434</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.337</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">optimized_lambda</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">sequential_optimize_lambda</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sequentially optimized lambda: </span><span class="si">{</span><span class="n">optimized_lambda</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Command-line usage:</dt><dd><p>python alignValues.py –c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 –value_list=”all” –file_path=”results/opt1.3b-Anthropic-harmless.json” sequential_optimize_lambda</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MAP.alignValues.AlignValues.sequential_optimize_lambda_multiround">
-<span class="sig-name descname"><span class="pre">sequential_optimize_lambda_multiround</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues.sequential_optimize_lambda_multiround" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">sequential_optimize_lambda_multiround</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues.sequential_optimize_lambda_multiround" title="Link to this definition"></a></dt>
+<dd><p>Run sequential_optimize_lambda for multiple rounds.</p>
+<p>This method performs multiple rounds of sequential lambda optimization,
+using the result of each round as the initial value for the next.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>round</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of optimization rounds to perform. Defaults to 5.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Final optimized lambda values after all rounds.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/opt1.3b-Anthropic-harmless.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.513</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.967</span><span class="p">,</span> <span class="mf">0.937</span><span class="p">,</span> <span class="mf">0.876</span><span class="p">,</span> <span class="mf">0.434</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.337</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">final_lambda</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">sequential_optimize_lambda_multiround</span><span class="p">(</span><span class="nb">round</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final optimized lambda: </span><span class="si">{</span><span class="n">final_lambda</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Command-line usage:</dt><dd><p>python alignValues.py –c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 –value_list=”all” –file_path=”results/opt1.3b-Anthropic-harmless.json” sequential_optimize_lambda_multiround</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MAP.alignValues.AlignValues.find_pareto_by_interpolation">
 <span class="sig-name descname"><span class="pre">find_pareto_by_interpolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c_low</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_high</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues.find_pareto_by_interpolation" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Automatically find the feasible palette c on the line between c_low and c_high that is closest to the Pareto frontier.</p>
+<p>This method uses linear interpolation to search for a feasible solution between two given constraint vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>c_low</strong> (<em>list</em><em> or </em><em>float</em>) – Lower bound constraint vector or single value.</p></li>
+<li><p><strong>c_high</strong> (<em>list</em><em> or </em><em>float</em>) – Upper bound constraint vector or single value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The interpolation factor (rho) of the feasible solution if found, None otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float or None</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/basemodel-dataset.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.513</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.967</span><span class="p">,</span> <span class="mf">0.937</span><span class="p">,</span> <span class="mf">0.876</span><span class="p">,</span> <span class="mf">0.434</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.337</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rho</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">find_pareto_by_interpolation</span><span class="p">([</span><span class="mf">2.513</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.967</span><span class="p">,</span> <span class="mf">0.937</span><span class="p">,</span> <span class="mf">0.876</span><span class="p">,</span> <span class="mf">0.434</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.337</span><span class="p">],</span>
+<span class="gp">... </span>                                           <span class="p">[</span><span class="mf">2.534</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.613</span><span class="p">,</span> <span class="mf">1.268</span><span class="p">,</span> <span class="mf">0.876</span><span class="p">,</span> <span class="mf">0.434</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.337</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feasible solution found at rho = </span><span class="si">{</span><span class="n">rho</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Command-line usage:</dt><dd><p>python alignValues.py –c_low=2.513,-0.967,0.937,0.876,0.434,-3.337 –c_high=2.534,-0.613,1.268,0.876,0.434,-3.337 –value_list=”all” –file_path=”results/basemodel-dataset.json” find_pareto_by_interpolation</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MAP.alignValues.AlignValues.find_pareto_by_oneValue">
-<span class="sig-name descname"><span class="pre">find_pareto_by_oneValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_to_enhance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues.find_pareto_by_oneValue" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">find_pareto_by_oneValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_to_enhance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues.find_pareto_by_oneValue" title="Link to this definition"></a></dt>
+<dd><p>Automatically find the feasible palette c that greedily increases one particular human value closest to the Pareto frontier.</p>
+<p>This method uses binary search to find the maximum feasible value for a specific constraint while keeping others constant.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value_to_enhance</strong> (<em>str</em>) – The name of the value to be enhanced.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The maximum feasible value found for the enhanced constraint.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the specified value is not in the list of supported values.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/basemodel-dataset.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.513</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.967</span><span class="p">,</span> <span class="mf">0.937</span><span class="p">,</span> <span class="mf">0.876</span><span class="p">,</span> <span class="mf">0.434</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.337</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">max_value</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">find_pareto_by_oneValue</span><span class="p">(</span><span class="s2">&quot;gpt2-helpful&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum feasible value for &#39;gpt2-helpful&#39;: </span><span class="si">{</span><span class="n">max_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Command-line usage:</dt><dd><p>python alignValues.py –c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 –value_list=”all” –value_to_enhance=”gpt2-helpful” –file_path=”results/basemodel-dataset.json” find_pareto_by_oneValue</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MAP.alignValues.AlignValues.save_results_to_text">
 <span class="sig-name descname"><span class="pre">save_results_to_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimized_lambda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">success</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'results/alignValues'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues.save_results_to_text" title="Link to this definition"></a></dt>
-<dd><p>Save the results to text file. This is used to generate the results file and save it to disk</p>
+<dd><p>Save the optimization results to a text file.</p>
+<p>This method appends the results of lambda optimization to a text file, including
+the file path, constraint levels, values, and optimized lambda values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>optimized_lambda</strong> – list of optimized lambda values</p></li>
-<li><p><strong>success</strong> – True if success False if failure ( NaN in case of failure</p></li>
+<li><p><strong>optimized_lambda</strong> (<em>list</em>) – List of optimized lambda values.</p></li>
+<li><p><strong>success</strong> (<em>bool</em>) – True if optimization was successful, False otherwise.</p></li>
+<li><p><strong>save_prefix</strong> (<em>str</em><em>, </em><em>optional</em>) – Prefix for the save file path. Defaults to ‘results/alignValues’.</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/model-data.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">optimized_lambda</span><span class="p">,</span> <span class="n">success</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">optimize_lambda</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span><span class="o">.</span><span class="n">save_results_to_text</span><span class="p">(</span><span class="n">optimized_lambda</span><span class="p">,</span> <span class="n">success</span><span class="p">)</span>
+<span class="go">Results have been appended to results/alignValues.txt</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MAP.alignValues.AlignValues.save_results_to_csv">
 <span class="sig-name descname"><span class="pre">save_results_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimized_lambda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirichlet_lambda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'results/alignValues'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues.save_results_to_csv" title="Link to this definition"></a></dt>
-<dd><p>Save the results to a CSV file. This function appends new data each time it’s called.</p>
+<dd><p>Save the optimization results to a CSV file.</p>
+<p>This method appends the results of lambda optimization to a CSV file, including
+the file path, constraint levels, values, optimized lambda values, and Dirichlet
+reference lambda values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>optimized_lambda</strong> – list of optimized lambda values</p></li>
-<li><p><strong>dirichlet_lambda</strong> – list of Dirichlet reference lambda values</p></li>
-<li><p><strong>save_prefix</strong> – prefix for the save file path</p></li>
+<li><p><strong>optimized_lambda</strong> (<em>list</em>) – List of optimized lambda values.</p></li>
+<li><p><strong>dirichlet_lambda</strong> (<em>list</em>) – List of Dirichlet reference lambda values.</p></li>
+<li><p><strong>save_prefix</strong> (<em>str</em><em>, </em><em>optional</em>) – Prefix for the save file path. Defaults to ‘results/alignValues’.</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/model-data.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">optimized_lambda</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">optimize_lambda</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dirichlet_lambda</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]</span>  <span class="c1"># Example Dirichlet reference values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span><span class="o">.</span><span class="n">save_results_to_csv</span><span class="p">(</span><span class="n">optimized_lambda</span><span class="p">,</span> <span class="n">dirichlet_lambda</span><span class="p">)</span>
+<span class="go">Results have been appended to results/alignValues.csv</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MAP.alignValues.AlignValues.gen_rand_MAP_lambda">
-<span class="sig-name descname"><span class="pre">gen_rand_MAP_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_lambda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaling_MAX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rand_MAP_lambda'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues.gen_rand_MAP_lambda" title="Link to this definition"></a></dt>
-<dd><p>Generate random MAP lambda values by drawing each c_i randomly between the current c_i
-and the maximum reward corresponding to value i. This function modifies the c values,
-recalculates lambda, and returns a list of lambda values constrained by scaling_MAX.</p>
+<span class="sig-name descname"><span class="pre">gen_rand_MAP_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_lambda</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaling_MAX</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'rand_MAP_lambda'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MAP.alignValues.AlignValues.gen_rand_MAP_lambda" title="Link to this definition"></a></dt>
+<dd><p>Generate random MAP lambda values with constraints.</p>
+<p>This method generates random lambda values by drawing
+each c_i randomly between the current c_i and the maximum reward corresponding
+to value i. It modifies the c values, recalculates lambda, and returns a list
+of lambda values constrained by scaling_MAX.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>num_lambda</strong> – Number of valid lambda values to generate</p></li>
-<li><p><strong>scaling_MAX</strong> – Maximum allowed L1 norm for the generated lambda values</p></li>
+<li><p><strong>num_lambda</strong> (<em>int</em>) – Number of valid lambda values to generate.</p></li>
+<li><p><strong>scaling_MAX</strong> (<em>float</em>) – Maximum allowed L1 norm for the generated lambda values.</p></li>
+<li><p><strong>save_prefix</strong> (<em>str</em><em>, </em><em>optional</em>) – Prefix for the save file path. Defaults to ‘rand_MAP_lambda’.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Tuple containing list of generated lambda values and success rate</p>
+<dd class="field-even"><p><dl class="simple">
+<dt>A tuple containing:</dt><dd><ul class="simple">
+<li><p>list: Generated lambda values that satisfy the constraints.</p></li>
+<li><p>float: Success rate of lambda generation attempts.</p></li>
+</ul>
 </dd>
 </dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/model-data.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lambdas</span><span class="p">,</span> <span class="n">success_rate</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">gen_rand_MAP_lambda</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generated </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lambdas</span><span class="p">)</span><span class="si">}</span><span class="s2"> lambda values with a success rate of </span><span class="si">{</span><span class="n">success_rate</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method temporarily modifies the instance’s c values during execution
+but restores them to their original values before returning.</p>
+</div>
 </dd></dl>
 
 </dd></dl>
