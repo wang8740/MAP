@@ -37,7 +37,7 @@ jobs:
       - name: Build MAP's API documentation
         run: |
           cd docs
-          make html
+          sphinx-build -b html . _build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

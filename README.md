@@ -15,10 +15,10 @@ pip install sphinx myst-parser sphinx_rtd_theme sphinxcontrib-mermaid sphinx-mar
 ### Building the Documentation Locally
 ```bash
 cd docs
-make html
+sphinx-build -b html . _build
 ```
 
-The generated HTML files will be available in `docs/build/html/`. Use a browser to view the `index.html` file.
+The generated HTML files will be available in `docs/_build/`. Use a browser to view the `index.html` file.
 
 If you're working on a headless MSI server, you can:
 - Use VS Code Remote - SSH to connect to the server.
@@ -170,7 +170,7 @@ jobs:
     - name: Build MAP's API documentation
       run: |
         cd docs
-        make html
+        sphinx-build -b html . _build
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
