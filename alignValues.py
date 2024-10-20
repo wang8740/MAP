@@ -136,7 +136,7 @@ class AlignValues:
             # Update lambda_vals based on tau_optimizable
             lambda_vals[optimize_indices] = torch.exp(tau_optimizable)
        
-            loss = -self.dual_objective(lambda_vals)
+            loss = -self._dual_objective(lambda_vals)
             if verbose: print(f"Loss = {loss}")
 
             if torch.any(torch.isnan(lambda_vals)) or torch.any(torch.isinf(lambda_vals)):
@@ -165,7 +165,7 @@ class AlignValues:
         return optimized_lambda, success
 
 
-    def dual_objective(self, lambda_vals):
+    def _dual_objective(self, lambda_vals):
 
         # print(f"lambda_vals[:, None] * self.rewards: {lambda_vals[:, None] * self.rewards}")
         exp_terms = torch.exp(torch.sum(lambda_vals[:, None] * self.rewards, dim=0))
@@ -173,22 +173,33 @@ class AlignValues:
         
         return -torch.log(mean_exp) + torch.dot(lambda_vals, self.c)
 
-    # NOTE: we do not need this function as we can essentially treat it as the full-lambda optimization but freezing those who are not currently being aligned
-    # def dual_objective_weighted(self, tau_vals, lambda_prev, c_current):
-
-    #     lambda_vals = torch.exp(tau_vals)
-
-    #     # Assuming lambda_prev is already in the exponential form and self.rewards is [k, n]
-    #     weights = torch.softmax(torch.sum(lambda_prev[:, None] * self.rewards, dim=0), dim=0)  # Apply softmax over samples
-        
-    #     exp_terms = torch.exp(torch.sum(lambda_vals[:, None] * self.rewards, dim=0))  # Sum over constraints for each sample
-        
-    #     weighted_exp = weights * exp_terms
-        
-    #     return -torch.log(torch.sum(weighted_exp)) + torch.dot(lambda_vals, c_current)
-
 
     def sequential_optimize_lambda(self, lambda_init=None):
+
+        """Sequentially optimize lambda for each human value.
+
+        This method aligns each value sequentially, storing the obtained lambda values.
+        It starts with lambda_init = None if not provided. Future support may replace
+        optimize_indices = [idx] with block-wise updates.
+
+        Args:
+            lambda_init (list, optional): Initial lambda values. Defaults to None.
+
+        Returns:
+            list: Optimized lambda values after sequential optimization.
+
+        Note:
+            This function can be considered as a full-lambda optimization with
+            freezing of values not currently being aligned.
+
+        Example:
+            >>> aligner = AlignValues("all", "results/opt1.3b-Anthropic-harmless.json", [2.513, -0.967, 0.937, 0.876, 0.434, -3.337])
+            >>> optimized_lambda = aligner.sequential_optimize_lambda()
+            >>> print(f"Sequentially optimized lambda: {optimized_lambda}")
+
+        Command-line usage:
+            python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --file_path="results/opt1.3b-Anthropic-harmless.json" sequential_optimize_lambda
+        """
 
         for idx in range(len(self.c)):
             print(f"\n===Optimizing value {self.value_list[idx]}")
@@ -199,15 +210,30 @@ class AlignValues:
                 break
 
         return lambda_init
-    # Example:
-    # python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --file_path="results/opt1.3b-Anthropic-harmless.json" optimize_lambda
-    # python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --file_path="results/opt1.3b-Anthropic-harmless.json" sequential_optimize_lambda
-    # ideal result: 12.766,1.526,1.689,0.012,0.019,0.023
 
-    def sequential_optimize_lambda_multiround(self):
+
+    def sequential_optimize_lambda_multiround(self, round: int = 5):
+        """Run sequential_optimize_lambda for multiple rounds.
+
+        This method performs multiple rounds of sequential lambda optimization,
+        using the result of each round as the initial value for the next.
+
+        Args:
+            round (int, optional): Number of optimization rounds to perform. Defaults to 5.
+
+        Returns:
+            list: Final optimized lambda values after all rounds.
+
+        Example:
+            >>> aligner = AlignValues("all", "results/opt1.3b-Anthropic-harmless.json", [2.513, -0.967, 0.937, 0.876, 0.434, -3.337])
+            >>> final_lambda = aligner.sequential_optimize_lambda_multiround(round=5)
+            >>> print(f"Final optimized lambda: {final_lambda}")
+
+        Command-line usage:
+            python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --file_path="results/opt1.3b-Anthropic-harmless.json" sequential_optimize_lambda_multiround
+        """
 
         # Initialize lambda with equal weights
-        round = 5
         lambda_init=None
         for idx in range(round):
             print(f"\n\n===Running Epoch {idx}")
@@ -215,11 +241,29 @@ class AlignValues:
 
         print(f"\n\n===Final optimized lambda: {lambda_init}")
         return lambda_init
-    # Example:
-    # python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --file_path="results/opt1.3b-Anthropic-harmless.json" sequential_optimize_lambda_multiround
-    # optimized result after 5 rounds: [12.564545631408691, 1.4926655292510986, 1.6635115146636963, 0.01948617585003376, 0.02005678042769432, 0.0251987986266613]
 
+ 
     def find_pareto_by_interpolation(self, c_low, c_high):
+        """Automatically find the feasible palette c on the line between c_low and c_high that is closest to the Pareto frontier.
+
+        This method uses linear interpolation to search for a feasible solution between two given constraint vectors.
+
+        Args:
+            c_low (list or float): Lower bound constraint vector or single value.
+            c_high (list or float): Upper bound constraint vector or single value.
+
+        Returns:
+            float or None: The interpolation factor (rho) of the feasible solution if found, None otherwise.
+
+        Example:
+            >>> aligner = AlignValues("all", "results/basemodel-dataset.json", [2.513, -0.967, 0.937, 0.876, 0.434, -3.337])
+            >>> rho = aligner.find_pareto_by_interpolation([2.513, -0.967, 0.937, 0.876, 0.434, -3.337],
+            ...                                            [2.534, -0.613, 1.268, 0.876, 0.434, -3.337])
+            >>> print(f"Feasible solution found at rho = {rho}")
+
+        Command-line usage:
+            python alignValues.py --c_low=2.513,-0.967,0.937,0.876,0.434,-3.337 --c_high=2.534,-0.613,1.268,0.876,0.434,-3.337 --value_list="all" --file_path="results/basemodel-dataset.json" find_pareto_by_interpolation
+        """
 
         if not isinstance(c_low, (list, tuple)):
             c_low, c_high = [c_low], [c_high]
@@ -237,7 +281,29 @@ class AlignValues:
         return None
 
 
-    def find_pareto_by_oneValue(self, value_to_enhance):
+    def find_pareto_by_oneValue(self, value_to_enhance: str):
+        """Automatically find the feasible palette c that greedily increases one particular human value closest to the Pareto frontier.
+
+        This method uses binary search to find the maximum feasible value for a specific constraint while keeping others constant.
+
+        Args:
+            value_to_enhance (str): The name of the value to be enhanced.
+
+        Returns:
+            float: The maximum feasible value found for the enhanced constraint.
+
+        Raises:
+            ValueError: If the specified value is not in the list of supported values.
+
+        Example:
+            >>> aligner = AlignValues("all", "results/basemodel-dataset.json", [2.513, -0.967, 0.937, 0.876, 0.434, -3.337])
+            >>> max_value = aligner.find_pareto_by_oneValue("gpt2-helpful")
+            >>> print(f"Maximum feasible value for 'gpt2-helpful': {max_value}")
+
+        Command-line usage:
+            python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --value_to_enhance="gpt2-helpful" --file_path="results/basemodel-dataset.json" find_pareto_by_oneValue
+        """
+
         # Enhance a particular value so that it reaches maximal possible 
         if value_to_enhance not in self.value_list:
             raise ValueError(f"{value_to_enhance} is not in the list of supported values.")
@@ -268,12 +334,23 @@ class AlignValues:
 
 
     def save_results_to_text(self, optimized_lambda, success, save_prefix='results/alignValues'):
+        """Save the optimization results to a text file.
+
+        This method appends the results of lambda optimization to a text file, including
+        the file path, constraint levels, values, and optimized lambda values.
+
+        Args:
+            optimized_lambda (list): List of optimized lambda values.
+            success (bool): True if optimization was successful, False otherwise.
+            save_prefix (str, optional): Prefix for the save file path. Defaults to 'results/alignValues'.
+
+        Example:
+            >>> aligner = AlignValues("all", "results/model-data.json", [0.5, 1.0])
+            >>> optimized_lambda, success = aligner.optimize_lambda()
+            >>> aligner.save_results_to_text(optimized_lambda, success)
+            Results have been appended to results/alignValues.txt
         """
-         Save the results to text file. This is used to generate the results file and save it to disk
-         
-         :param optimized_lambda: list of optimized lambda values
-         :param success: True if success False if failure ( NaN in case of failure
-        """
+
         c_str = ','.join(f'{v:.3f}' for v in self.c.tolist())
         optimized_lambda_str = ','.join(f'{v:.3f}' for v in optimized_lambda)
         data = f"filepath: {self.file_path}, c Levels: {c_str}, values: {self.value_list}, optimized lambda: {optimized_lambda_str if success else 'NaN'}\n"
@@ -287,12 +364,23 @@ class AlignValues:
 
 
     def save_results_to_csv(self, optimized_lambda, dirichlet_lambda, save_prefix='results/alignValues'):
-        """
-        Save the results to a CSV file. This function appends new data each time it's called.
-        
-        :param optimized_lambda: list of optimized lambda values
-        :param dirichlet_lambda: list of Dirichlet reference lambda values
-        :param save_prefix: prefix for the save file path
+        """Save the optimization results to a CSV file.
+
+        This method appends the results of lambda optimization to a CSV file, including
+        the file path, constraint levels, values, optimized lambda values, and Dirichlet
+        reference lambda values.
+
+        Args:
+            optimized_lambda (list): List of optimized lambda values.
+            dirichlet_lambda (list): List of Dirichlet reference lambda values.
+            save_prefix (str, optional): Prefix for the save file path. Defaults to 'results/alignValues'.
+
+        Example:
+            >>> aligner = AlignValues("all", "results/model-data.json", [0.5, 1.0])
+            >>> optimized_lambda, _ = aligner.optimize_lambda()
+            >>> dirichlet_lambda = [0.3, 0.7]  # Example Dirichlet reference values
+            >>> aligner.save_results_to_csv(optimized_lambda, dirichlet_lambda)
+            Results have been appended to results/alignValues.csv
         """
         file_path = f"{save_prefix}.csv"
         
@@ -337,16 +425,34 @@ class AlignValues:
         print(f"Results have been appended to {file_path}")
 
 
-    def gen_rand_MAP_lambda(self, num_lambda, scaling_MAX, save_prefix='rand_MAP_lambda'):
+    def gen_rand_MAP_lambda(self, num_lambda: int, scaling_MAX: float, save_prefix: str = 'rand_MAP_lambda'):
+        """Generate random MAP lambda values with constraints.
+
+        This method generates random lambda values by drawing
+        each c_i randomly between the current c_i and the maximum reward corresponding
+        to value i. It modifies the c values, recalculates lambda, and returns a list
+        of lambda values constrained by scaling_MAX.
+
+        Args:
+            num_lambda (int): Number of valid lambda values to generate.
+            scaling_MAX (float): Maximum allowed L1 norm for the generated lambda values.
+            save_prefix (str, optional): Prefix for the save file path. Defaults to 'rand_MAP_lambda'.
+
+        Returns:
+            tuple: A tuple containing:
+                - list: Generated lambda values that satisfy the constraints.
+                - float: Success rate of lambda generation attempts.
+
+        Example:
+            >>> aligner = AlignValues("all", "results/model-data.json", [0.5, 1.0, 1.5])
+            >>> lambdas, success_rate = aligner.gen_rand_MAP_lambda(10, 5.0)
+            >>> print(f"Generated {len(lambdas)} lambda values with a success rate of {success_rate:.2%}")
+
+        Note:
+            This method temporarily modifies the instance's c values during execution
+            but restores them to their original values before returning.
         """
-        Generate random MAP lambda values by drawing each c_i randomly between the current c_i
-        and the maximum reward corresponding to value i. This function modifies the c values,
-        recalculates lambda, and returns a list of lambda values constrained by scaling_MAX.
         
-        :param num_lambda: Number of valid lambda values to generate
-        :param scaling_MAX: Maximum allowed L1 norm for the generated lambda values
-        :return: Tuple containing list of generated lambda values and success rate
-        """
         generated_lambdas = []
         total_attempts = 0
         successful_attempts = 0
@@ -398,5 +504,3 @@ class AlignValues:
 
 if __name__ == '__main__':
     fire.Fire(AlignValues)
-
-
