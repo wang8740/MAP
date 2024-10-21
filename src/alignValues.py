@@ -18,8 +18,8 @@ class AlignValues:
         value_list (list): List of values (str) to be aligned.
         file_path (str): Path to the JSON file containing (prompt, continuation) pairs.
         rewards (torch.Tensor): Tensor of rewards for each value and sample, shape (k, n) where k is the number of values and n is the sample size in file_path.
-
-    Example:
+ 
+    Example 1 (single human value):
         >>> c_list = -0.5
         >>> value_list = "humor"
         >>> file_path = "results/Llama27b-chat-Anthropic-harmless.json"
@@ -28,7 +28,7 @@ class AlignValues:
         >>> print(f"Optimized lambda values: {lambda_vals}")
         >>> print(f"Optimization success: {success}")
 
-        # For multiple values:
+    Example 2 (multiple human values):
         >>> c_list = [-1.016, -2.508, -1.214, -0.139, 0.848, 0.521, -1.375]
         >>> value_list = "all"
         >>> file_path = "results/Llama27b-chat-Anthropic-harmless.json"
@@ -38,8 +38,8 @@ class AlignValues:
         >>> print(f"Optimization success: {success}")
 
     Command-line usage:
-        python alignValues.py --c_list=-0.5 --value_list="humor" --file_path="results/Llama27b-chat-Anthropic-harmless.json" optimize_lambda
-        python alignValues.py --c_list=-1.016,-2.508,-1.214,-0.139,0.848,0.521,-1.375 --value_list="all" --file_path="results/Llama27b-chat-Anthropic-harmless.json" optimize_lambda
+        >>> python alignValues.py --c_list=-0.5 --value_list="humor" --file_path="results/Llama27b-chat-Anthropic-harmless.json" optimize_lambda
+        >>> python alignValues.py --c_list=-1.016,-2.508,-1.214,-0.139,0.848,0.521,-1.375 --value_list="all" --file_path="results/Llama27b-chat-Anthropic-harmless.json" optimize_lambda
     """
 
     def __init__(self, value_list, file_path, c_list=None):

@@ -4,12 +4,10 @@
 # Allow directories
 !*/
 
-# Allow Python files
-!*.py
+# Allow Python files in the src directory
+!src/*.py
 
-# Allow specific configuration files
-!.gitignore
-!pydoc-markdown.yml
+# Allow workflow configuration files
 !.github/workflows/*.yml
 
 # Allow documentation files
@@ -22,18 +20,3 @@ __pycache__/
 # Ignore build artifacts
 docs/_build/
 
-# Explicitly include specific Python scripts (if needed)
-!alignValues.py
-!rewardProcessor.py
-!rewardTrainer.py
-!submit_DPO_job.py
-!submit_MAP-DPO-PPO_comparison.py
-!submit_MC-aligned_pipeline.py
-!submit_PPO-aligned_pipeline.py
-!submit_jobs.py
-!submit_perplexity_correction.py
-!submit_soup.py
-!tokenValueDecoder.py
-!trainDPO.py
-!trainPPO.py
-!utils.py
