@@ -98,10 +98,11 @@ make html
 
 If you want to deploy on another remote repo, where sphinx is not initiated, use the following steps
 
-Under `docs/` initiate Sphinx:
+Initiate Sphinx:
 ```bash
-sphinx-quickstart
+sphinx-quickstart docs
 ```
+and choose not to separate build and source
 
 Replace index.rst with index.md if using markdown to generate html
 
