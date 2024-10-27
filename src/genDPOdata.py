@@ -3,9 +3,23 @@ from datasets import load_dataset, concatenate_datasets
 seed = 6
 
 def preprocess_data(examples, max_words=50):
-    '''
-        Note that many examples have the chosen=rejected in the first round of dialog, so the sample size cannot be too small.
-    '''
+    """
+    Preprocesses input examples to extract and truncate conversation components.
+    
+    Args:
+        examples (dict): A batch of input examples containing 'chosen' and 'rejected' texts.
+        max_words (int, optional): Maximum number of words to retain in each conversation component. Defaults to 50.
+    
+    Returns:
+        dict: Processed dictionary containing prompts, chosen responses, and rejected responses.
+
+    Example:
+        >>> # Define data source preferences
+        >>> data_source = {"harmless": 0.5, "helpful": 0.5}
+        >>> sample_size = 2000
+        >>> ds_mix = gen_mixed_preference_data(data_source, sample_size, split="train")
+    """
+    
     def truncate_to_max_words(text, max_words):
         # Split text into words, limit to max_words, and join back into a string
         return ' '.join(text.split()[:max_words])
@@ -16,11 +30,6 @@ def preprocess_data(examples, max_words=50):
     processed_count = 0
 
     for chosen, rejected in zip(examples['chosen'], examples['rejected']):
-        # Print the raw chosen and rejected data for inspection
-        # print("\nRaw chosen response:")
-        # print(chosen)
-        # print("\nRaw rejected response:")
-        # print(rejected)
 
         # Extract prompt (first Human question)
         prompt_start = chosen.find("Human: ")
@@ -66,10 +75,17 @@ def preprocess_data(examples, max_words=50):
 
 
 def gen_mixed_preference_data(data_source, sample_size, split):
-    '''
-    data_source is a dict that currently supports {"harmless": p, "helpful": 1-p} format
-    split = 'train' or 'test'
-    '''
+    """
+    Generates a mixed dataset with samples from multiple preference data sources.
+    
+    Args:
+        data_source (dict): A dictionary specifying sources and weights, which supports {"harmless": p, "helpful": 1-p} format
+        sample_size (int): The total sample size to generate.
+        split (str): The dataset split to use, e.g., 'train' or 'test'.
+    
+    Returns:
+        Dataset: A mixed dataset with samples from specified data sources.
+    """
     ds_mix = None
 
     # Load and process each dataset

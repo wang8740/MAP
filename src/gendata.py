@@ -27,15 +27,12 @@ class TextGeneration:
         generation_config (GenerationConfig): Configuration settings for text generation.
 
     Example usage:
-        Run the following commands from the command line to use the `TextGeneration` class:
         
-        ``bash
         # Generate text directly from the original model
         python gendata.py generate_from_original_model
 
         # Generate text with Monte Carlo sampling from an aligned model
         python gendata.py generate_from_MC_aligned_model --lam_list=-0.5 --value_list="humor" --MC_nsamples=50
-        ``
     """
     def __init__(self, basemodel_name, data_name, save_directory="results"):
 
@@ -120,12 +117,6 @@ class TextGeneration:
     def generate_from_MC_aligned_model(self, lam_list, value_list, MC_nsamples=32, start_index=0, end_index=None):
         """
         Samples multiple continuations from each prompt using Monte Carlo sampling and lambda-weighted rewards.
-
-        The generation probability is proportional to an exponential of the reward:
-        
-        $$
-        p(y \mid x) \propto p(y \mid x) * e^{r * \lambda}
-        $$
 
         Args:
             lam_list (Union[List[float], float]): Lambda weights for aligning generation with specific rewards.
