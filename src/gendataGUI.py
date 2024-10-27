@@ -5,13 +5,22 @@ from utils import clean_and_trim_to_last_sentence, get_model_and_tokenizer, get_
 
 # Load the model and tokenizer
 device = "cuda" if torch.cuda.is_available() else "cpu"
-# Update with your model path if different
 model_generate, tokenizer_generate = get_model_and_tokenizer("llama2_chat")
 
 
 def generateGUI_from_original_model(prompt, temperature=1.0, top_k=50, num_beams=1, max_new_tokens=50):
     """
-    Generate text based on the input prompt and other parameters.
+    Generates text based on a given prompt using an existing pre-trained model.
+
+    Args:
+        prompt (str): Input text prompt to generate continuation.
+        temperature (float, optional): Sampling temperature for text generation. Defaults to 1.0.
+        top_k (int, optional): Limits the number of high-probability tokens to sample from. Defaults to 50.
+        num_beams (int, optional): Number of beams for beam search. Defaults to 1.
+        max_new_tokens (int, optional): Maximum number of new tokens to generate. Defaults to 50.
+
+    Returns:
+        str: Generated text based on the input prompt.
     """
     inputs = tokenizer_generate([prompt], return_tensors="pt", padding=True).to(device)
 
@@ -31,9 +40,24 @@ def generateGUI_from_original_model(prompt, temperature=1.0, top_k=50, num_beams
     return decoded_output
 
 
-# def generateGUI_from_MC_aligned_model(prompt, model_choice, value_list, lam_list, MC_nsamples=32, temperature=1.0, top_k=50, num_beams=1, max_new_tokens=50):
 def generateGUI_from_MC_aligned_model(prompt, model_choice, value_list, lam_list, MC_nsamples, temperature, top_k, num_beams, max_new_tokens):
+    """
+    Generates text using a Monte Carlo aligned model, adjusting output based on lambda-weighted rewards.
 
+    Args:
+        prompt (str): Input text prompt for generation.
+        model_choice (str): Indicates whether to use the original or aligned model.
+        value_list (str): Comma-separated values indicating alignment criteria.
+        lam_list (str): Comma-separated lambda values for reward weighting.
+        MC_nsamples (int, optional): Number of Monte Carlo samples for each prompt.
+        temperature (float, optional): Sampling temperature for text generation.
+        top_k (int, optional): Limits the number of high-probability tokens to sample from.
+        num_beams (int, optional): Number of beams for beam search.
+        max_new_tokens (int, optional): Maximum number of new tokens to generate.
+
+    Returns:
+        str: Selected generated text based on alignment.
+    """
     # Debug: Check the input types and values
     print(f"\nValues List: {value_list} {type(value_list)}")
     print(f"Lambda List: {lam_list} {type(lam_list)}")
@@ -90,8 +114,7 @@ def generateGUI_from_MC_aligned_model(prompt, model_choice, value_list, lam_list
 
     return decoded_output
 
-
-# Set up the Gradio Interface
+# Initialize Gradio Interface for text generation
 iface = gr.Interface(
     fn=generateGUI_from_MC_aligned_model,
     inputs=[
