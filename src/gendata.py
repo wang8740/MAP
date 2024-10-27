@@ -8,16 +8,45 @@ from utils import (
     get_prompts_from_imdb,
     get_model_and_tokenizer,
     get_reward,
-    ALL_SUPPORTED_VALUES
+    ALL_SUPPORTED_VALUES,
+    save_results_to_json
 )
 import os
 
 class TextGeneration:
+    """
+    Generates text continuations based on prompts, either using a pretrained model or an aligned model with Monte Carlo sampling.
+
+    Attributes:
+        device (str): The device for model inference, typically 'cuda' if available.
+        basemodel_name (str): The name of the base model for text generation.
+        data_name (str): The source of the prompts, supporting "Anthropic-harmless" and "Imdb".
+        file_path (str): Path to save the generated output in JSON format.
+        top_k (int): Number of highest probability vocabulary tokens to keep for generation.
+        max_new_tokens (int): Maximum number of new tokens to generate.
+        generation_config (GenerationConfig): Configuration settings for text generation.
+
+    Example usage:
+        Run the following commands from the command line to use the `TextGeneration` class:
+        
+        ```bash
+        # Generate text directly from the original model
+        python gendata.py generate_from_original_model
+
+        # Generate text with Monte Carlo sampling from an aligned model
+        python gendata.py generate_from_MC_aligned_model --lam_list=-0.5 --value_list="humor" --MC_nsamples=50
+        ```
+    """
     def __init__(self, basemodel_name, data_name, save_directory="results"):
 
-        # basemodel: model to generate conditional on prompt
-        # data_name: prompt source, supporting "Anthropic-harmless", "Imdb"
+        """
+        Initializes the TextGeneration class with model and tokenizer setup.
 
+        Args:
+            basemodel_name (str): The base model name for generation.
+            data_name (str): The data source name, supports "Anthropic-harmless" and "Imdb".
+            save_directory (str, optional): Directory to save generated results. Defaults to "results".
+        """
         print("\nRunning TextGeneration.__init__")
 
         self.device = "cuda"
@@ -45,12 +74,16 @@ class TextGeneration:
             do_sample=True
         )
 
-    def save_results(self, results, file_path):
-        with open(file_path, 'w') as f:
-            json.dump(results, f, indent=4)
-        print(f"\nResults saved to {file_path}")
-
     def generate_from_original_model(self, batch_size=32):
+        """
+        Generates text continuations directly from the original model using predefined generation configuration.
+
+        Args:
+            batch_size (int, optional): Number of prompts processed per batch. Defaults to 32.
+
+        Raises:
+            ValueError: If an unsupported `data_name` is provided.
+        """
 
         print("\nRunning TextGeneration.generate_from_original_model")
 
@@ -80,11 +113,25 @@ class TextGeneration:
             for prompt, gen_text, perplexity in zip(batch_prompts, decoded_outputs, perplexities):
                 results.append({"prompt": prompt, "generated": gen_text, "perplexity": perplexity})
 
-        self.save_results(results, self.file_path)
+        save_results_to_json(results, self.file_path)
 
         return
 
     def generate_from_MC_aligned_model(self, lam_list, value_list, MC_nsamples=32, start_index=0, end_index=None):
+        """
+        Samples multiple continuations from each prompt using Monte Carlo sampling and lambda-weighted rewards.
+
+        Args:
+            lam_list (Union[List[float], float]): Lambda weights for aligning generation with specific rewards.
+            value_list (Union[List[str], str]): Values to align the generated text with.
+            MC_nsamples (int, optional): Number of Monte Carlo samples per prompt. Defaults to 32.
+            start_index (int, optional): Start index of the prompts to process. Defaults to 0.
+            end_index (Optional[int], optional): End index of the prompts to process. Defaults to None.
+
+        Raises:
+            ValueError: If an unsupported `data_name` is provided.
+
+        """
 
         print("\nRunning TextGeneration.generate_from_MC_aligned_model")
 
@@ -196,16 +243,12 @@ class TextGeneration:
             # Save results to the same file path, overwriting it, every 50 iterations
             if (i - start_index + 1) % 50 == 0:
                 print(f"\nAt index {i+1}, saving results to: {file_path}")
-                self.save_results(results, file_path)
+                save_results_to_json(results, file_path)
 
         print(f"\nSaving results to: {file_path}")
-        self.save_results(results, file_path)
+        save_results_to_json(results, file_path)
 
         return
 
 if __name__ == '__main__':
     fire.Fire(TextGeneration)
-
-# Example usage:
-# python gendata.py generate_from_original_model
-# python gendata.py generate_from_MC_aligned_model --lam_list=-0.5 --value_list="humor" --MC_nsamples=50

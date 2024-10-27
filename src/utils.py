@@ -59,6 +59,24 @@ devices = {
     "opt1.3b": get_device(),
 }
 
+def save_results_to_json(self, results, file_path):
+    """save results into json file
+
+    example:
+    results = []
+    for ...
+        results.append({"prompt": prompt, "generated": gen_text, "perplexity": perplexity})
+    save_results_to_json(results, self.file_path)
+    
+    Args:
+        results (_type_): _description_
+        file_path (_type_): _description_
+    """
+    with open(file_path, 'w') as f:
+        json.dump(results, f, indent=4)
+    print(f"\nResults saved to {file_path}")
+
+
 def clean_and_trim_to_last_sentence(prompts, decoded_outputs):
     
     clean_outputs = []

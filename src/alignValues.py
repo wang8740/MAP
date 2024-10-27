@@ -160,7 +160,7 @@ class AlignValues:
             print(f"\nOptimized lambda: NaN")
 
         # Save results to Excel
-        if verbose: self.save_results_to_text(optimized_lambda, success)
+        if verbose: self._save_results_to_text(optimized_lambda, success)
 
         return optimized_lambda, success
 
@@ -274,7 +274,7 @@ class AlignValues:
             optimized_lambda, success, = self.optimize_lambda(verbose=False)
             if success:
                 print(f"Feasible solution found for rho = {rho:.3f}")
-                self.save_results_to_text(optimized_lambda, success)
+                self._save_results_to_text(optimized_lambda, success)
                 return rho.item()  # Return the value of rho when a feasible solution is found
 
         print(f"Feasible solution not found -- neither of the input two c lists is feasible")
@@ -328,12 +328,12 @@ class AlignValues:
         self.c[dimension] = low
         optimized_lambda, success, = self.optimize_lambda(verbose=False)
         print(f"Enhanced {value_to_enhance} from {original_value:.3f} to {low:.3f}")
-        self.save_results_to_text(optimized_lambda, success)
+        self._save_results_to_text(optimized_lambda, success)
 
         return low
 
 
-    def save_results_to_text(self, optimized_lambda, success, save_prefix='results/alignValues'):
+    def _save_results_to_text(self, optimized_lambda, success, save_prefix='results/alignValues'):
         """Save the optimization results to a text file.
 
         This method appends the results of lambda optimization to a text file, including
@@ -347,7 +347,7 @@ class AlignValues:
         Example:
             >>> aligner = AlignValues("all", "results/model-data.json", [0.5, 1.0])
             >>> optimized_lambda, success = aligner.optimize_lambda()
-            >>> aligner.save_results_to_text(optimized_lambda, success)
+            >>> aligner._save_results_to_text(optimized_lambda, success)
             Results have been appended to results/alignValues.txt
         """
 
@@ -363,7 +363,7 @@ class AlignValues:
         print(f"Results have been appended to {file_path}")
 
 
-    def save_results_to_csv(self, optimized_lambda, dirichlet_lambda, save_prefix='results/alignValues'):
+    def _save_results_to_csv(self, optimized_lambda, dirichlet_lambda, save_prefix='results/alignValues'):
         """Save the optimization results to a CSV file.
 
         This method appends the results of lambda optimization to a CSV file, including
@@ -379,7 +379,7 @@ class AlignValues:
             >>> aligner = AlignValues("all", "results/model-data.json", [0.5, 1.0])
             >>> optimized_lambda, _ = aligner.optimize_lambda()
             >>> dirichlet_lambda = [0.3, 0.7]  # Example Dirichlet reference values
-            >>> aligner.save_results_to_csv(optimized_lambda, dirichlet_lambda)
+            >>> aligner._save_results_to_csv(optimized_lambda, dirichlet_lambda)
             Results have been appended to results/alignValues.csv
         """
         file_path = f"{save_prefix}.csv"
@@ -483,7 +483,7 @@ class AlignValues:
                     random_lam = np.random.uniform(0, scaling_MAX) * random_alpha
                     dirichlet_lambda = random_lam.tolist()
                     
-                    self.save_results_to_csv(optimized_lambda, dirichlet_lambda, save_prefix)
+                    self._save_results_to_csv(optimized_lambda, dirichlet_lambda, save_prefix)
                     print(f"Valid lambda found. Random c: {self.c.tolist()}, Optimized lambda: {optimized_lambda}, Dirichlet_lambda_ref: {dirichlet_lambda}")
                 else:
                     print(f"Invalid lambda. L1 norm exceeds scaling_MAX. Random c: {self.c.tolist()}, Optimized lambda: {optimized_lambda}")
