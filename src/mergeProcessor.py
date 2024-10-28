@@ -6,10 +6,28 @@ import fire
 
 class MergeProcessor:
 
-    def merge_added_rewards(self, original_file_path, save_to_temp_folder=False):
-        '''
-             save_to_temp_folder=True if we save to a temp folder, otherwise overwriting the original file with more entries (rewards) in each row
-        '''
+    def merge_added_rewards(self, original_file_path: str, save_to_temp_folder: bool = False) -> None:
+        """
+        Merges rewards from various human values stored in temporary files into a single JSON file, either
+        saving to a temporary folder or overwriting the original file.
+
+        This method checks for files in the temporary folder with names matching the pattern
+        of the original file, updates the original JSON file by adding reward entries
+        from these files, and saves the result either in the temp folder or overwrites
+        the original.
+
+        Args:
+            original_file_path (str): Path to the original JSON file.
+            save_to_temp_folder (bool, optional): If True, saves the merged file in a temp folder
+                                                  instead of overwriting the original. Defaults to False.
+
+        Example:
+            >>> processor = MergeProcessor()
+            >>> processor.merge_added_rewards("results/Llama27b-chat-Anthropic-harmless.json", save_to_temp_folder=True)
+
+        Command-line usage:
+            python mergeProcessor.py merge_added_rewards --original_file_path="results/Llama27b-chat-Anthropic-harmless.json" --save_to_temp_folder=True
+        """
 
         print("\nRunning MergeProcessor.merge_added_rewards\n")
 
@@ -65,18 +83,26 @@ class MergeProcessor:
         return
 
 
-    def merge_gendata_bypattern(self, json_file_pattern):
-        # Example json_file_pattern: 'results/temp/Llama27b-chat-Anthropic-harmless_lam=2.018,1.393,1.498,0.008,0.015,0.088_val=all_*to*.json'
+    def merge_gendata_bypattern(self, json_file_pattern: str) -> None:
         """
-        Merges JSON files matched by a specific pattern into a single file and moves it to the directory level
-        one above 'temp/'. Assumes that the JSON file pattern includes a 'temp/' directory at its end
-        and that all files are located within this directory. The final filename has the pattern '_*to*'
-        removed before saving.
+        Merges multiple JSON files matched by a pattern into a single output file.
+
+        This function collects JSON files based on the specified glob pattern, merges
+        the data into one JSON array, and saves the result at a directory level above
+        'temp/'. The function also removes '_*to*' from the filename before saving.
 
         Args:
-        json_file_pattern (str): The glob pattern to match JSON files for merging.
-                                  Example: 'results/temp/*_val=all_*to*.json'
+            json_file_pattern (str): The glob pattern to match JSON files for merging.
+                                     Example: 'results/temp/*_val=all_*to*.json'
+
+        Example:
+            >>> processor = MergeProcessor()
+            >>> processor.merge_gendata_bypattern("results/temp/Llama27b-chat-Anthropic-harmless_lam=2.018,1.393,1.498,0.008,0.015,0.088_val=all_*to*.json")
+
+        Command-line usage:
+            python mergeProcessor.py merge_gendata_bypattern --json_file_pattern="results/temp/Llama27b-chat-Anthropic-harmless_lam=2.018,1.393,1.498,0.008,0.015,0.088_val=all_*to*.json"
         """
+  
         print("\nRunning MergeProcessor.merge_gendata_bypattern\n")
         all_results = []
         for file_name in glob.glob(json_file_pattern):
@@ -97,18 +123,6 @@ class MergeProcessor:
             json.dump(all_results, file, indent=4)
 
         print(f"Merged data saved to {output_file_path}")
-
-
+        
 if __name__ == "__main__":
     fire.Fire(MergeProcessor)
-
-'''
-    Example of mergeProcessor
-'''
-# python mergeProcessor.py --original_file_path="results/Llama27b-chat-Anthropic-harmless.json" merge_added_rewards
-# python mergeProcessor.py --original_file_path="results/Llama27b-chat-Anthropic-harmless_lam=5.942,2.432,2.923,0.006,0.011,0.147_val=all_*to*.json" merge_added_rewards
-
-'''
-    Example of merge_gendata_bypattern
-'''
-# python mergeProcessor.py --json_file_pattern="results/temp/Llama27b-chat-Anthropic-harmless_lam=2.018,1.393,1.498,0.008,0.015,0.088_val=all_*to*.json" merge_gendata_bypattern

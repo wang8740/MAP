@@ -1,6 +1,6 @@
+# TODO: merge this code into gendataGUI to have better UIUX to interactly visualize the alignment result  
 import os
 import sys
-
 import fire
 import gradio as gr
 import torch

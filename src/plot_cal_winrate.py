@@ -7,10 +7,31 @@ import itertools
 import csv
 import numpy as np
 
-def calculate_win_rate(model_file, base_model_file, metrics=None):
+def calculate_win_rate(
+    model_file: str, 
+    base_model_file: str, 
+    metrics: list[str] = ['perplexity', 'coherence', 'diversity', 'gpt2-harmless', 'gpt2-helpful', 'humor']
+) -> dict:
+    """Calculate win rates of model performance compared to a base model across specified metrics.
 
-    if not metrics:
-        metrics = ['perplexity', 'coherence', 'diversity', 'gpt2-harmless', 'gpt2-helpful', 'humor']
+    Opens JSON files for the provided models, calculates the win rate for each metric,
+    and the standard error of each win rate.
+
+    Args:
+        model_file (str): Path to the JSON file of the fine-tuned model's generated continuations.
+        base_model_file (str): Path to the JSON file of the base model's generated continuations.
+        metrics (list[str], optional): List of human values/metrics for comparison. Defaults to a standard list.
+
+    Returns:
+        dict: Contains file paths, win rates for each metric, and standard errors for each metric.
+
+    Example:
+        >>> result = calculate_win_rate("fine_tuned_model.json", "base_model.json")
+        >>> print(result)
+
+    Command-line usage:
+        python script.py --model_file="fine_tuned_model.json" --base_model_file="base_model.json"
+    """
 
     with open(model_file, 'r') as f:
         model_data = json.load(f)
@@ -44,10 +65,56 @@ def calculate_win_rate(model_file, base_model_file, metrics=None):
     return result
 
 
-def collect_multiple_results(model_files, base_model_file, file_prefix, metrics=None):
-    '''
-        summarize multiple results into a list and save to json
-    '''
+def collect_multiple_results(
+    model_files: list[str], 
+    base_model_file: str, 
+    file_prefix: str, 
+    metrics: list[str] = None
+) -> list[dict]:
+    """Aggregate win rate results for multiple models compared to a base model and save to a JSON file.
+
+    Iterates over multiple model files, calculates win rates for each using `calculate_win_rate`, 
+    and saves the aggregate results as JSON.
+
+    Args:
+        model_files (list[str]): List of file paths for the fine-tuned model JSON files.
+        base_model_file (str): Path to the JSON file for the base model.
+        file_prefix (str): Prefix for the output JSON file name.
+        metrics (list[str], optional): Metrics for win rate calculation. Defaults to None.
+
+    Returns:
+        list[dict]: List of win rate results for each model file.
+
+    Example:
+        >>> base_model_file = 'results/opt1.3b-Anthropic-harmless.json'
+        >>> harmless_ratios = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+        >>> beta = 0.1
+        >>> file_prefix = f"results_comparison/winrate_{beta}beta_DPO"
+        >>> model_files = [f'modelsDPO/opt1.3b-2000sample-{beta}beta-{ratio}harmless-Anthropic-harmless.json' for ratio in harmless_ratios]
+        >>> win_rate_results_list = collect_multiple_results(model_files, base_model_file, file_prefix)
+        >>> print(win_rate_results_list)
+    
+        It will also create a file file_prefix.json that contains a list of entries like this:
+        [
+            {
+                "model-path": "modelsDPO/soup/opt1.3b-2000sample-0.5beta-0.1soup-Anthropic-harmless.json",
+                "basemodel-path": "results/opt1.3b-Anthropic-harmless.json",
+                "perplexity": "0.70",
+                "coherence": "0.48",
+                "diversity": "0.48",
+                "gpt2-harmless": "0.62",
+                "gpt2-helpful": "0.54",
+                "humor": "0.21",
+                "perplexity_SE": "0.01",
+                "coherence_SE": "0.01",
+                "diversity_SE": "0.01",
+                "gpt2-harmless_SE": "0.01",
+                "gpt2-helpful_SE": "0.01",
+                "humor_SE": "0.01"
+            },
+            ...
+        ]
+    """
 
     # List to store all results
     win_rate_results_list = []
@@ -68,10 +135,20 @@ def collect_multiple_results(model_files, base_model_file, file_prefix, metrics=
     return win_rate_results_list
 
 
-def render_latex_table(win_rate_results_list, file_prefix):
-    '''
-        Render and save LaTeX table
-    '''
+def render_latex_table(win_rate_results_list: list[dict], file_prefix: str) -> str:
+    """Generate and save a LaTeX table for win rates from a list of results.
+
+    Constructs a LaTeX table summarizing win rates across models and metrics.
+    Saves the table to a .tex file for LaTeX compilation.
+
+    Args:
+        win_rate_results_list (list[dict]): List of dictionaries containing win rate results.
+        file_prefix (str): Prefix for the output LaTeX file name.
+
+    Returns:
+        str: LaTeX-formatted table as a string.
+    """
+
     metrics = ['perplexity', 'coherence', 'diversity', 'gpt2-harmless', 'gpt2-helpful', 'humor']
     
     # Begin LaTeX table with booktabs package
@@ -95,10 +172,18 @@ def render_latex_table(win_rate_results_list, file_prefix):
     return latex_table
 
 
-def plot_helpful_vs_harmless(win_rate_results_list, harmless_ratios, file_prefix):
-    '''
-        Plot helpful and harmless win rates over the harmless_ratios
-    '''
+def plot_helpful_vs_harmless(win_rate_results_list: list[dict], harmless_ratios: list[float], file_prefix: str) -> None:
+    """Plot and save a line graph of helpful and harmless win rates vs. harmless ratios.
+
+    Creates a plot comparing helpfulness and harmlessness win rates as a function of
+    different harmless ratios. Saves the plot as a PDF file.
+
+    Args:
+        win_rate_results_list (list[dict]): List of dictionaries containing win rate results.
+        harmless_ratios (list[float]): List of harmlessness ratio values to plot.
+        file_prefix (str): Prefix for the output PDF file name.
+
+    """
     helpful = [float(result['gpt2-helpful']) for result in win_rate_results_list]
     harmless = [float(result['gpt2-harmless']) for result in win_rate_results_list]
     
@@ -114,81 +199,20 @@ def plot_helpful_vs_harmless(win_rate_results_list, harmless_ratios, file_prefix
     plt.savefig(f"{file_prefix}.pdf", bbox_inches='tight')  # bbox_inches='tight' removes extra whitespace
     plt.close()
     print(f"saved results to {file_prefix}.pdf")
-    
-
-if __name__ == "__main__":
-
-    # Directory paths
-    base_model_file = 'results/opt1.3b-Anthropic-harmless.json'
-    model_files = []
-
-    # all DPO models
-    # harmless_ratios = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-    # beta = 0.1
-    # file_prefix = f"results_comparison/winrate_{beta}beta_DPO"
-    # for ratio in harmless_ratios:
-    #     model_files.append(f'modelsDPO/opt1.3b-2000sample-{beta}beta-{ratio}harmless-Anthropic-harmless.json')
-    # win_rate_results_list = collect_multiple_results(model_files, base_model_file, file_prefix)
-    # latex_table = render_latex_table(win_rate_results_list, file_prefix)
-    # plot_helpful_vs_harmless(win_rate_results_list, harmless_ratios, file_prefix)
 
 
-    # # all DPO soup models
-    # harmless_ratios = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
-    # beta = 0.5
-    # file_prefix = f"results_comparison/winrate_{beta}beta_DPOsoup"
-    # for ratio in harmless_ratios:
-    #     model_files.append(f'modelsDPO/soup/opt1.3b-2000sample-{beta}beta-{ratio}soup-Anthropic-harmless.json')
-    # win_rate_results_list = collect_multiple_results(model_files, base_model_file, file_prefix)
-    # latex_table = render_latex_table(win_rate_results_list, file_prefix)
-    # plot_helpful_vs_harmless(win_rate_results_list, harmless_ratios, file_prefix)
+def plot_winrate() -> None:
+    """Generate a scatter plot comparing win rates for various models based on helpfulness and harmlessness.
 
+    This function plots a 2D scatter plot where each model entry is represented as a point, 
+    with the x-axis representing "gpt2-helpful" scores and the y-axis representing "gpt2-harmless" scores.
+    Each baseline model is given a unique marker and color, and the function computes and displays
+    navigation efficiency for each model (the proportion of points in the "upper right" quadrant).
 
-    # # all PPO models with Dirichlet random generated lambda
-    # folder_paths = ['modelsPPO/random-lambda/', 'modelsPPO/random-lambda2/']
-    # file_pattern = 'opt1.3b-Anthropic-harmless-lam_*_*-val_gpt2-helpful_gpt2-harmless-Anthropic-harmless.json'
-    # model_files = []
-    # for folder_path in folder_paths:
-    #     full_pattern = os.path.join(folder_path, file_pattern)
-    #     model_files.extend(glob.glob(full_pattern))  # Collect files from both folders
-    # file_prefix = f"results_comparison/winrate_6scale_2valuesHH_PPO_DirichletRand"
-    # win_rate_results_list = collect_multiple_results(model_files, base_model_file, file_prefix)
+    A reference point for the original model is plotted, along with gridlines and shading to highlight 
+    the upper-right region, which represents favorable scores for both helpfulness and harmlessness.
 
-
-    # # all PPO models with MAP random generated feasible lambda
-    # folder_paths = ['modelsPPO/MAP-lambda/', 'modelsPPO/MAP-lambda2/']
-    # file_pattern = 'opt1.3b-Anthropic-harmless-lam_*_*-val_gpt2-helpful_gpt2-harmless-Anthropic-harmless.json'
-    # model_files = []
-    # for folder_path in folder_paths:
-    #     full_pattern = os.path.join(folder_path, file_pattern)
-    #     model_files.extend(glob.glob(full_pattern))  # Collect files from both folders
-    # file_prefix = f"results_comparison/winrate_6scale_2valuesHH_PPO_MapRand"
-    # win_rate_results_list = collect_multiple_results(model_files, base_model_file, file_prefix)
-
-
-    # # all decoding results with Dirichlet random generated lambda
-    # folder_paths = ['modelsDecoding/random-lambda/']
-    # file_pattern = 'opt1.3b-Anthropic-harmless_lam=*,*_val=gpt2-helpful,gpt2-harmless.json'
-    # model_files = []
-    # for folder_path in folder_paths:
-    #     full_pattern = os.path.join(folder_path, file_pattern)
-    #     model_files.extend(glob.glob(full_pattern))  # Collect files from both folders
-    # file_prefix = f"results_comparison/winrate_6scale_2valuesHH_Decoding_DirichletRand"
-    # win_rate_results_list = collect_multiple_results(model_files, base_model_file, file_prefix, metrics=['coherence', 'diversity', 'gpt2-harmless', 'gpt2-helpful', 'humor'])
-
-
-    # # all decoding results with MAP random generated feasible lambda
-    # folder_paths = ['modelsDecoding/MAP-lambda/']
-    # file_pattern = 'opt1.3b-Anthropic-harmless_lam=*,*_val=gpt2-helpful,gpt2-harmless.json'
-    # model_files = []
-    # for folder_path in folder_paths:
-    #     full_pattern = os.path.join(folder_path, file_pattern)
-    #     model_files.extend(glob.glob(full_pattern))  # Collect files from both folders
-    # file_prefix = f"results_comparison/winrate_6scale_2valuesHH_Decoding_MapRand"
-    # win_rate_results_list = collect_multiple_results(model_files, base_model_file, file_prefix, metrics=['coherence', 'diversity', 'gpt2-harmless', 'gpt2-helpful', 'humor'])
-
-'''
-    Now we have obtained the following baselines and our method (MAP) and their generated result files:
+    Specifically, we run __main__ to obtain the following baselines and our method (MAP) and their generated result files:
     "DPO(0.1)": results_comparison/winrate_0.1beta_DPO.json
     "DPO(0.5)": results_comparison/winrate_0.5beta_DPO.json
     "DPO-Soup(0.1)": results_comparison/winrate_0.1beta_DPOsoup.json
@@ -198,31 +222,34 @@ if __name__ == "__main__":
 
     Each file contains a list of entries like this:
     [
-    {
-        "model-path": "modelsDPO/soup/opt1.3b-2000sample-0.5beta-0.1soup-Anthropic-harmless.json",
-        "basemodel-path": "results/opt1.3b-Anthropic-harmless.json",
-        "perplexity": "0.70",
-        "coherence": "0.48",
-        "diversity": "0.48",
-        "gpt2-harmless": "0.62",
-        "gpt2-helpful": "0.54",
-        "humor": "0.21",
-        "perplexity_SE": "0.01",
-        "coherence_SE": "0.01",
-        "diversity_SE": "0.01",
-        "gpt2-harmless_SE": "0.01",
-        "gpt2-helpful_SE": "0.01",
-        "humor_SE": "0.01"
-    },
-    ...
+        {
+            "model-path": "modelsDPO/soup/opt1.3b-2000sample-0.5beta-0.1soup-Anthropic-harmless.json",
+            "basemodel-path": "results/opt1.3b-Anthropic-harmless.json",
+            "perplexity": "0.70",
+            "coherence": "0.48",
+            "diversity": "0.48",
+            "gpt2-harmless": "0.62",
+            "gpt2-helpful": "0.54",
+            "humor": "0.21",
+            "perplexity_SE": "0.01",
+            "coherence_SE": "0.01",
+            "diversity_SE": "0.01",
+            "gpt2-harmless_SE": "0.01",
+            "gpt2-helpful_SE": "0.01",
+            "humor_SE": "0.01"
+        },
+        ...
     ]
-    We will plot a figure titled WinRate where each entry becomes a 2D point with x-axis "gpt2-helpful" and y-axis "gpt2-harmless"
+    We can call plot_winrate() to plot a figure titled WinRate where each entry becomes a 2D point with x-axis "gpt2-helpful" and y-axis "gpt2-harmless"
     Each baseline name will get a different legend in the same figure. 
-'''
 
+    Returns:
+        None
 
+    Example:
+        >>> plot_winrate()
 
-def plot_winrate():
+    """
     # Define file paths and baseline names
     baselines = {
         r"MAP-D (random $\mathbf{\lambda}$)": "results_comparison/winrate_6scale_2valuesHH_Decoding_MapRand.json",
@@ -335,11 +362,19 @@ def plot_winrate():
     print("Plot successfully saved to fig_compare_winrate.pdf!")
 
 
-plot_winrate()
+def plot_cLevels():
+    """Generate a scatter plot to compare average rewards (c-level) across various model baselines.
 
+    This function visualizes the average reward levels (c-level) for multiple model baselines,
+    using the "gpt2-helpful" metric as the x-axis and the "gpt2-harmless" metric as the y-axis.
+    Each baseline has its own color and marker style for distinction. 
+    A reference model, indicated by a red circle, is included at the original model's values.
+    
+    Baselines include DPO with various ratios, DPO-Soup, and MAP/MoRL with random or feasible lambda.
+    Each CSV file from the models contains metrics, and this function extracts the "avg" row
+    to plot the gpt2-helpful and gpt2-harmless values.
 
-'''
-    We make another plot that compares the average reward (c-level) using the following baselines
+    Specifically, we make a plot that compares the average reward (c-level) using the following baselines (generated from __main__)
         "DPO(0.1)": 
             harmless_ratios = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
             for ratio in harmless_ratios:
@@ -363,23 +398,31 @@ plot_winrate()
         r"MAP with feasible $\lambda$ (Our proposed)":
             all csv files under modelsPPO/MAP-lambda
 
-    Each csv file contains like this template:
-        Statistic,humor,gpt2-helpful,gpt2-harmless,diversity,coherence,perplexity
-        avg,1.771,-1.509,0.315,0.871,0.39,-2.785
-        avg_std,0.028,0.022,0.024,0.002,0.004,0.01
-        50%,2.421,-1.576,0.42,0.906,0.402,-2.745
-        60%,2.471,-1.319,0.725,0.918,0.455,-2.654
-        70%,2.506,-1.036,1.05,0.928,0.51,-2.568
-        80%,2.529,-0.672,1.357,0.937,0.566,-2.452
-        90%,2.551,-0.127,1.722,0.945,0.641,-2.286
-        99%,2.584,1.12,2.486,0.958,0.792,-1.801
+        Each csv file contains like this template:
+            Statistic,humor,gpt2-helpful,gpt2-harmless,diversity,coherence,perplexity
+            avg,1.771,-1.509,0.315,0.871,0.39,-2.785
+            avg_std,0.028,0.022,0.024,0.002,0.004,0.01
+            50%,2.421,-1.576,0.42,0.906,0.402,-2.745
+            60%,2.471,-1.319,0.725,0.918,0.455,-2.654
+            70%,2.506,-1.036,1.05,0.928,0.51,-2.568
+            80%,2.529,-0.672,1.357,0.937,0.566,-2.452
+            90%,2.551,-0.127,1.722,0.945,0.641,-2.286
+            99%,2.584,1.12,2.486,0.958,0.792,-1.801
 
-    I only wanna extract the two columns gpt2-helpful (x axis) and gpt2-harmless (y axis) under the first row "avg"
-    and draw a plot as before
-'''
+        We only extract the two columns gpt2-helpful (x axis) and gpt2-harmless (y axis) under the first row "avg"
+        and draw a plot.
 
+    Args:
+        None
 
-def plot_cLevels():
+    Returns:
+        None: The plot is saved as a PDF file in `results_comparison/fig_compare_avg_reward.pdf`.
+
+    Example:
+        >>> plot_cLevels()
+
+    """
+
     # Define the file paths and baseline names
     baselines = {
         r"MAP-D (random $\mathbf{\lambda}$)": [f'modelsDecoding/MAP-lambda/{file}' for file in os.listdir('modelsDecoding/MAP-lambda/') if file.endswith('.csv')],
@@ -507,4 +550,76 @@ def plot_cLevels():
     print("Plot successfully saved to fig_compare_avg_reward.pdf!")
 
 
-plot_cLevels()
+if __name__ == "__main__":
+
+    # Directory paths
+    base_model_file = 'results/opt1.3b-Anthropic-harmless.json'
+    model_files = []
+
+    # all DPO models
+    # harmless_ratios = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    # beta = 0.1
+    # file_prefix = f"results_comparison/winrate_{beta}beta_DPO"
+    # for ratio in harmless_ratios:
+    #     model_files.append(f'modelsDPO/opt1.3b-2000sample-{beta}beta-{ratio}harmless-Anthropic-harmless.json')
+    # win_rate_results_list = collect_multiple_results(model_files, base_model_file, file_prefix)
+    # latex_table = render_latex_table(win_rate_results_list, file_prefix)
+    # plot_helpful_vs_harmless(win_rate_results_list, harmless_ratios, file_prefix)
+
+
+    # # all DPO soup models
+    # harmless_ratios = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+    # beta = 0.5
+    # file_prefix = f"results_comparison/winrate_{beta}beta_DPOsoup"
+    # for ratio in harmless_ratios:
+    #     model_files.append(f'modelsDPO/soup/opt1.3b-2000sample-{beta}beta-{ratio}soup-Anthropic-harmless.json')
+    # win_rate_results_list = collect_multiple_results(model_files, base_model_file, file_prefix)
+    # latex_table = render_latex_table(win_rate_results_list, file_prefix)
+    # plot_helpful_vs_harmless(win_rate_results_list, harmless_ratios, file_prefix)
+
+
+    # # all PPO models with Dirichlet random generated lambda
+    # folder_paths = ['modelsPPO/random-lambda/', 'modelsPPO/random-lambda2/']
+    # file_pattern = 'opt1.3b-Anthropic-harmless-lam_*_*-val_gpt2-helpful_gpt2-harmless-Anthropic-harmless.json'
+    # model_files = []
+    # for folder_path in folder_paths:
+    #     full_pattern = os.path.join(folder_path, file_pattern)
+    #     model_files.extend(glob.glob(full_pattern))  # Collect files from both folders
+    # file_prefix = f"results_comparison/winrate_6scale_2valuesHH_PPO_DirichletRand"
+    # win_rate_results_list = collect_multiple_results(model_files, base_model_file, file_prefix)
+
+
+    # # all PPO models with MAP random generated feasible lambda
+    # folder_paths = ['modelsPPO/MAP-lambda/', 'modelsPPO/MAP-lambda2/']
+    # file_pattern = 'opt1.3b-Anthropic-harmless-lam_*_*-val_gpt2-helpful_gpt2-harmless-Anthropic-harmless.json'
+    # model_files = []
+    # for folder_path in folder_paths:
+    #     full_pattern = os.path.join(folder_path, file_pattern)
+    #     model_files.extend(glob.glob(full_pattern))  # Collect files from both folders
+    # file_prefix = f"results_comparison/winrate_6scale_2valuesHH_PPO_MapRand"
+    # win_rate_results_list = collect_multiple_results(model_files, base_model_file, file_prefix)
+
+
+    # # all decoding results with Dirichlet random generated lambda
+    # folder_paths = ['modelsDecoding/random-lambda/']
+    # file_pattern = 'opt1.3b-Anthropic-harmless_lam=*,*_val=gpt2-helpful,gpt2-harmless.json'
+    # model_files = []
+    # for folder_path in folder_paths:
+    #     full_pattern = os.path.join(folder_path, file_pattern)
+    #     model_files.extend(glob.glob(full_pattern))  # Collect files from both folders
+    # file_prefix = f"results_comparison/winrate_6scale_2valuesHH_Decoding_DirichletRand"
+    # win_rate_results_list = collect_multiple_results(model_files, base_model_file, file_prefix, metrics=['coherence', 'diversity', 'gpt2-harmless', 'gpt2-helpful', 'humor'])
+
+
+    # # all decoding results with MAP random generated feasible lambda
+    # folder_paths = ['modelsDecoding/MAP-lambda/']
+    # file_pattern = 'opt1.3b-Anthropic-harmless_lam=*,*_val=gpt2-helpful,gpt2-harmless.json'
+    # model_files = []
+    # for folder_path in folder_paths:
+    #     full_pattern = os.path.join(folder_path, file_pattern)
+    #     model_files.extend(glob.glob(full_pattern))  # Collect files from both folders
+    # file_prefix = f"results_comparison/winrate_6scale_2valuesHH_Decoding_MapRand"
+    # win_rate_results_list = collect_multiple_results(model_files, base_model_file, file_prefix, metrics=['coherence', 'diversity', 'gpt2-harmless', 'gpt2-helpful', 'humor'])
+
+    plot_winrate()
+    plot_cLevels()

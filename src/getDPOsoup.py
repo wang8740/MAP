@@ -4,14 +4,31 @@ import fire
 import torch
 
 
-def soup(basemodel_name, sample_size, beta, harmless_lambda, save_path):
-    '''
-        beta: same as in trainDPO.py
-        harmless_lambda: Interpolation factor in [0, 1]
-    '''
-    model_path1 = f"modelsDPO/{basemodel_name}-{sample_size}sample-{beta}beta-0.0harmless"
-    model_path2 = f"modelsDPO/{basemodel_name}-{sample_size}sample-{beta}beta-1.0harmless"
-    
+def soup(model_path1, model_path2, harmless_lambda, save_path):
+    """
+    Apply linear interpolation to two models to obtain and save a set of models.
+
+    This function performs model interpolation between two pre-trained models
+    based on a given interpolation factor (harmless_lambda).
+
+    Args:
+        model_path1 (str): Path to the first pre-trained model.
+        model_path2 (str): Path to the second pre-trained model.
+        harmless_lambda (float): Interpolation factor in [0, 1]. 
+                                 0 means full weight to model1, 1 means full weight to model2.
+        save_path (str): Path to save the interpolated model.
+
+    Example:
+        >>> model_path1 = "modelsDPO/basemodel-1000sample-0.1beta-0.0harmless"
+        >>> model_path2 = "modelsDPO/basemodel-1000sample-0.1beta-1.0harmless"
+        >>> harmless_lambda = 0.5
+        >>> save_path = "soupModel/interpolated_model"
+        >>> soup(model_path1, model_path2, harmless_lambda, save_path)
+
+    Command-line usage:
+        python getDPOsoup.py --model_path1=model_path1 --model_path2=model_path2 --harmless_lambda=0.5 --save_path=soupModel_relative_path
+    """
+
     # Load the models for interpolation
     model1 = AutoModelForCausalLM.from_pretrained(model_path1)
     model2 = AutoModelForCausalLM.from_pretrained(model_path2)
@@ -32,10 +49,7 @@ def soup(basemodel_name, sample_size, beta, harmless_lambda, save_path):
 
 
 def save_model_and_tokenizer(model, tokenizer, save_path):
-    # Save the model
     model.save_pretrained(save_path)
-    
-    # Save the tokenizer
     tokenizer.save_pretrained(save_path)
 
 

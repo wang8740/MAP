@@ -37,8 +37,10 @@ if __name__ == "__main__":
     print(f"abs path of soupModel_name: {soupModel_abs_path}")
 
     seqCommands = []
-    
-    seqCommands.append(f'python getDPOsoup.py --basemodel_name={basemodel_name} --sample_size={sample_size} --beta={beta} --harmless_lambda={harmless_lambda} --save_path={soupModel_relative_path}')
+
+    model_path1 = f"modelsDPO/{basemodel_name}-{sample_size}sample-{beta}beta-0.0harmless"
+    model_path2 = f"modelsDPO/{basemodel_name}-{sample_size}sample-{beta}beta-1.0harmless"
+    seqCommands.append(f'python getDPOsoup.py --model_path1={model_path1} --model_path2={model_path2} --harmless_lambda={harmless_lambda} --save_path={soupModel_relative_path}')
 
     # gen data, save to {soupModel_abs_path}-{data_name}.json
     seqCommands.append(f'python gendata.py --basemodel_name="{soupModel_abs_path}" --data_name="{gen_data_name}" --save_directory="modelsDPO/soup" generate_from_original_model')
