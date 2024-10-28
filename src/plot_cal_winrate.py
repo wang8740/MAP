@@ -213,12 +213,13 @@ def plot_winrate() -> None:
     the upper-right region, which represents favorable scores for both helpfulness and harmlessness.
 
     Specifically, we run __main__ to obtain the following baselines and our method (MAP) and their generated result files:
-    "DPO(0.1)": results_comparison/winrate_0.1beta_DPO.json
-    "DPO(0.5)": results_comparison/winrate_0.5beta_DPO.json
-    "DPO-Soup(0.1)": results_comparison/winrate_0.1beta_DPOsoup.json
-    "DPO-Soup(0.5)": results_comparison/winrate_0.5beta_DPOsoup.json
-    r"MoRL with random $\lambda$": results_comparison/winrate_6scale_2valuesHH_PPO_DirichletRand.json
-    r"MAP with feasible $\lambda$": results_comparison/winrate_6scale_2valuesHH_PPO_MapRand.json
+
+        "DPO(0.1)": results_comparison/winrate_0.1beta_DPO.json
+        "DPO(0.5)": results_comparison/winrate_0.5beta_DPO.json
+        "DPO-Soup(0.1)": results_comparison/winrate_0.1beta_DPOsoup.json
+        "DPO-Soup(0.5)": results_comparison/winrate_0.5beta_DPOsoup.json
+        r"MoRL with random $\lambda$": results_comparison/winrate_6scale_2valuesHH_PPO_DirichletRand.json
+        r"MAP with feasible $\lambda$": results_comparison/winrate_6scale_2valuesHH_PPO_MapRand.json
 
     Each file contains a list of entries like this:
     [
