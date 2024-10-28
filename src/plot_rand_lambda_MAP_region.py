@@ -15,16 +15,28 @@ rc('text.latex', preamble=r'\usepackage{bm}')
 # cannot use interactive mode because of headless server
 # plt.switch_backend('TkAgg')
 
-def plot_lambdas_3D(file_path, x_value, y_value, z_value, output_prefix):
-    """
-    Function to plot optimized_lambda and Dirichlet_lambda_ref in a 3D plot
-    with semi-transparent dots, overlaying one over the other.
-    
-    :param file_path: Path to the CSV file containing lambda values
-    :param x_value: The name of the value for the x-axis (e.g., 'gpt2-helpful')
-    :param y_value: The name of the value for the y-axis (e.g., 'gpt2-harmless')
-    :param z_value: The name of the value for the z-axis
-    :param output_prefix: Path to save the output PDF
+def plot_lambdas_3D(
+    file_path: str, 
+    x_value: str, 
+    y_value: str, 
+    z_value: str, 
+    output_prefix: str
+) -> None:
+    """Plot a 3D scatter plot comparing feasible and random lambda values for three specified metrics.
+
+    This function generates a 3D scatter plot using optimized and Dirichlet (random) lambda values for 
+    three specified metrics. The plot helps visualize the subregion of MAP-feasible lambdas for models 
+    aligned to specific human values.
+
+    Args:
+        file_path (str): Path to the CSV file containing lambda values for the specified metrics.
+        x_value (str): Metric name for the x-axis (e.g., 'gpt2-helpful').
+        y_value (str): Metric name for the y-axis (e.g., 'gpt2-harmless').
+        z_value (str): Metric name for the z-axis (e.g., 'humor').
+        output_prefix (str): Prefix for the output PDF file where the plot will be saved.
+
+    Example:
+        >>> plot_lambdas_3D("plot_rand_lambda_6scale_3D.csv", "gpt2-helpful", "gpt2-harmless", "humor", "results/lambda_3D_plot")
     """
     # Load the CSV file
     df = pd.read_csv(file_path)
@@ -89,81 +101,29 @@ def plot_lambdas_3D(file_path, x_value, y_value, z_value, output_prefix):
     plt.show()
 
 
-# def plot_lambdas_2D_overlay(file_paths, x_value, y_value, output_prefix):
-#     """
-#     Function to plot optimized_lambda from one or more files in one 2D plot
-#     with semi-transparent dots, overlaying one over the other with different colors.
+def plot_lambdas_2D_subplots(
+    file_paths: list[str], 
+    x_value: str, 
+    y_value: str, 
+    output_prefix: str
+) -> None:
+    """Generate 2D subplots for lambda values, with one subplot for each CSV file.
 
-#     :param file_paths: List of paths to the CSV files containing lambda values
-#     :param x_value: The name of the value for the x-axis (e.g., 'gpt2-helpful')
-#     :param y_value: The name of the value for the y-axis (e.g., 'gpt2-harmless')
-#     :param output_prefix: Path to save the output PDF
-#     """
-#     # Create a 2D plot
-#     fig, ax = plt.subplots()
+    This function creates multiple 2D scatter plots for optimized and Dirichlet (random) lambda values 
+    for two specified metrics, displaying one subplot per CSV file. This helps to analyze the shrinkage 
+    of feasible lambda regions as more values are considered.
 
-#     # Define a color cycle to use different colors for each file
-#     colors = itertools.cycle(['b', 'g', 'r', 'c', 'm', 'y', 'k'])
-#     D = [2+d for d in range(len(file_paths))]
+    Args:
+        file_paths (list[str]): List of CSV file paths containing lambda values for each subplot.
+        x_value (str): Metric name for the x-axis (e.g., 'gpt2-helpful').
+        y_value (str): Metric name for the y-axis (e.g., 'gpt2-harmless').
+        output_prefix (str): Prefix for the output PDF file where the plot will be saved.
 
-#     # Loop over the files and plot each one with a different color
-#     for idx, file_path in enumerate(file_paths):
-#         # Load the CSV file
-#         df = pd.read_csv(file_path)
-
-#         # Retrieve the index of the x_value and y_value from the "values" column
-#         values_list = df['values'].iloc[0].split(',')
-#         try:
-#             x_idx = values_list.index(x_value)
-#             y_idx = values_list.index(y_value)
-#         except ValueError as e:
-#             raise ValueError(f"Error: One of the values '{x_value}' or '{y_value}' not found in file '{file_path}'.") from e
-
-#         # Extract the optimized_lambda column
-#         lambda_values = df['optimized_lambda'].apply(lambda x: list(map(float, x.split(','))))
-        
-#         # Extract x, y coordinates for optimized_lambda based on the retrieved indices
-#         xs_optimized = [l[x_idx] for l in lambda_values]
-#         ys_optimized = [l[y_idx] for l in lambda_values]
-
-#         # Get the next color from the cycle
-#         color = next(colors)
-
-#         # Plot optimized_lambda points with semi-transparency
-#         ax.scatter(xs_optimized, ys_optimized, c=color, marker='o', alpha=0.6, s=8, label=r'MAP-random $\lambda$'+f' (align {D[idx]} values)')
-
-#         # If this is the first file, plot Dirichlet_lambda_ref
-#         if idx == 0:
-#             dirichlet_lambda_values = df['Dirichlet_lambda_ref'].apply(lambda x: list(map(float, x.split(','))))
-#             xs_dirichlet = [l[x_idx] for l in dirichlet_lambda_values]
-#             ys_dirichlet = [l[y_idx] for l in dirichlet_lambda_values]
-
-#             # Plot Dirichlet_lambda_ref points in a different color with semi-transparency and smaller marker size
-#             ax.scatter(xs_dirichlet, ys_dirichlet, c='r', marker='x', alpha=0.3, s=20, label=r'Random $\lambda$')
-
-#     # Set labels with LaTeX formatting and fontsize 16
-#     ax.set_xlabel(r'$\lambda_{\mathrm{Helpful}}$', fontsize=16)
-#     ax.set_ylabel(r'$\lambda_{\mathrm{Harmless}}$', fontsize=16)
-
-#     # Add legend
-#     ax.legend()
-
-#     # Save the plot to a PDF
-#     plt.savefig(f"{output_prefix}.pdf", bbox_inches='tight')
-#     print(f"Successfully saved plot to {output_prefix}.pdf!")
-
-
-def plot_lambdas_2D_subplots(file_paths, x_value, y_value, output_prefix):
+    Example:
+        >>> file_paths = ["lambda_data_2D.csv", "lambda_data_3D.csv"]
+        >>> plot_lambdas_2D_subplots(file_paths, "gpt2-helpful", "gpt2-harmless", "results/lambda_2D_subplots")
     """
-    Function to create several subplots, one for each file, in a 2D plot
-    with semi-transparent dots. The Dirichlet_lambda_ref is plotted file-specific 
-    for each subplot.
 
-    :param file_paths: List of paths to the CSV files containing lambda values
-    :param x_value: The name of the value for the x-axis (e.g., 'gpt2-helpful')
-    :param y_value: The name of the value for the y-axis (e.g., 'gpt2-harmless')
-    :param output_prefix: Path to save the output PDF
-    """
     # Create a figure with subplots (one for each file, horizontal layout)
     num_files = len(file_paths)
     fig, axes = plt.subplots(1, num_files, figsize=(5*num_files, 5))

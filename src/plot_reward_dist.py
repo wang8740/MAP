@@ -7,14 +7,20 @@ import numpy as np
 import torch
 import matplotlib.patches as mpatches
 
-'''
-    This script contained all the plotting functions used to visualize the results of the experiments, which were recently split into individual files named plot_xxx.py
-'''
+def plot_hist(json_file: str) -> None:
+    """Generate histograms for each reward type in a JSON file, visualizing reward distributions.
 
-def plot_hist(json_file):
-    '''
-        Intend to input a path to sentences along with calculated rewards to show the distribution of each reward
-    '''
+    This function reads a JSON file containing calculated rewards for various sentences, converts
+    the data into a DataFrame, and plots histograms for each reward category. Each histogram represents
+    the frequency distribution of rewards for a specific category.
+
+    Args:
+        json_file (str): Path to the JSON file containing reward data.
+
+    Example:
+        >>> json_file = "results/opt1.3b-Anthropic-harmless.json"
+        >>> plot_hist(json_file)
+    """
 
     # Step 1: Read the JSON file
     with open(json_file, 'r') as file:
@@ -46,10 +52,39 @@ def plot_hist(json_file):
 
     # Close the plot to free memory
     plt.close()
-  
 
 
-def plot_weighted_unweighted_histograms(file_path, values_to_evaluate, values_to_align, lam, subplot_names, save_path):
+def plot_weighted_unweighted_histograms(
+    file_path: str, 
+    values_to_evaluate: list[str], 
+    values_to_align: list[str], 
+    lam: list[float], 
+    subplot_names: list[str], 
+    save_path: str
+) -> None:
+    """Plot weighted and unweighted histograms for reward distributions, showing the effects of MAP alignment.
+
+    This function reads a JSON file with reward data, applies MAP alignment using specified lambda weights,
+    and generates histograms for each reward type before and after alignment. The histograms allow comparison
+    between original and MAP-aligned distributions for each reward type.
+
+    Args:
+        file_path (str): Path to the JSON file containing reward data.
+        values_to_evaluate (list[str]): Reward types to evaluate and plot (e.g., ["humor", "gpt2-helpful"]).
+        values_to_align (list[str]): Reward types to align based on the lambda weights.
+        lam (list[float]): Lambda values used to adjust reward weights in alignment.
+        subplot_names (list[str]): Names to use for subplots, corresponding to each value in `values_to_evaluate`.
+        save_path (str): Path to save the resulting PDF file of histograms.
+
+    Example:
+        >>> file_path = "results/llama2_chat-Anthropic-harmless.json"
+        >>> values_to_evaluate = ["humor", "gpt2-helpful", "gpt2-harmless"]
+        >>> values_to_align = ["humor", "gpt2-helpful", "gpt2-harmless", "diversity", "coherence", "perplexity"]
+        >>> lam = [5.942, 2.432, 2.923, 0.006, 0.011, 0.147]
+        >>> subplot_names = ["Humor", "Helpfulness", "Harmlessness"]
+        >>> save_path = "results/fig_hist_llama2chat_80.pdf"
+        >>> plot_weighted_unweighted_histograms(file_path, values_to_evaluate, values_to_align, lam, subplot_names, save_path)
+    """
     # Convert lambda to tensor
     lam_tensor = torch.tensor(lam, dtype=torch.float32)
     
@@ -132,10 +167,21 @@ def plot_weighted_unweighted_histograms(file_path, values_to_evaluate, values_to
     return
  
 
-def plot_hist_positive(json_file):
-    '''
-        Intends to input a path to a JSON file with a "positive" column and plot the distribution of these values.
-    '''
+def plot_hist_positive(json_file: str) -> None:
+    """Plot a histogram for the 'positive' column in a JSON file, showing value distribution.
+
+    This function reads a JSON file with a 'positive' column, applies an exponential transformation to
+    the values, and creates a histogram. It’s used to visualize the distribution of transformed 'positive'
+    values across the dataset.
+
+    Args:
+        json_file (str): Path to the JSON file containing a 'positive' column.
+
+    Example:
+        >>> json_file = "results/opt1.3b-positive_values.json"
+        >>> plot_hist_positive(json_file)
+    """
+
     with open(json_file, 'r') as file:
         data = json.load(file)
     df = pd.DataFrame(data)

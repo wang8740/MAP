@@ -1,4 +1,4 @@
-# proposed decoding - top k 
+# this script is the original research code for token-level decoding
 import time
 import copy
 import random

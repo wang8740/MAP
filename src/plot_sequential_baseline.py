@@ -16,8 +16,19 @@ round_1_results = data["model_settings"][model_setting]["round_1_results"]
 round_5_results = data["model_settings"][model_setting]["round_5_results"]
 
 
-def plot_separate_setup():
+def plot_separate_setup() -> None:
+    """Generate a bar chart comparing MAP and sequential alignment results for a specified alignment level.
 
+    This function creates a bar plot displaying the aligned c-levels (in quantiles) for each category using 
+    MAP alignment, Sequential Round 1, and Sequential Round 5. It visualizes the difference in results across 
+    these alignment strategies for a single alignment level (specified by `s`).
+
+    Args:
+        None
+
+    Example:
+        >>> plot_separate_setup()
+    """
     # Positions and width for the bars
     x = np.arange(len(categories))
     width = 0.25
@@ -43,8 +54,20 @@ def plot_separate_setup():
     plt.savefig(f'results/plot_sequential_baseline_{s}.pdf')
 
 
-def plot_all_setups():
+def plot_all_setups() -> None:
+    """Generate a bar chart with sub-grouped bars comparing MAP and sequential alignment results across multiple alignment levels.
 
+    This function creates a bar plot with sub-grouped bars to display realized value levels (in quantiles) 
+    for each category, across multiple alignment levels (e.g., "50%", "60%", "70%"). It compares MAP alignment, 
+    Sequential Round 1, and Sequential Round 5 for each alignment level within each category, providing a 
+    comprehensive view of alignment outcomes.
+
+    Args:
+        None
+
+    Example:
+        >>> plot_all_setups()
+    """
     # Define the s-values
     s_values = ["50%", "60%", "70%"]
 

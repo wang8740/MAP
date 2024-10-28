@@ -31,7 +31,12 @@ extensions = [
 ]
 
 autoapi_dirs = ['../src']
-autoapi_ignore = ['*generate-alpacaFinetune.py']  # Exclude specific file(s) or pattern(s)
+autoapi_ignore = [
+    '*generate-alpacaFinetune.py', 
+    '*plot_tab_in_quantiles.py', 
+    '*tokenValueDecoder.py', 
+    '*submit_*.py'  # Ignore all files starting with "submit_"
+]
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
