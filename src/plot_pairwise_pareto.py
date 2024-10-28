@@ -13,10 +13,20 @@ pio.kaleido.scope.mathjax = None
 import sys
 
 
-def plot_matrix_scatterplot(csv_path):
-    '''
-        Intend to input a path to randomly generated c values to show Tradeoffs and Pareto Fronts
-    '''
+def plot_matrix_scatterplot(csv_path: str) -> None:
+    """Generate a matrix scatter plot from a CSV file, showing trade-offs and Pareto fronts.
+
+    This function reads a CSV file into a DataFrame and creates a scatter plot matrix using Seaborn,
+    visualizing the trade-offs among variables.
+
+    Args:
+        csv_path (str): Path to the CSV file containing randomly generated values.
+
+    Example:
+        >>> csv_path = "results/opt1.3b-Imdb_pareto-1_randLam_val=all_numericC-levels.csv"
+        >>> plot_matrix_scatterplot(csv_path)
+    """
+
     # Load the CSV file into a DataFrame
     df = pd.read_csv(csv_path)
     
@@ -32,7 +42,36 @@ def plot_matrix_scatterplot(csv_path):
     plt.show()
 
 
-def quantile_transform(value1, value2, filename, x_list, y_list):
+def quantile_transform(
+    value1: str, 
+    value2: str, 
+    filename: str, 
+    x_list: list[float], 
+    y_list: list[float]
+) -> tuple[list[float], list[float]]:
+    """Calculate quantiles for specified values from a JSON file.
+
+    This function reads data from a JSON file and computes quantiles for two specified metrics based on
+    given lists, helping to normalize data for comparative visualization.
+
+    Args:
+        value1 (str): The key for the first value (x-axis).
+        value2 (str): The key for the second value (y-axis).
+        filename (str): Path to the JSON file containing data.
+        x_list (list[float]): List of x-axis values to calculate quantiles for.
+        y_list (list[float]): List of y-axis values to calculate quantiles for.
+
+    Returns:
+        tuple[list[float], list[float]]: Quantiles for x_list and y_list.
+
+    Example:
+        >>> filename = "results/opt1.3b-Anthropic-harmless.json"
+        >>> x_list = [1.2, 0.5, 0.8]
+        >>> y_list = [0.9, 1.0, 1.1]
+        >>> quantile_transform("gpt2-helpful", "gpt2-harmless", filename, x_list, y_list)
+        ([0.75, 0.25, 0.5], [0.33, 0.67, 1.0])
+    """
+
     # Load the JSON file
     with open(filename, 'r') as file:
         data = json.load(file)
@@ -51,7 +90,38 @@ def quantile_transform(value1, value2, filename, x_list, y_list):
     return x_quantiles, y_quantiles
 
 
-def plot_pareto(column_names, csv_path, alignment_data=None, reward_filepath=None, use_quantile_transform=True, xlim=[0,1.04], ylim=[0,1.04]):
+def plot_pareto(
+    column_names: list[str], 
+    csv_path: str, 
+    alignment_data: dict = None, 
+    reward_filepath: str = None, 
+    use_quantile_transform: bool = True, 
+    xlim: list[float] = [0, 1.04], 
+    ylim: list[float] = [0, 1.04]
+) -> None:
+    """Plot Pareto frontiers and trade-offs between selected metrics, with optional alignment points.
+
+    This function reads a CSV file and optionally applies quantile transformations to normalize the data.
+    It plots the specified columns as a scatter plot and highlights given alignment points with arrows
+    representing navigation paths across models.
+
+    Args:
+        column_names (list[str]): List containing two column names to be plotted.
+        csv_path (str): Path to the CSV file with values to plot.
+        alignment_data (dict, optional): Dictionary of points to highlight on the plot. Defaults to None.
+        reward_filepath (str, optional): Path to JSON file for quantile transformation reference. Defaults to None.
+        use_quantile_transform (bool, optional): Whether to normalize values with quantiles. Defaults to True.
+        xlim (list[float], optional): Limits for the x-axis. Defaults to [0, 1.04].
+        ylim (list[float], optional): Limits for the y-axis. Defaults to [0, 1.04].
+
+    Example:
+        >>> csv_path = "results/opt1.3b-Imdb_pareto-1_randLam_val=all_numericC-levels.csv"
+        >>> alignment_data = {
+        ...     "Original model": [1.248, -1.011],
+        ...     "MAP": [2.164, -0.108]
+        ... }
+        >>> plot_pareto(["gpt2-helpful", "gpt2-harmless"], csv_path, alignment_data)
+    """
     # Load the CSV file into a DataFrame
     df = pd.read_csv(csv_path)
 
