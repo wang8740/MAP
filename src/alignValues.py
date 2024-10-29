@@ -198,7 +198,7 @@ class AlignValues:
             >>> print(f"Sequentially optimized lambda: {optimized_lambda}")
 
         Command-line usage:
-            >>> python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --file_path="results/opt1.3b-Anthropic-harmless.json" sequential_optimize_lambda
+        >>> python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --file_path="results/opt1.3b-Anthropic-harmless.json" sequential_optimize_lambda
         """
 
         for idx in range(len(self.c)):
