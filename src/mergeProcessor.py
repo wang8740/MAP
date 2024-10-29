@@ -26,7 +26,7 @@ class MergeProcessor:
             >>> processor.merge_added_rewards("results/Llama27b-chat-Anthropic-harmless.json", save_to_temp_folder=True)
 
         Command-line usage:
-            python mergeProcessor.py merge_added_rewards --original_file_path="results/Llama27b-chat-Anthropic-harmless.json" --save_to_temp_folder=True
+            >>> python mergeProcessor.py merge_added_rewards --original_file_path="results/Llama27b-chat-Anthropic-harmless.json" --save_to_temp_folder=True
         """
 
         print("\nRunning MergeProcessor.merge_added_rewards\n")
@@ -100,7 +100,7 @@ class MergeProcessor:
             >>> processor.merge_gendata_bypattern("results/temp/Llama27b-chat-Anthropic-harmless_lam=2.018,1.393,1.498,0.008,0.015,0.088_val=all_*to*.json")
 
         Command-line usage:
-            python mergeProcessor.py merge_gendata_bypattern --json_file_pattern="results/temp/Llama27b-chat-Anthropic-harmless_lam=2.018,1.393,1.498,0.008,0.015,0.088_val=all_*to*.json"
+            >>> python mergeProcessor.py merge_gendata_bypattern --json_file_pattern="results/temp/Llama27b-chat-Anthropic-harmless_lam=2.018,1.393,1.498,0.008,0.015,0.088_val=all_*to*.json"
         """
   
         print("\nRunning MergeProcessor.merge_gendata_bypattern\n")

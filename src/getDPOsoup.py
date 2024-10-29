@@ -26,7 +26,7 @@ def soup(model_path1, model_path2, harmless_lambda, save_path):
         >>> soup(model_path1, model_path2, harmless_lambda, save_path)
 
     Command-line usage:
-        python getDPOsoup.py --model_path1=model_path1 --model_path2=model_path2 --harmless_lambda=0.5 --save_path=soupModel_relative_path
+        >>> python getDPOsoup.py --model_path1=model_path1 --model_path2=model_path2 --harmless_lambda=0.5 --save_path=soupModel_relative_path
     """
 
     # Load the models for interpolation

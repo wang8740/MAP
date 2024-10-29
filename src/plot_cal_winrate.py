@@ -30,7 +30,7 @@ def calculate_win_rate(
         >>> print(result)
 
     Command-line usage:
-        python script.py --model_file="fine_tuned_model.json" --base_model_file="base_model.json"
+        >>> python script.py --model_file="fine_tuned_model.json" --base_model_file="base_model.json"
     """
 
     with open(model_file, 'r') as f:
