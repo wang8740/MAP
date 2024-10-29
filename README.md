@@ -1,14 +1,8 @@
 # MAP: Human-AI Value Alignment
 
+Artificial Intelligence (AI) has evolved into an integral part of modern technology, affecting many facets of our daily lives and work. Multi-Human-Value Alignment Palette (MAP) offers a first-principle approach to align AI systems with diverse, dynamically defined human values—such as harmlessness, helpfulness, and positiveness—through a structured optimization framework, achieving principled multi-value alignment across tasks.
+
 This repository contains the source codes and API documentation for the MAP project.
-
-## Roadmap
-
-- Complete documentation and set up README license
-- Packaging and set up use cases on both slurm and notebook
-- Add GUI gif demo 
-- Add github metrics and tutorial video
-- Massively advertise
 
 ## Prerequisites
 
@@ -234,3 +228,15 @@ To manually trigger a rebuild:
 - Commit and push this change to trigger the workflow again.
 
 Remember, the `gh-pages` branch is now managed automatically by the GitHub Actions workflow. You don't need to manually update or push to this branch.
+
+
+## How to Contribute
+
+We welcome contributions from everyone. Please read our [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to contribute to this project.
+
+
+## Code of Conduct
+
+To ensure a welcoming and productive environment, all participants are expected to uphold our [Code of Conduct](./CODE_OF_CONDUCT.md).
+
+
