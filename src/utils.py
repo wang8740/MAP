@@ -13,8 +13,7 @@ from transformers import (
     OPTForCausalLM
 )
 import numpy as np
-# import glob
-# import json
+import json
 import nltk
 # nltk.download('punkt_tab') # run one time only and figure out the path
 nltk.data.path.append('/users/5/wang8740/nltk_data')
@@ -35,10 +34,20 @@ elif TASK_NAME == 'sentiment_control':
     ALL_SUPPORTED_VALUES_plotnames = ["Positiveness", "Helpfulness", "Harmlessness", "Diversity", "Coherence", "Perplexity"]
 
 
-def get_device():
+def get_device() -> str:
+    """Determines the device for model computation.
+
+    Returns:
+        str: Device type, either "cuda" if available, else "cpu".
+    """
     return "cuda" if torch.cuda.is_available() else "cpu"
 
-def get_nvidia_smi_info():
+def get_nvidia_smi_info() -> Union[str, None]:
+    """Fetches NVIDIA GPU details using the nvidia-smi command.
+
+    Returns:
+        str or None: Output from nvidia-smi command if successful, None otherwise.
+    """
     try:
         result = subprocess.run(['nvidia-smi'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
         return result.stdout
@@ -59,26 +68,28 @@ devices = {
     "opt1.3b": get_device(),
 }
 
-def save_results_to_json(self, results, file_path):
-    """save results into json file
+def save_results_to_json(results: list, file_path: str) -> None:
+    """Saves results to a JSON file.
 
-    example:
-    results = []
-    for ...
-        results.append({"prompt": prompt, "generated": gen_text, "perplexity": perplexity})
-    save_results_to_json(results, self.file_path)
-    
     Args:
-        results (_type_): _description_
-        file_path (_type_): _description_
+        results (list): List of dictionaries containing prompt and generated text.
+        file_path (str): Path to save the JSON file.
     """
     with open(file_path, 'w') as f:
         json.dump(results, f, indent=4)
     print(f"\nResults saved to {file_path}")
 
 
-def clean_and_trim_to_last_sentence(prompts, decoded_outputs):
-    
+def clean_and_trim_to_last_sentence(prompts: List[str], decoded_outputs: List[str]) -> List[str]:
+    """Cleans and trims decoded outputs to the last complete sentence.
+
+    Args:
+        prompts (List[str]): List of input prompts.
+        decoded_outputs (List[str]): List of decoded model outputs.
+
+    Returns:
+        List[str]: Cleaned and trimmed outputs.
+    """
     clean_outputs = []
     for prompt, s in zip(prompts, decoded_outputs):
         
@@ -99,14 +110,30 @@ def clean_and_trim_to_last_sentence(prompts, decoded_outputs):
 
 
 class LengthSampler:
+    """A class for sampling text lengths within a given range."""
+
     def __init__(self, min_length, max_length):
         self.min_length = min_length
         self.max_length = max_length
 
     def __call__(self):
+        """Generates a random length within the specified range.
+
+        Returns:
+            int: Random length within the min and max range.
+        """
         return random.randint(self.min_length, self.max_length)
 
     def trim_to_word_boundary(self, text, length):
+        """Trims text to the last word boundary within a given length.
+
+        Args:
+            text (str): Text to be trimmed.
+            length (int): Maximum character length for trimming.
+
+        Returns:
+            str: Text trimmed to the last word boundary.
+        """
         if len(text) <= length:
             return text
         # Find the last space within the length
@@ -118,7 +145,12 @@ class LengthSampler:
 
 
 def get_prompts_from_Anthropic_harmless():
-    # NOTE: the generation is non-random everytime being called
+    """Retrieves harmless prompts from the Anthropic dataset.
+    Importantly, the generation is non-random everytime being called.
+
+    Returns:
+        List[str]: List of harmless prompts.
+    """
 
     # Load the 'test' partition of the 'harmless-base' subset
     dataset = load_dataset("Anthropic/hh-rlhf", data_dir="harmless-base", split='test')
@@ -143,8 +175,12 @@ def get_prompts_from_Anthropic_harmless():
 
 
 def get_prompts_from_imdb():
-    # NOTE: the generation is non-random everytime being called
-    # TODO: add truncation of input 
+    """Retrieves prompts from the IMDB dataset, filtered by length.
+    Importantly, the generation is non-random everytime being called.
+
+    Returns:
+        List[str]: List of filtered IMDB prompts.
+    """
 
     # Load the IMDB dataset with the 'datasets' library
     ds = load_dataset("imdb", split="train")
@@ -167,7 +203,16 @@ def get_prompts_from_imdb():
 
 
 def cal_humor_probabilities(sentences, model, tokenizer):
-    # sentences is a list whose size/batchsize is limited by memory
+    """Calculates humor probabilities and raw scores.
+
+    Args:
+        sentences (List[str]): List of sentences, whose size/batchsize is limited by memory
+        model: Model for humor classification.
+        tokenizer: Tokenizer for input processing.
+
+    Returns:
+        Tuple[List[float], List[float]]: Humor probabilities and raw scores.
+    """
 
     # Tokenize the sentences
     inputs = tokenizer(sentences, padding=True, truncation=True, return_tensors="pt").to(devices["humor"])
@@ -188,7 +233,16 @@ def cal_humor_probabilities(sentences, model, tokenizer):
 
 
 def cal_positive_sentiment(sentences, model, tokenizer):
+    """Calculates positive sentiment probabilities and scores.
 
+    Args:
+        sentences (List[str]): List of sentences.
+        model: Model for sentiment classification.
+        tokenizer: Tokenizer for input processing.
+
+    Returns:
+        Tuple[List[float], List[float]]: Positive probabilities and scores.
+    """
     inputs = tokenizer(sentences, padding=True, truncation=True, return_tensors="pt").to(devices["positive"])
 
     with torch.no_grad():
@@ -202,9 +256,17 @@ def cal_positive_sentiment(sentences, model, tokenizer):
 
     return probabilities, positive_scores
 
+def cal_harmless_probabilities(sentences: List[str], model, tokenizer) -> Tuple[List[float], List[float]]:
+    """Calculates harmlessness probabilities and scores.
 
-def cal_harmless_probabilities(sentences, model, tokenizer):
-    # sentences is a list whose size/batchsize is limited by memory
+    Args:
+        sentences (List[str]): List of sentences.
+        model: Model for harmlessness classification.
+        tokenizer: Tokenizer for input processing.
+
+    Returns:
+        Tuple[List[float], List[float]]: Harmless probabilities and scores.
+    """
 
     # Tokenize the sentences
     inputs = tokenizer(sentences, padding=True, truncation=True, return_tensors="pt").to(devices["harmless"])
@@ -223,10 +285,19 @@ def cal_harmless_probabilities(sentences, model, tokenizer):
     return probabilities, raw_scores
 
 
-def cal_gpt2_harmless_probabilities(prompts, continuations, model, tokenizer):
-    # questions: prompts. answers: continuations
+def cal_gpt2_harmless_probabilities(prompts: List[str], continuations: List[str], model, tokenizer) -> Tuple[List[float], List[float]]:
+    """Calculates probabilities and raw scores indicating the harmlessness of a response.
+
+    Args:
+        prompts (List[str]): List of initial prompt strings.
+        continuations (List[str]): List of continuation (response) strings.
+        model: Model for evaluating harmlessness.
+        tokenizer: Tokenizer for processing the inputs.
+
+    Returns:
+        Tuple[List[float], List[float]]: Harmlessness probabilities and raw scores.
+    """
     # arrange model inputs in model-recognizable format
-    
     questions = ["\n\nHuman: "+p+" \n\nAssistant:" for p in prompts]
     answers = continuations
     probabilities = []
@@ -246,8 +317,18 @@ def cal_gpt2_harmless_probabilities(prompts, continuations, model, tokenizer):
     return probabilities, raw_scores
 
 
-def cal_gpt2_helpful_probabilities(prompts, continuations, model, tokenizer):
+def cal_gpt2_helpful_probabilities(prompts: List[str], continuations: List[str], model, tokenizer) -> Tuple[List[float], List[float]]:
+    """Calculates probabilities and raw scores indicating the helpfulness of a response.
 
+    Args:
+        prompts (List[str]): List of prompt strings.
+        continuations (List[str]): List of continuation (response) strings.
+        model: Model for evaluating helpfulness.
+        tokenizer: Tokenizer for processing the inputs.
+
+    Returns:
+        Tuple[List[float], List[float]]: Helpfulness probabilities and raw scores.
+    """
     questions = ["\n\nHuman: "+p+" \n\nAssistant:" for p in prompts]
     answers = continuations
     probabilities = []
@@ -266,8 +347,17 @@ def cal_gpt2_helpful_probabilities(prompts, continuations, model, tokenizer):
     return probabilities, raw_scores
 
 
-def compute_rep_n(sentence, n):
-    # subroutine of compute_diversity
+def compute_rep_n(sentence: str, n: int) -> float:
+    """Calculates the unique fraction of n-grams within a sentence.
+    This function is a subroutine of cal_diversity
+
+    Args:
+        sentence (str): Sentence to analyze.
+        n (int): Length of the n-grams to compute.
+
+    Returns:
+        float: Fraction of unique n-grams in the sentence.
+    """
     tokens = word_tokenize(sentence)
     ngrams = [tuple(tokens[i : i + n]) for i in range(len(tokens) - n + 1)]
     uniq_n = len(set(ngrams)) / (len(ngrams) + 1)
@@ -275,7 +365,15 @@ def compute_rep_n(sentence, n):
     return uniq_n
 
 
-def cal_diversity(sentence):
+def cal_diversity(sentence: str) -> float:
+    """Calculates diversity score by computing unique n-grams for n=2,3,4.
+
+    Args:
+        sentence (str): Sentence to analyze.
+
+    Returns:
+        float: Diversity score, product of unique n-grams for each n in (2, 3, 4).
+    """
     
     diversity = 1.0
     for n in range(2, 5):
@@ -285,7 +383,17 @@ def cal_diversity(sentence):
     return diversity
 
 
-def cal_log_perplexity(sentences, model, tokenizer):
+def cal_log_perplexity(sentences: List[str], model, tokenizer) -> List[float]:
+    """Calculates log perplexity for a list of sentences.
+
+    Args:
+        sentences (List[str]): List of sentences.
+        model: Model to evaluate perplexity.
+        tokenizer: Tokenizer for processing the inputs.
+
+    Returns:
+        List[float]: List of log perplexity values for each sentence.
+    """
     log_perplexities = []
     for sentence in sentences:
         inputs = tokenizer(sentence, return_tensors="pt", padding=True, truncation=True).to(devices["perplexity"])
@@ -298,8 +406,18 @@ def cal_log_perplexity(sentences, model, tokenizer):
     return log_perplexities
 
 
-def cal_coherence(prompts, continuations, model, tokenizer):
-    # Assume `prompts` and `sentences` are lists of equal length where each prompt corresponds to each sentence
+def cal_coherence(prompts: List[str], continuations: List[str], model, tokenizer) -> List[float]:
+    """Calculates coherence between prompts and continuations using cosine similarity.
+
+    Args:
+        prompts (List[str]): List of prompt sentences.
+        continuations (List[str]): List of continuation sentences.  Equal length as prompts as each prompt corresponds to each sentence.
+        model: Model for sentence embedding.
+        tokenizer: Tokenizer for processing the inputs.
+
+    Returns:
+        List[float]: List of cosine similarity scores for each prompt-continuation pair.
+    """
     
     prompt_inputs = tokenizer(prompts, padding=True, truncation=True, return_tensors="pt").to(devices["coherence"])
     continuation_inputs = tokenizer(continuations, padding=True, truncation=True, return_tensors="pt").to(devices["coherence"])
@@ -313,9 +431,24 @@ def cal_coherence(prompts, continuations, model, tokenizer):
     return similarity
 
 
-def get_reward(sentences, value, model=None, tokenizer=None, prompts=None, use_score=True):
-    # assume each entry in sentences consists of a prompt and a continuation
-    # prompts are needed to compute the gpt2_harmless, gpt2_helpful, coherence
+def get_reward(sentences: List[str], value: str, model=None, tokenizer=None, prompts: List[str] = None, use_score: bool = True) -> Union[List[float], None]:
+    """Calculates reward scores based on the specified value (e.g., humor, coherence).
+
+    Args:
+        sentences (List[str]): List of sentences for evaluation. Each consists of a prompt and a continuation.
+        value (str): Type of reward (e.g., "humor", "positive", etc.).
+        model: Model used for evaluation, if applicable.
+        tokenizer: Tokenizer used for model input processing.
+        prompts (List[str], optional): List of prompts if needed for evaluation. Required to compute the gpt2_harmless, gpt2_helpful, coherence.
+        use_score (bool, optional): If True, returns raw scores; otherwise, probabilities.
+
+    Returns:
+        Union[List[float], None]: List of reward scores or probabilities, or None if the value is invalid.
+
+    Example:
+        >>> rewards = get_reward(sentences, "humor")
+        >>> print("Average Reward:", np.mean(rewards))
+    """
     
     if value == "humor":
         humor_prob, humor_score = cal_humor_probabilities(sentences, model, tokenizer)
@@ -377,15 +510,27 @@ def get_reward(sentences, value, model=None, tokenizer=None, prompts=None, use_s
     return rewards
 
 
-def convert_ppo_modelname_to_huggingface_valid(ppo_model_name):
-    '''
-        convert a ppo trained model name to ensure that it is a valid huggingface model path name
-    '''
+def convert_ppo_modelname_to_huggingface_valid(ppo_model_name: str) -> str:
+    """Converts a PPO-trained model name to a valid Hugging Face model path format.
+
+    Args:
+        ppo_model_name (str): Model name to be converted.
+
+    Returns:
+        str: Converted model name.
+    """
     return ppo_model_name.replace(',', '_').replace('=', '_')
 
 
-def get_model_and_tokenizer(model_name):
+def get_model_and_tokenizer(model_name: str):
+    """Fetches a model and tokenizer based on the model name.
 
+    Args:
+        model_name (str): Name of the model.
+
+    Returns:
+        Tuple[transformers.PreTrainedModel, transformers.PreTrainedTokenizer]: The specified model and tokenizer.
+    """
     # Default to 'cuda' if model name is not in the devices dictionary
     device = devices.get(model_name, "cuda")
 
@@ -449,10 +594,6 @@ def get_model_and_tokenizer(model_name):
     print(f"\nAttempting to load model {model_name}, device set to {device}")
 
     return model, tokenizer
-
-# Example use:
-# rewards = get_reward(sentences, "humor")
-# print("Average Reward:", np.mean(rewards))
 
 
 if __name__ == "__main__":
