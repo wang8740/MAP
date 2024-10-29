@@ -15,41 +15,31 @@ from utils import (
 )
 from torch.nn.utils.rnn import pad_sequence
 import os
-# torch.manual_seed(0)
-
-# def collator(data):
-#     return dict((key, [d[key] for d in data]) for key in data[0])
-
-# your batch contains a list of tensor objects, not a single tensor.
-
-# def collator(batch):
-#     input_ids = pad_sequence([item['input_ids'] for item in batch], batch_first=True, padding_value=tokenizer.pad_token_id)
-#     queries = [item['query'] for item in batch]
-#     return {'input_ids': input_ids, 'query': queries}
-
-
-# def collator(batch):
-#     # Extract input_ids from the batch
-#     input_ids = [item['input_ids'] for item in batch]
-#     padded_input_ids = pad_sequence(input_ids, batch_first=True, padding_value=0)
-#     return {'input_ids': padded_input_ids}
 
 def collator(data):
+    """Data collator function for grouping data batches without padding. 
+    PPOTrainer handles padding internally based on the tokenizer settings.
+
+    Args:
+        data (list): List of data samples.
+
+    Returns:
+        dict: A dictionary with collated data grouped by each key in the input.
+    """
     # PPOTrainer will handle padding using tokenizer
     # https://github.com/huggingface/trl/blob/main/trl/trainer/ppo_trainer.py#L488 (line 566)
     return dict((key, [d[key] for d in data]) for key in data[0])
 
 def build_dataset(config, tokenizer, data_name):
-    """
-    Build dataset for training using prompts from get_prompts_from_imdb and apply tokenization.
+    """Builds and tokenizes the dataset for training based on specified data name.
 
     Args:
-        data_name (`str`):
-            The name of the dataset to be loaded.
+        config (PPOConfig): Configuration for PPO training.
+        tokenizer (AutoTokenizer): Tokenizer used to process and encode text data.
+        data_name (str): Name of the dataset, either "Imdb" or "Anthropic-harmless".
 
     Returns:
-        dataloader (`torch.utils.data.DataLoader`):
-            The dataloader for the dataset.
+        Dataset: A Hugging Face Dataset object with tokenized prompts for training.
     """
     # Load prompts using the specialized function
     if data_name=="Imdb":
@@ -72,13 +62,27 @@ def build_dataset(config, tokenizer, data_name):
     ds = ds.map(tokenize, batched=False)
     ds.set_format(type='torch')  # Set format for PyTorch
 
-    # Create DataLoader for the dataset
-    # dataloader = DataLoader(ds, batch_size=config.batch_size)
-
     return ds
 
 
 def main(lam_list, value_list, model_name, data_name, save_path, learning_rate=1e-6, batch_size=20, mini_batch_size=2, nepoch=1):
+    """Main function to train a model with PPO (Proximal Policy Optimization) based on user-defined parameters.
+
+    Args:
+        lam_list (list of float): List of lambda values for aligning specified values.
+        value_list (str): Comma-separated string of values to align (or "all" for all values).
+        model_name (str): Name of the model to use (e.g., "opt1.3b").
+        data_name (str): Name of the dataset to use ("Imdb" or "Anthropic-harmless").
+        save_path (str): Path to save the trained model.
+        learning_rate (float): Learning rate for PPO training. Defaults to 1e-6.
+        batch_size (int): Total batch size for training. Defaults to 20.
+        mini_batch_size (int): Batch size for each step. Defaults to 2.
+        nepoch (int): Number of training epochs. Defaults to 1.
+
+    # Example command-line usage:
+        >>> python trainPPO.py --model_name="opt-1.3b" --data_name="Imdb" --value_list="all" --lam_list="0.241,0.077,0.117,0.033,0.070,0.065" --learning_rate=1e-4
+
+    """
 
     if model_name=="opt1.3b": 
         model_path_name = "facebook/opt-1.3b" 
@@ -203,8 +207,6 @@ def main(lam_list, value_list, model_name, data_name, save_path, learning_rate=1
 if __name__ == "__main__":
     fire.Fire(main)
 
-
-# # f'python trainPPO.py --model_name="opt-1.3b" --data_name="Imdb" --value_list="all" --lam_list="0.241,0.077,0.117,0.033,0.070,0.065" --learning_rate=1e-4',
 
 
 

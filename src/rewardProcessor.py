@@ -8,22 +8,31 @@ import os
 import pandas as pd
 from shutil import copyfile
 
-def genGaussian(n, rho, colnames, sd=0.5):
-    # Input the number of samples k and the desired correlation rho
-
-    # Generate k samples from a standard normal distribution
-    x = np.random.normal(0, 1, n)
-    y = np.random.normal(0, 1, n)
-    cov_matrix = np.array([[1, rho], [rho, 1]])
-    L = np.linalg.cholesky(cov_matrix)
-    z = np.stack((x, y), axis=0)
-    correlated_data = np.dot(L, z) * sd
-
-    return pd.DataFrame(correlated_data.T, columns=colnames)
 
 class RewardProcessor:
-    def __init__(self, values_to_evaluate=None, values_to_align=None, file_path=None, batch_size=32):
+    """Processes reward values for a model output evaluation.
 
+    This class is used to evaluate and align different values (such as diversity, coherence, etc.)
+    for a set of generated model outputs.
+
+    Attributes:
+        values_to_evaluate (Optional[List[str]]): List of values to evaluate.
+        values_to_align (Optional[List[str]]): List of values to align.
+        file_path (str): Path to the JSON file containing generated outputs.
+        batch_size (int): Batch size for processing rewards.
+    """
+
+    def __init__(self, values_to_evaluate=None, values_to_align=None, file_path=None, batch_size=32):
+        """Initializes the RewardProcessor with parameters for evaluation and alignment.
+
+        Args:
+            values_to_evaluate (Optional[Union[str, List[str]]]): Values to evaluate, either as a
+                comma-separated string or list. Defaults to None.
+            values_to_align (Optional[Union[str, List[str]]]): Values to align, either as a
+                comma-separated string or list. Defaults to None.
+            file_path (Optional[str]): Path to the JSON file to process. Defaults to None.
+            batch_size (int): Size of batches to process at a time. Defaults to 32.
+        """
         print(f"\nRunning RewardProcessor.__init__ for {file_path}\n")
 
         self.values_to_align_str = None
@@ -42,7 +51,6 @@ class RewardProcessor:
                 self.values_to_evaluate = list(values_to_evaluate)
         else:
             self.values_to_evaluate = None
-
         
         if values_to_align: 
             if isinstance(values_to_align, str):
@@ -63,9 +71,23 @@ class RewardProcessor:
         
     
     def add_reward(self, value, basemodel_for_perplexity=None):
-        '''
-            The process is non-invasive, meaning that if the original json files has existing rewards for values not equal to value, it will not be overwritten or emptied
-        '''
+        """Adds a specific reward to the dataset in a non-invasive manner.
+
+        Args:
+            value (str): The reward type to add (e.g., "diversity", "perplexity").
+            basemodel_for_perplexity (Optional[str]): Base model required for "perplexity" value.
+                Defaults to None.
+
+        Raises:
+            ValueError: If `value` is "perplexity" and `basemodel_for_perplexity` is not provided.
+
+        # Example usage to add reward, often via submitting parallel pbs files to accelerate computation:
+        >>> reward_processor = RewardProcessor(file_path="results/Llama27b-chat-Anthropic-harmless.json")
+        >>> reward_processor.add_reward(value="humor")
+
+        # Command-line usage:
+        >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --value="humor" add_reward
+        """
         if value == "perplexity" and not basemodel_for_perplexity:
             raise ValueError("basemodel_for_perplexity, which should be the data-gen model, must be provided for perplexity task")
 
@@ -121,7 +143,14 @@ class RewardProcessor:
         return
 
     def quantile_transform_single_c(self, c_list):
+        """Transforms a list of c values into quantiles.
 
+        Args:
+            c_list (List[float]): List of c values to transform.
+
+        Returns:
+            List[float]: List of quantile values.
+        """
         print(f"\nRunning RewardProcessor.quantile_transform_single_c\n")
 
         with open(self.file_path, 'r') as file:
@@ -136,25 +165,30 @@ class RewardProcessor:
         return quant
 
     def assess_original_value(self, evaluation_mode = False):
+        """Assesses the original level of each value in the dataset.
 
+        Args:
+            evaluation_mode (bool): If True, calculates quantiles; otherwise, calculates only average. Defaults to False.
+    
+        # Example usage to get realized values or c-levels under the original model:
+        >>> reward_processor = RewardProcessor(file_path="results/Llama27b-chat-Anthropic-harmless.json", values_to_evaluate="all")
+        >>> reward_processor.assess_original_value()
+
+        # As a natural followup, one could define custom `c_align` values, e.g., set c to be 20% improvement:
+        >>> import numpy as np
+        >>> c_noalign = [-1.239, -2.731, -1.437, -0.362, 0.848, 0.521, -1.375]
+        >>> c_align = [x + np.log(1.25) for x in c_noalign[:4]]
+        >>> print(f"c_align: {','.join(f'{v:.3f}' for v in c_align)}") # [-1.016,-2.508,-1.214,-0.139,0.848,0.521,-1.375]
+
+        # Command-line usage:
+        >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_evaluate="all" assess_original_value
+
+        """
         print(f"\nRunning RewardProcessor.assess_original_value\n")
 
         # assess the original level of value, defined as the expected reward under the original data distribution (namely the one that generated the data stored in the file)
         with open(self.file_path, 'r') as file:
             data = json.load(file)
-
-        # average_rewards = []
-        # # Extract all values and calculate the average
-        # for value in self.values_to_evaluate:
-        #     list_rewards = [entry[value] for entry in data]
-        #     average_reward = sum(list_rewards) / len(list_rewards) if list_rewards else 0
-        #     print(f"Average {value} reward: {average_reward:.3f}")
-        #     average_rewards.append(average_reward)
-        
-        # df = pd.DataFrame([average_rewards], columns=self.values_to_evaluate).round(3)
-        # csv_path = f"results/original_rewards.csv"
-        # df.to_csv(csv_path, index=False)
-        # print(f"Results saved in {csv_path}")
 
         # Prepare DataFrame to store all statistics
         statistics = {'Statistic': ['avg', 'avg_std', '50%', '60%', '70%', '80%', '90%', '99%']}
@@ -195,11 +229,17 @@ class RewardProcessor:
         return
 
     def _assess_postalignment_singlevalue(self, singlevalue_to_evaluate, lam, debug=True):
-        # lam should be in List format
-        # assess the level (c) of singlevalue_to_evaluate after alignment, as weight-approximated by data stored in the file originally generated from pre-alignment distribution
-        # namely the weighted average of the reward where weight is propto exponential lambda times the reward of aligned values
-        # aligned_values: list of values that are aligned, lambda: corresponding weights
-        # both value and elements in aligned_values should appear in the dataset
+        """Assesses a single value's alignment level after applying alignment weights, 
+        as weight-approximated by data stored in the file originally generated from pre-alignment distribution.
+
+        Args:
+            singlevalue_to_evaluate (str): The value to evaluate alignment for.
+            lam (Union[float, List[float]]): Alignment weights.
+            debug (bool): If True, prints debugging information. Defaults to True.
+
+        Returns:
+            float: Estimated alignment level for the single value.
+        """
 
         if not isinstance(lam, (list, tuple)):
             lam_list = [lam]
@@ -241,12 +281,38 @@ class RewardProcessor:
         return estimated_c
     
     def assess_postalignment_multivalue(self, lam=None, k=100, scaling=1.0, scaling_MAX=1):
+        """
+        Applies `assess_postalignment_singlevalue` across multiple values and alignments.
+        If lam is not given, assess the c level by a random vector of lam drawn from the probability simplex multiplied by the scaling factor
+        If scaling < 0, then randomly select scaling factor from a range.
+        If lam is given, overwrite the k and scaling to simply use the given lam.
 
+        Args:
+            lam (Optional[Union[float, List[float]]]): Fixed alignment weights. Defaults to None.
+            k (int): Number of random samples for Monte Carlo. Defaults to 100.
+            scaling (float): Scaling factor for random lambda. Defaults to 1.0.
+            scaling_MAX (int): Maximum scaling for random lambda. Defaults to 1.
+
+
+        # Example 1 
+        # Usage for post-alignment assessment of multiple values:
+        >>> reward_processor = RewardProcessor(file_path="results/Llama27b-chat-Anthropic-harmless.json", values_to_align="humor,harmless", lam=[0.41, 0.37], values_to_evaluate="all")
+        >>> reward_processor.assess_postalignment_multivalue()
+
+        # Command-line usage:
+        >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="humor,harmless" --lam=0.41,0.37 --values_to_evaluate="all" assess_postalignment_multivalue
+        >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="humor,harmless" --lam=0.41,0.37 --values_to_evaluate="humor,harmless" assess_postalignment_multivalue
+
+        # Example 2 
+        # Pareto frontier study with random lambda (often used in conjunction with plot_pareto.py to visualize the Pareto frontier)
+        >>> reward_processor = RewardProcessor(file_path="results/Llama27b-chat-Anthropic-harmless.json", values_to_align="humor,harmless", values_to_evaluate="all", scaling=-1)
+        >>> reward_processor.assess_postalignment_multivalue()
+
+        # Command-line usage:
+        >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="humor,harmless" --values_to_evaluate="all" --scaling=-1 assess_postalignment_multivalue
+
+        """
         print(f"\nRunning RewardProcessor.assess_postalignment_multivalue\n")
-        # apply assess_postalignment_singlevalue to various lam drawn from the prob simplex
-        # if lam is not given, assess the c level by a random vector of lam drawn from the probability simplex multiplied by the scaling factor
-        # if scaling < 0, then randomly select scaling factor from a range
-        # if lam is given, overwrite the k and scaling to simply use the given lam
 
         if lam:
             k = 1
@@ -290,9 +356,6 @@ class RewardProcessor:
         df = pd.DataFrame(results, columns=self.values_to_evaluate + [v + "_lam" for v in self.values_to_align])
         df = df.round(3)
 
-        # use dummy df for ablation study
-        # df = genGaussian(n=k, rho=0.0, colnames=self.values_to_evaluate, sd=0.5)
-
         max_values = df.max()
         print("\nCompute the maximum of each column:")
         for col, max_value in max_values.items():
@@ -306,65 +369,3 @@ class RewardProcessor:
 
 if __name__ == '__main__':
     fire.Fire(RewardProcessor)
-
-
-'''
-    RUN to calculate rewards, often with parallel pbs: 
-    !python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --value="humor" add_reward
-'''
-
-
-'''
-    RUN to get the original rewards, namely the c level, before alignment
-    !python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_evaluate="all" assess_original_value
-'''
-
-
-'''
-    USE alignValues.py to get the lambda from user-defined c
-    !python alignValues.py --c_list=-0.005,-0.485,-0.078,0.848,0.521,-1.375 --value_list="all" --file_path="results/Llama27b-chat-Anthropic-harmless.json" optimize_lambda
-
-'''
-
-
-# set c to be 20% improvement
-# import numpy as np
-# c_noalign = [-1.239,-2.731,-1.437,-0.362,0.848,0.521,-1.375]
-# c_align = [x + np.log(1.25) for x in c_noalign[:4]]
-# print(f"c_align: {','.join(f'{v:.3f}' for v in c_align)}")
-# c_align: -1.016,-2.508,-1.214,-0.139,0.848,0.521,-1.375
-# lam = [0.174,0.017,1.264,9.201,0.004,0.141,0.014]
-
-# After optimizing lambda for "humor" from c we record
-# (c_humor, lambda_humor): (-2, 0.00), (-1.3 0.01), (-1.2, 0.02), (-0.1, 1.29), (0.5, NA)--goes to inf
-# for the pair (-0.1, 1.29), we generated aligned datasets and calculated Average humor reward: -0.1521 and harmless reward: -2.7116, which is successful! 
-
-# After optimizing lambda for "humor,harmless" from c we record
- # c=(-0.5,-1.5) -> lambda=(0.41, 0.37)
-
-
-'''
-    RUN to numerically estimate the c level for all values after alignment
-    ALTERNATIVELY, we can realistically generate samples using inference-stage MC approach or training-stage PPO approach
-    !python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="humor,harmless" --lam=0.41,0.37 --values_to_evaluate="all" assess_postalignment_multivalue
-    !python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="all" --lam=321.402,6.117,29.249,0.003,1.108,0.718 --values_to_evaluate="all" assess_postalignment_multivalue
-
-    Or simply for selected values: 
-    !python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="humor,harmless" --lam=0.41,0.37 --values_to_evaluate="humor,harmless" assess_postalignment_multivalue
-'''
-
-# --values_to_align="humor,harmless" --lam=0.41,0.37
-# -0.48788657784461975,-2.1130435466766357,-1.50656259059906,-0.2896653413772583,0.8501017689704895,0.5168927907943726,-1.3379247188568115,0.41,0.37
-
-# --values_to_align="all" --lam=see below
-# humor,harmless,gpt2-helpful,gpt2-harmless,diversity,coherence,perplexity,   humor_lam,harmless_lam,gpt2-helpful_lam,gpt2-harmless_lam,diversity_lam,coherence_lam,perplexity_lam
-# -1.016,-1.914,-1.214,-0.139,0.861,0.521,-1.252,     0.174,0.017,1.264,9.201,0.004,0.141,0.014
-
-
-'''
-    RUN this get random lambda for Pareto study
-    !python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="humor,harmless" --values_to_evaluate="all" --scaling=-1 assess_postalignment_multivalue
-    !python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="all" --values_to_evaluate="all" --scaling=-1 assess_postalignment_multivalue
-
-    USE together with plot_pareto.py to visualize the Pareto frontier
-'''

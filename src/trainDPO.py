@@ -8,6 +8,16 @@ import torch
 
 
 def train_dpo(sample_size: int, beta: float, harmless_ratio: float, save_path, use_lora: bool = False):
+    """Trains a Direct Preference Optimization (DPO) model with optional LoRA (Low-Rank Adaptation).
+
+    Args:
+        sample_size (int): Number of samples to use for training.
+        beta (float): Regularization parameter for DPO training.
+        harmless_ratio (float): Proportion of harmless to helpful data in the dataset.
+        save_path (str): Directory to save the trained model.
+        use_lora (bool): If True, use LoRA for fine-tuning a smaller, efficient model. Defaults to False.
+    """
+
     # Initialize Weights and Biases
     wandb.init(
         project="value",  # Project name
@@ -78,6 +88,11 @@ def train_dpo(sample_size: int, beta: float, harmless_ratio: float, save_path, u
 
     # Utility function to log GPU memory usage
     def log_gpu_memory_usage():
+        """Logs the GPU memory usage
+        
+        This function tracks allocated, reserved, and free GPU memory, 
+        logging these values to WandB for real-time monitoring during training.
+        """
         allocated = torch.cuda.memory_allocated() / (1024 ** 3)  # Convert to GB
         reserved = torch.cuda.memory_reserved() / (1024 ** 3)    # Convert to GB
         free_memory = torch.cuda.get_device_properties(0).total_memory / (1024 ** 3) - reserved
@@ -88,6 +103,15 @@ def train_dpo(sample_size: int, beta: float, harmless_ratio: float, save_path, u
     original_compute_loss = dpo_trainer.compute_loss
 
     def compute_loss_with_logging(*args, **kwargs):
+        """Computes the loss while also logging GPU memory usage and loss values to WandB.
+
+        Args:
+            *args: Positional arguments for the compute_loss function.
+            **kwargs: Keyword arguments for the compute_loss function.
+
+        Returns:
+            torch.Tensor: The computed loss value.
+        """
         loss = original_compute_loss(*args, **kwargs)
         log_gpu_memory_usage()  # Log memory after every loss computation
         wandb.log({"train_loss": loss.item()})  # Log the loss value as well

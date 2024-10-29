@@ -2,6 +2,13 @@
 
 This repository contains the source codes and API documentation for the MAP project.
 
+## Roadmap
+
+- Complete documentation and set up README license
+- Packaging and set up use cases on both slurm and notebook
+- Add GUI gif demo 
+- Add github metrics and tutorial video
+- Massively advertise
 
 ## Prerequisites
 

@@ -35,6 +35,7 @@ autoapi_ignore = [
     '*generate-alpacaFinetune.py', 
     '*plot_tab_in_quantiles.py', 
     '*tokenValueDecoder.py', 
+    '*rewardTrainer.py',
     '*submit_*.py'  # Ignore all files starting with "submit_"
 ]
 
