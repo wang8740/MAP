@@ -198,7 +198,7 @@ class AlignValues:
             >>> print(f"Sequentially optimized lambda: {optimized_lambda}")
 
         Command-line usage:
-            python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --file_path="results/opt1.3b-Anthropic-harmless.json" sequential_optimize_lambda
+            >>> python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --file_path="results/opt1.3b-Anthropic-harmless.json" sequential_optimize_lambda
         """
 
         for idx in range(len(self.c)):
@@ -230,7 +230,7 @@ class AlignValues:
             >>> print(f"Final optimized lambda: {final_lambda}")
 
         Command-line usage:
-            python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --file_path="results/opt1.3b-Anthropic-harmless.json" sequential_optimize_lambda_multiround
+            >>> python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --file_path="results/opt1.3b-Anthropic-harmless.json" sequential_optimize_lambda_multiround
         """
 
         # Initialize lambda with equal weights
@@ -262,7 +262,7 @@ class AlignValues:
             >>> print(f"Feasible solution found at rho = {rho}")
 
         Command-line usage:
-            python alignValues.py --c_low=2.513,-0.967,0.937,0.876,0.434,-3.337 --c_high=2.534,-0.613,1.268,0.876,0.434,-3.337 --value_list="all" --file_path="results/basemodel-dataset.json" find_pareto_by_interpolation
+            >>> python alignValues.py --c_low=2.513,-0.967,0.937,0.876,0.434,-3.337 --c_high=2.534,-0.613,1.268,0.876,0.434,-3.337 --value_list="all" --file_path="results/basemodel-dataset.json" find_pareto_by_interpolation
         """
 
         if not isinstance(c_low, (list, tuple)):
@@ -301,7 +301,7 @@ class AlignValues:
             >>> print(f"Maximum feasible value for 'gpt2-helpful': {max_value}")
 
         Command-line usage:
-            python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --value_to_enhance="gpt2-helpful" --file_path="results/basemodel-dataset.json" find_pareto_by_oneValue
+            >>> python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --value_to_enhance="gpt2-helpful" --file_path="results/basemodel-dataset.json" find_pareto_by_oneValue
         """
 
         # Enhance a particular value so that it reaches maximal possible 

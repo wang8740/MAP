@@ -82,11 +82,11 @@ class RewardProcessor:
             ValueError: If `value` is "perplexity" and `basemodel_for_perplexity` is not provided.
 
         # Example usage to add reward, often via submitting parallel pbs files to accelerate computation:
-        >>> reward_processor = RewardProcessor(file_path="results/Llama27b-chat-Anthropic-harmless.json")
-        >>> reward_processor.add_reward(value="humor")
+            >>> reward_processor = RewardProcessor(file_path="results/Llama27b-chat-Anthropic-harmless.json")
+            >>> reward_processor.add_reward(value="humor")
 
         # Command-line usage:
-        >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --value="humor" add_reward
+            >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --value="humor" add_reward
         """
         if value == "perplexity" and not basemodel_for_perplexity:
             raise ValueError("basemodel_for_perplexity, which should be the data-gen model, must be provided for perplexity task")
@@ -171,17 +171,17 @@ class RewardProcessor:
             evaluation_mode (bool): If True, calculates quantiles; otherwise, calculates only average. Defaults to False.
     
         # Example usage to get realized values or c-levels under the original model:
-        >>> reward_processor = RewardProcessor(file_path="results/Llama27b-chat-Anthropic-harmless.json", values_to_evaluate="all")
-        >>> reward_processor.assess_original_value()
+            >>> reward_processor = RewardProcessor(file_path="results/Llama27b-chat-Anthropic-harmless.json", values_to_evaluate="all")
+            >>> reward_processor.assess_original_value()
 
         # As a natural followup, one could define custom `c_align` values, e.g., set c to be 20% improvement:
-        >>> import numpy as np
-        >>> c_noalign = [-1.239, -2.731, -1.437, -0.362, 0.848, 0.521, -1.375]
-        >>> c_align = [x + np.log(1.25) for x in c_noalign[:4]]
-        >>> print(f"c_align: {','.join(f'{v:.3f}' for v in c_align)}") # [-1.016,-2.508,-1.214,-0.139,0.848,0.521,-1.375]
+            >>> import numpy as np
+            >>> c_noalign = [-1.239, -2.731, -1.437, -0.362, 0.848, 0.521, -1.375]
+            >>> c_align = [x + np.log(1.25) for x in c_noalign[:4]]
+            >>> print(f"c_align: {','.join(f'{v:.3f}' for v in c_align)}") # [-1.016,-2.508,-1.214,-0.139,0.848,0.521,-1.375]
 
         # Command-line usage:
-        >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_evaluate="all" assess_original_value
+            >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_evaluate="all" assess_original_value
 
         """
         print(f"\nRunning RewardProcessor.assess_original_value\n")
@@ -296,20 +296,20 @@ class RewardProcessor:
 
         # Example 1 
         # Usage for post-alignment assessment of multiple values:
-        >>> reward_processor = RewardProcessor(file_path="results/Llama27b-chat-Anthropic-harmless.json", values_to_align="humor,harmless", lam=[0.41, 0.37], values_to_evaluate="all")
-        >>> reward_processor.assess_postalignment_multivalue()
+            >>> reward_processor = RewardProcessor(file_path="results/Llama27b-chat-Anthropic-harmless.json", values_to_align="humor,harmless", lam=[0.41, 0.37], values_to_evaluate="all")
+            >>> reward_processor.assess_postalignment_multivalue()
 
         # Command-line usage:
-        >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="humor,harmless" --lam=0.41,0.37 --values_to_evaluate="all" assess_postalignment_multivalue
-        >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="humor,harmless" --lam=0.41,0.37 --values_to_evaluate="humor,harmless" assess_postalignment_multivalue
+            >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="humor,harmless" --lam=0.41,0.37 --values_to_evaluate="all" assess_postalignment_multivalue
+            >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="humor,harmless" --lam=0.41,0.37 --values_to_evaluate="humor,harmless" assess_postalignment_multivalue
 
         # Example 2 
         # Pareto frontier study with random lambda (often used in conjunction with plot_pareto.py to visualize the Pareto frontier)
-        >>> reward_processor = RewardProcessor(file_path="results/Llama27b-chat-Anthropic-harmless.json", values_to_align="humor,harmless", values_to_evaluate="all", scaling=-1)
-        >>> reward_processor.assess_postalignment_multivalue()
+            >>> reward_processor = RewardProcessor(file_path="results/Llama27b-chat-Anthropic-harmless.json", values_to_align="humor,harmless", values_to_evaluate="all", scaling=-1)
+            >>> reward_processor.assess_postalignment_multivalue()
 
         # Command-line usage:
-        >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="humor,harmless" --values_to_evaluate="all" --scaling=-1 assess_postalignment_multivalue
+            >>> python rewardProcessor.py --file_path="results/Llama27b-chat-Anthropic-harmless.json" --values_to_align="humor,harmless" --values_to_evaluate="all" --scaling=-1 assess_postalignment_multivalue
 
         """
         print(f"\nRunning RewardProcessor.assess_postalignment_multivalue\n")
