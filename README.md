@@ -2,7 +2,19 @@
 
 Artificial Intelligence (AI) has evolved into an integral part of modern technology, affecting many facets of our daily lives and work. Multi-Human-Value Alignment Palette (MAP) offers a first-principle approach to align AI systems with diverse, dynamically defined human values—such as harmlessness, helpfulness, and positiveness—through a structured optimization framework, achieving principled multi-value alignment across tasks.
 
-This repository contains the source codes and API documentation for the MAP project.
+This repository contains the source codes and API documentation for the MAP project, based on [this paper](https://arxiv.org/pdf/2410.19198).
+Citation of the work:
+```
+@misc{wang2024mapmultihumanvaluealignmentpalette,
+      title={MAP: Multi-Human-Value Alignment Palette}, 
+      author={Xinran Wang and Qi Le and Ammar Ahmed and Enmao Diao and Yi Zhou and Nathalie Baracaldo and Jie Ding and Ali Anwar},
+      year={2024},
+      eprint={2410.19198},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2410.19198}, 
+}
+```
 
 ## Prerequisites
 
@@ -35,7 +47,6 @@ If you're working on a headless MSI server, you can:
 └── build
     └── html       # Generated HTML files
 ```
-
 
 
 
@@ -118,8 +129,6 @@ git add .
 git commit -m "Update documentation"
 git push origin main
 ```
-
-
 
 
 
