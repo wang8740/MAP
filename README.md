@@ -1,4 +1,13 @@
-# MAP: Human-AI Value Alignment
+# MAP (Multi-Human-Value Alignment Palette)
+
+![GitHub stars](https://img.shields.io/github/stars/wang8740/MAP?style=social)
+![GitHub forks](https://img.shields.io/github/forks/wang8740/MAP?style=social)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/wang8740/MAP)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/wang8740/MAP/CI)
+![GitHub](https://img.shields.io/github/license/wang8740/MAP)
+![GitHub issues](https://img.shields.io/github/issues/wang8740/MAP)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/wang8740/MAP)
+
 
 Artificial Intelligence (AI) has evolved into an integral part of modern technology, affecting many facets of our daily lives and work. Multi-Human-Value Alignment Palette (MAP) offers a first-principle approach to align AI systems with diverse, dynamically defined human values—such as harmlessness, helpfulness, and positiveness—through a structured optimization framework, achieving principled multi-value alignment across tasks.
 
