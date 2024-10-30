@@ -100,7 +100,7 @@ os.system(f'sbatch {job_file_name}')
 
 and also create a pre-configured PBS template file [`main.pbs`](examples/main.pbs).
 
-Then, run `python submit.py' and wait for the email notifications of results.
+Then, run `python submit.py` and wait for the email notifications of results.
 
 ## Make Contributions to the Repo
 
