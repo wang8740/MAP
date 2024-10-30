@@ -45,7 +45,7 @@ def example_function(param1: int, param2: str) -> bool:
 ```
 
 
-### Push to remote
+### Contributing via git push to remote 
 
 Commit and push the changes:
 ```bash
@@ -56,6 +56,52 @@ git push origin main
 
 Once you push, the documentation will be automatically refreshed in about one minute. 
 If you need to rebuild the documentation locally or set up the Github workflow from scratch, please refer to [Setup_Documentation_And_Deployment.md](Setup_Documentation_And_Deployment.md).
+
+
+### Contributing via pull requests
+
+We welcome contributions from the community! If you'd like to contribute to this project, please follow these steps:
+
+1. **Fork the Repository**
+   
+   Click the "Fork" button at the top right of this repository's page on GitHub to create your own copy.
+
+2. **Clone Your Fork**
+   
+   Clone your forked repository to your local machine:
+   ```bash
+   git clone https://github.com/your-username/repository-name.git
+   cd repository-name
+   ```
+
+3. Create a New Branch Create a new branch for your changes:
+
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+4. Commit Your Changes
+   ```bash
+   git add .
+   git commit -m "Add feature: brief description of your changes"
+   ```
+   
+5. Push to Your Fork
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+6. Create a Pull Request
+
+- Go to the original repo on GitHub
+- Click on "Pull requests" and then the "New pull request" button
+- Choose your fork and the branch you created
+- Click "Create pull request"
+- Provide a title and description for your pull request
+
+7. Wait for Review The project maintainers will review your pull request. They may ask for changes or clarifications.
+
+8. Once approved, a project maintainer will merge your pull request.
 
 
 ## Summary of Recent Papers on Multi-Objective Alignment
