@@ -95,12 +95,12 @@ For convenience, we also list of recent papers focused on multi-objective alignm
 
 | Title | Author(s) | Year | URL |
 |-------|-----------|------|-----|
-| Rewards-in-context: Multi-objective alignment of foundation models with dynamic preference adjustment | Rui Yang, Xiaoman Pan, Feng Luo, Shuang Qiu, Han Zhong, Dong Yu, Jianshu Chen | 2024 | [Link](https://arxiv.org/abs/2403.12805) |
-| Safe RLHF: Safe reinforcement learning from human feedback | Josef Dai, Xuehai Pan, Ruiyang Sun, Jiaming Ji, Xinbo Xu, Mickel Liu, Yizhou Wang, Yaodong Yang | 2024 | [Link](https://arxiv.org/abs/2310.12773) |
-| Fine-grained human feedback gives better rewards for language model training | Zeqiu Wu, Yushi Hu, Weijia Shi, Nouha Dziri, Alane Suhr, Prithviraj Ammanabrolu, Noah A Smith, Mari Ostendorf, Hannaneh Hajishirzi | 2024 | [Link](https://arxiv.org/abs/2306.01693) |
+| Rewards-in-context: Multi-objective alignment of foundation models with dynamic preference adjustment | Rui Yang, Xiaoman Pan, Feng Luo, Shuang Qiu, Han Zhong, Dong Yu, Jianshu Chen | ICML 2024 | [Link](https://arxiv.org/abs/2403.12805) |
+| Safe RLHF: Safe reinforcement learning from human feedback | Josef Dai, Xuehai Pan, Ruiyang Sun, Jiaming Ji, Xinbo Xu, Mickel Liu, Yizhou Wang, Yaodong Yang | ICLR 2024 | [Link](https://arxiv.org/abs/2310.12773) |
+| Fine-grained human feedback gives better rewards for language model training | Zeqiu Wu, Yushi Hu, Weijia Shi, Nouha Dziri, Alane Suhr, Prithviraj Ammanabrolu, Noah A Smith, Mari Ostendorf, Hannaneh Hajishirzi | NeurIPS 2024 | [Link](https://arxiv.org/abs/2306.01693) |
 | Contextual moral value alignment through context-based aggregation | Pierre Dognin, Jesus Rios, Ronny Luss, Inkit Padhi, Matthew D Riemer, Miao Liu, Prasanna Sattigeri, Manish Nagireddy, Kush R Varshney, Djallel Bouneffouf | 2024 | [Link](https://arxiv.org/abs/2403.12805) |
 | Rewarded soups: towards Pareto-optimal alignment by interpolating weights fine-tuned on diverse rewards | Alexandre Rame, Guillaume Couairon, Corentin Dancette, Jean-Baptiste Gaya,
-  Mustafa Shukor, Laure Soulier, and Matthieu Cord | 2023 | [Link](https://arxiv.org/abs/2306.04488) |
+  Mustafa Shukor, Laure Soulier, and Matthieu Cord | NeurIPS 2023 | [Link](https://arxiv.org/abs/2306.04488) |
 | Training a helpful and harmless assistant with reinforcement learning from human feedback | Yuntao Bai, Andy Jones, Kamal Ndousse, Amanda Askell, Anna Chen, Nova DasSarma,
   Dawn Drain, Stanislav Fort, Deep Ganguli, and Tom Henighan | 2022 | [Link](https://arxiv.org/abs/2204.05862) |
 
