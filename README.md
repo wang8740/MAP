@@ -90,6 +90,18 @@ Once you push, the documentation will be automatically refreshed in about one mi
 If you need to rebuild the documentation locally or set up the Github workflow from scratch, please refer to [Setup_Documentation_And_Deployment.md](Setup_Documentation_And_Deployment.md).
 
 
+## Summary of Recent Papers on Multi-Objective Alignment
+For convenience, we also list of recent papers focused on multi-objective alignment. While this list is not exhaustive, we encourage contributions to enrich it further. Feel free to add any relevant papers or resources that you believe would benefit the community.
+
+| Title | Author(s) | Year | URL |
+|-------|-----------|------|-----|
+| Rewards-in-context: Multi-objective alignment of foundation models with dynamic preference adjustment | Rui Yang, Xiaoman Pan, Feng Luo, Shuang Qiu, Han Zhong, Dong Yu, Jianshu Chen | 2024 | [Link](https://arxiv.org/abs/2403.12805) |
+| Safe RLHF: Safe reinforcement learning from human feedback | Josef Dai, Xuehai Pan, Ruiyang Sun, Jiaming Ji, Xinbo Xu, Mickel Liu, Yizhou Wang, Yaodong Yang | 2024 | [Link](https://arxiv.org/abs/2310.12773) |
+| Fine-grained human feedback gives better rewards for language model training | Zeqiu Wu, Yushi Hu, Weijia Shi, Nouha Dziri, Alane Suhr, Prithviraj Ammanabrolu, Noah A Smith, Mari Ostendorf, Hannaneh Hajishirzi | 2024 | [Link](https://arxiv.org/abs/2306.01693) |
+| Contextual moral value alignment through context-based aggregation | Pierre Dognin, Jesus Rios, Ronny Luss, Inkit Padhi, Matthew D Riemer, Miao Liu, Prasanna Sattigeri, Manish Nagireddy, Kush R Varshney, Djallel Bouneffouf | 2024 | [Link](https://arxiv.org/abs/2403.12805) |
+| Rewarded soups: towards Pareto-optimal alignment by interpolating weights fine-tuned on diverse rewards | Alexandre Rame et al. | 2023 | [Link](https://arxiv.org/abs/2306.04488) |
+| Training a helpful and harmless assistant with reinforcement learning from human feedback | Yuntao Bai et al. | 2022 | [Link](https://arxiv.org/abs/2204.05862) |
+
 ## How to Contribute
 
 We welcome contributions from everyone. Please read our [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to contribute to this project.
