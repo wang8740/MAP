@@ -3,7 +3,6 @@
 ![GitHub stars](https://img.shields.io/github/stars/wang8740/MAP?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/wang8740/MAP?style=social)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/wang8740/MAP)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/wang8740/MAP/CI)
 ![GitHub](https://img.shields.io/github/license/wang8740/MAP)
 ![GitHub issues](https://img.shields.io/github/issues/wang8740/MAP)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/wang8740/MAP)
