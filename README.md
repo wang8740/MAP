@@ -25,6 +25,12 @@ Citation of the work:
 ```
 
 
+## Quick Start
+
+Run the following to install the package from [Pypi](https://pypi.org/project/alignMAP/1.0.0/)
+```bash
+pip install alignMAP==1.0.0
+```
 
 ## Make Contributions to the Repo
 
