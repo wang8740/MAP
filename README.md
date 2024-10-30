@@ -100,3 +100,14 @@ We welcome contributions from everyone. Please read our [CONTRIBUTING.md](CONTRI
 To ensure a welcoming and productive environment, all participants are expected to uphold our [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 
+## To-Do list 
+- [ ] Packaging
+- [ ] Set up use cases on both slurm and notebook
+- [ ] Add GUI gif demo 
+- [ ] Add github metrics
+
+
+## Contact
+
+If you have any questions, please feel free to contact us at wang8740@umn.edu or submit an issue.
+
