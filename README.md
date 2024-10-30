@@ -16,38 +16,6 @@ Citation of the work:
 }
 ```
 
-## Prerequisites
-
-To build the documentation locally, ensure you have the following Python packages installed:
-
-```bash
-pip install sphinx myst-parser sphinx_rtd_theme sphinxcontrib-mermaid sphinx-markdown-builder linkify-it-py sphinx-autoapi
-# pip install pydoc-markdown 
-```
-
-### Building the Documentation Locally
-```bash
-cd docs
-sphinx-build -b html . _build
-```
-
-The generated HTML files will be available in `docs/_build/`. Use a browser to view the `index.html` file.
-
-If you're working on a headless MSI server, you can:
-- Use VS Code Remote - SSH to connect to the server.
-- Navigate to `docs/build/html/` and open the HTML files using the HTML Preview plugin.
-
-### File Structure
-```bash
-/docs
-├── source
-│   ├── index.md   # Main entry point for the documentation
-│   ├── api.md     # API reference documentation
-│   └── conf.py    # Sphinx configuration file
-└── build
-    └── html       # Generated HTML files
-```
-
 
 
 ## Make Contributions to the Codes
