@@ -32,6 +32,76 @@ Run the following to install the package from [Pypi](https://pypi.org/project/al
 pip install alignMAP==1.0.0
 ```
 
+### Submitting Jobs with alignMAP
+
+The following example will help you submit jobs to a SLURM server using the alignMAP package. It guides you through generating text data, calculating reward scores, and assessing model alignment.
+
+Create a `submit.py' that contains:
+```python
+import os
+import random
+from alignMAP.utils import ALL_SUPPORTED_VALUES, convert_ppo_modelname_to_huggingface_valid
+from alignMAP import trainDPO, gendata, rewardProcessor, mergeProcessor
+
+def random_string(length=8):
+    return ''.join(random.choice('abcdefghijklmnopqrstuvwxyz0123456789') for _ in range(length))
+
+def ensure_dir(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+# Parameters
+basemodel_name = "opt1.3b"
+sample_size = 2000
+beta = 0.5
+harmless_ratio = 0.9
+gen_data_name = "Anthropic-harmless"
+
+DPO_model_name = f"{basemodel_name}-{sample_size}sample-{beta}beta-{harmless_ratio}harmless"
+dpoModel_relative_path = f"modelsDPO/{DPO_model_name}"
+dpoModel_relative_path = convert_ppo_modelname_to_huggingface_valid(dpoModel_relative_path)
+dpoModel_abs_path = os.path.abspath(dpoModel_relative_path)
+json_filepath = f"{dpoModel_relative_path}-{gen_data_name}.json"
+
+# Commands for job submission
+commands = [
+    f'python trainDPO.py --sample_size={sample_size} --beta={beta} --harmless_ratio={harmless_ratio} --save_path={dpoModel_relative_path}',
+    f'python gendata.py --basemodel_name="{dpoModel_abs_path}" --data_name="{gen_data_name}" --save_directory="modelsDPO" generate_from_original_model',
+] + [
+    f'python rewardProcessor.py --value="{value}" --file_path={json_filepath} --basemodel_for_perplexity={dpoModel_abs_path} add_reward' 
+    for value in ALL_SUPPORTED_VALUES
+] + [
+    f'python mergeProcessor.py --original_file_path={json_filepath} merge_added_rewards',
+    f'python rewardProcessor.py --file_path={json_filepath} --values_to_evaluate="all" --evaluation_mode=True assess_original_value',
+    f'rm -rf {dpoModel_relative_path}'
+]
+
+# PBS Job Setup
+template_path = 'main.pbs'  # adjust for your SLURM setup
+jobs_dir = 'pbs-files'
+ensure_dir(jobs_dir)
+
+# Load PBS Template
+with open(template_path, 'r') as template_file:
+    pbs_content = template_file.read()
+
+# Replace placeholder with commands
+pbs_content = pbs_content.replace("COMMAND_PLACEHOLDER", "\n".join(commands))
+
+# Save job file
+job_file_name = os.path.join(jobs_dir, f'job_{random_string()}.pbs')
+with open(job_file_name, 'w') as job_file:
+    job_file.write(pbs_content)
+print(f'Created job file {job_file_name}')
+
+# Submit job
+os.system(f'sbatch {job_file_name}')
+```
+
+and also create a pre-configured PBS template file [`main.pbs`](examples/main.pbs).
+
+Then, run `python submit.py' and wait for the email notifications of results.
+
 ## Make Contributions to the Repo
 
 The current repo strcuture:
