@@ -1,12 +1,21 @@
 
-The current repository is configured to deploy the documentation to the following GitHub Pages automatically upon every push: `https://<your-username>.github.io/<your-repository>/`, e.g., `https://wang8740.github.io/MAP/`
+# Quick Guide on Setting Up API Documentation From Scratch
 
+NOTE: The current repository is already configured to deploy the documentation to the following GitHub Pages automatically upon every push: `https://<your-username>.github.io/<your-repository>/`, e.g., `https://wang8740.github.io/MAP/`
 
-### Use sphinx-autoapi
+You will only need this guide if you need to 
+- rebuild documention on your local environment
+- rebuild documentation in a separate remote repo
+  
+## Prerequisites
 
-### (Optionally) Re-create the Documentation under docs/
+To build the documentation from scratch, ensure you have the following Python packages installed:
 
-If you want to deploy on another remote repo, where sphinx is not initiated, use the following steps
+```bash
+pip install sphinx myst-parser sphinx_rtd_theme sphinxcontrib-mermaid sphinx-markdown-builder linkify-it-py sphinx-autoapi
+```
+
+### Use Sphinx-autoapi plugin
 
 Initiate Sphinx:
 ```bash
@@ -14,9 +23,55 @@ sphinx-quickstart docs
 ```
 and choose not to separate build and source
 
-Replace index.rst with index.md if using markdown to generate html
+Replace index.rst with index.md if using markdown to generate html. Then, update index.md content as needed.
 
-Then, update index.md content as needed
+An example of index.md is
+```
+# Welcome to MAP Documentation
+
+This is the API documentation for MAP. Enjoy using it!
+
+Author: [Xinran Wang](https://wang8740.github.io)
+Contact: wang8740@umn.edu
+
+Github Repo: https://github.com/wang8740/MAP
+Documentation: https://wang8740.github.io/MAP/
+Paper: https://arxiv.org/abs/2410.19198
+
+If you contribute to the Github [repo](https://github.com/wang8740/MAP) with Google-style comments, the documentation will be automatically updated upon each git push.
+
+~~~{toctree}
+:maxdepth: 2
+
+~~~
+```
+
+
+
+Then, run
+```bash
+cd docs
+sphinx-build -b html . _build
+```
+
+The generated HTML files will be available in `docs/_build/`. Use a browser to view the `index.html` file.
+
+If you're working on a headless server, you can:
+- Use VS Code Remote - SSH to connect to the server.
+- Navigate to `docs/build/html/` and open the HTML files using the HTML Preview plugin.
+
+The File Structure should like like 
+```bash
+/docs
+├── source
+│   ├── index.md   # Main entry point for the documentation
+│   ├── api.md     # API reference documentation
+│   └── conf.py    # Sphinx configuration file
+└── build
+    └── html       # Generated HTML files
+```
+
+
 
 
 ## GitHub Pages Deployment
