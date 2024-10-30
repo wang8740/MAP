@@ -26,7 +26,29 @@ Citation of the work:
 
 
 
-## Make Contributions to the Codes
+## Make Contributions to the Repo
+
+The current repo strcuture:
+```
+MAP/
+├── alignMAP/                    # Source directory for your package modules
+│   ├── alignValues.py
+│   ├── gendata.py
+│   ├── gendataGUI.py
+│   └── ...                      # Other Python modules
+├── docs/                        # Documentation
+├── .github/workflows/           # GitHub workflows
+├── tests/                       # Tests for your package
+│   ├── test_alignValues.py      # Test files (example)
+│   └── ...
+├── MAP/                         # Package directory (new)
+│   ├── __init__.py              # Marks this directory as a package
+│   └── other package files
+├── README.md                    # Project README
+├── setup.py                     # Package configuration
+├── requirements.txt             # Package dependencies
+└── .gitignore                   # Ignored files and directories
+```
 
 The current repository is configured to deploy/refresh the documentation to the following GitHub Pages `https://wang8740.github.io/MAP/` automatically upon every push
 To contribute, please follow the following steps.
