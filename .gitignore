@@ -91,6 +91,3 @@ temp/
 .Trashes
 ehthumbs.db
 Thumbs.db
-
-# Explicitly add .env.example if you have one
-!.env.example
