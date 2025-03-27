@@ -7,11 +7,117 @@
 ![GitHub issues](https://img.shields.io/github/issues/wang8740/MAP)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/wang8740/MAP)
 
+Multi-Human-Value Alignment Palette (MAP) offers a first-principle approach to align AI systems with diverse, dynamically defined human values—such as harmlessness, helpfulness, and positiveness—through a structured optimization framework, achieving principled multi-value alignment across tasks.
 
-Artificial Intelligence (AI) has evolved into an integral part of modern technology, affecting many facets of our daily lives and work. Multi-Human-Value Alignment Palette (MAP) offers a first-principle approach to align AI systems with diverse, dynamically defined human values—such as harmlessness, helpfulness, and positiveness—through a structured optimization framework, achieving principled multi-value alignment across tasks.
+This repository contains the source code and API documentation for the MAP project, based on [this paper](https://arxiv.org/pdf/2410.19198).
 
-This repository contains the source codes and API documentation for the MAP project, based on [this paper](https://arxiv.org/pdf/2410.19198).
-Citation of the work:
+## Installation
+
+You can install MAP directly from PyPI:
+
+```bash
+pip install alignmap
+```
+
+Or install from source:
+
+```bash
+git clone https://github.com/wang8740/MAP.git
+cd MAP
+pip install -e .
+```
+
+## Key Features
+
+- **Core Alignment Algorithm**: Optimize lambda coefficients to combine multiple reward models based on target palettes
+- **Extensible Reward Model Framework**: Use built-in reward models or easily add your own
+- **Training Support**: Includes PPO and DPO implementations for model alignment
+- **GPU Optimization**: Automatic device detection and resource allocation
+- **CLI Tools**: Command-line interface for training and alignment
+- **Cluster Support**: Submit jobs to PBS clusters with customizable templates
+
+## Quick Start
+
+### Basic Alignment
+
+```python
+from alignmap import align_values
+import torch
+
+# Define rewards for 3 values across 100 samples
+rewards = torch.randn(3, 100)
+
+# Define target palette (desired improvements for each value)
+target_palette = [0.5, 0.8, 0.3]
+
+# Align the values
+lambda_values, success = align_values(
+    values=["helpfulness", "harmlessness", "honesty"],
+    rewards=rewards,
+    target_palette=target_palette,
+    verbose=True
+)
+
+print(f"Optimized lambda values: {lambda_values}")
+```
+
+### Creating Custom Reward Models
+
+```python
+from alignmap.models.reward_models import BaseRewardModel, register_reward_model
+
+@register_reward_model("my_custom_reward")
+class MyRewardModel(BaseRewardModel):
+    def __init__(self, device=None):
+        super().__init__("my_custom_reward", device)
+        # Initialize your model
+        
+    def calculate_reward(self, texts, prompts=None, **kwargs):
+        # Calculate rewards for texts
+        rewards = [...]  # Your reward calculation logic
+        return rewards
+```
+
+### Training with PPO
+
+```python
+# Command-line usage
+alignmap-train --model gpt2 --method ppo --reward-model helpfulness harmlessness --dataset Anthropic-harmless --learning-rate 1e-6
+```
+
+### Using GPU
+
+```python
+from alignmap.utils import get_device, set_device_settings
+
+# Automatically detect and configure device
+device = get_device()
+set_device_settings(device, mixed_precision=True, memory_efficient=True)
+
+# Use in alignment
+lambda_values, success = align_values(
+    values=["helpfulness", "harmlessness"],
+    rewards=rewards,
+    target_palette=[0.5, 0.3],
+    device=device
+)
+```
+
+### Submitting to Compute Cluster
+
+```python
+# Command-line usage
+alignmap-train --model llama-7b --method ppo --reward-model helpfulness harmlessness --runner pbs --template my_template.pbs
+```
+
+## Documentation
+
+For full documentation, visit [https://wang8740.github.io/MAP/](https://wang8740.github.io/MAP/).
+
+## Citation
+
+If you use MAP in your research, please cite:
+
 ```
 @misc{wang2024mapmultihumanvaluealignmentpalette,
       title={MAP: Multi-Human-Value Alignment Palette}, 
@@ -23,6 +129,10 @@ Citation of the work:
       url={https://arxiv.org/abs/2410.19198}, 
 }
 ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
 ## Quick Start
@@ -234,10 +344,48 @@ To ensure a welcoming and productive environment, all participants are expected 
 
 
 ## To-Do list 
-- [ ] Packaging
-- [ ] Set up use cases on both slurm and notebook
+- [x] Packaging
+- [x] Set up use cases on both slurm and notebook
 - [ ] Add GUI gif demo 
-- [ ] Add github metrics
+- [x] Add github metrics
+- [x] Refactor codebase to follow best practices
+- [x] Add comprehensive tests for core functionality
+- [x] Add example scripts demonstrating usage
+- [x] Create CLI for alignment and training
+
+
+## Refactoring Status
+
+The codebase has been refactored from the original structure in `backend/` to a more modular organization:
+
+```
+alignmap/
+├── core/                   # Core alignment algorithms
+├── models/                 # Model definitions and adapters
+│   ├── language_models/    # Language model adapters
+│   └── reward_models/      # Reward model implementations
+├── training/               # Training utilities for PPO/DPO
+├── data/                   # Data loading and processing
+├── utils/                  # Utility functions
+├── cli/                    # Command-line interfaces
+└── visualization/          # Visualization utilities
+```
+
+Key improvements include:
+
+1. **Modular Architecture**: Code is now organized by functionality
+2. **Clean API**: Clear interfaces for each component
+3. **Type Hints**: Added comprehensive type annotations
+4. **Documentation**: Google-style docstrings for all functions
+5. **Testing**: Unit and integration tests
+6. **Examples**: Comprehensive examples showing how to use the framework
+
+The refactoring has maintained all functionality from the original codebase while adding:
+- Better language model support through the adapter pattern
+- Cleaner reward model registry system
+- More robust error handling
+- Improved device management
+- More efficient batch processing
 
 
 ## Contact

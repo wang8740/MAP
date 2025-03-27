@@ -20,3 +20,7 @@ __pycache__/
 # Ignore build artifacts
 docs/_build/
 
+# Ignore keys
+PyPI-Recovery-Codes-wang8740-2024-10-30T15_39_37.900698.txt
+setup.py
+.pypircalignMAP/code-generation/human-eval
