@@ -1,0 +1,49 @@
+src.plot_sequential_baseline
+============================
+
+.. py:module:: src.plot_sequential_baseline
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   src.plot_sequential_baseline.data
+   src.plot_sequential_baseline.model_setting
+   src.plot_sequential_baseline.categories
+   src.plot_sequential_baseline.map_results
+   src.plot_sequential_baseline.round_1_results
+   src.plot_sequential_baseline.round_5_results
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.plot_sequential_baseline.plot_separate_setup
+   src.plot_sequential_baseline.plot_all_setups
+
+
+Module Contents
+---------------
+
+.. py:data:: data
+
+.. py:data:: model_setting
+   :value: 'opt1.3b-Anthropic-harmless'
+
+
+.. py:data:: categories
+
+.. py:data:: map_results
+
+.. py:data:: round_1_results
+
+.. py:data:: round_5_results
+
+.. py:function:: plot_separate_setup()
+
+.. py:function:: plot_all_setups()
+

@@ -1,0 +1,407 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utils &mdash; MAP v0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=34cd777e"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.13.5/mermaid.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="gendata" href="../gendata/index.html" />
+    <link rel="prev" title="API Reference" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MAP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#attributes">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.TASK_NAME"><code class="docutils literal notranslate"><span class="pre">TASK_NAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.ALL_SUPPORTED_VALUES"><code class="docutils literal notranslate"><span class="pre">ALL_SUPPORTED_VALUES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.get_device"><code class="docutils literal notranslate"><span class="pre">get_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.get_nvidia_smi_info"><code class="docutils literal notranslate"><span class="pre">get_nvidia_smi_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.devices"><code class="docutils literal notranslate"><span class="pre">devices</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.save_results_to_json"><code class="docutils literal notranslate"><span class="pre">save_results_to_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.clean_and_trim_to_last_sentence"><code class="docutils literal notranslate"><span class="pre">clean_and_trim_to_last_sentence()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.LengthSampler"><code class="docutils literal notranslate"><span class="pre">LengthSampler</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.get_prompts_from_Anthropic_harmless"><code class="docutils literal notranslate"><span class="pre">get_prompts_from_Anthropic_harmless()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.get_prompts_from_imdb"><code class="docutils literal notranslate"><span class="pre">get_prompts_from_imdb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.cal_humor_probabilities"><code class="docutils literal notranslate"><span class="pre">cal_humor_probabilities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.cal_positive_sentiment"><code class="docutils literal notranslate"><span class="pre">cal_positive_sentiment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.cal_harmless_probabilities"><code class="docutils literal notranslate"><span class="pre">cal_harmless_probabilities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.cal_gpt2_harmless_probabilities"><code class="docutils literal notranslate"><span class="pre">cal_gpt2_harmless_probabilities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.cal_gpt2_helpful_probabilities"><code class="docutils literal notranslate"><span class="pre">cal_gpt2_helpful_probabilities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.compute_rep_n"><code class="docutils literal notranslate"><span class="pre">compute_rep_n()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.cal_diversity"><code class="docutils literal notranslate"><span class="pre">cal_diversity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.cal_log_perplexity"><code class="docutils literal notranslate"><span class="pre">cal_log_perplexity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.cal_coherence"><code class="docutils literal notranslate"><span class="pre">cal_coherence()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.get_reward"><code class="docutils literal notranslate"><span class="pre">get_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.convert_ppo_modelname_to_huggingface_valid"><code class="docutils literal notranslate"><span class="pre">convert_ppo_modelname_to_huggingface_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.get_model_and_tokenizer"><code class="docutils literal notranslate"><span class="pre">get_model_and_tokenizer()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../gendata/index.html">gendata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trainDPO/index.html">trainDPO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trainPPO/index.html">trainPPO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gendataGUI/index.html">gendataGUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../genDPOdata/index.html">genDPOdata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getDPOsoup/index.html">getDPOsoup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_soup/index.html">submit_soup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_jobs/index.html">submit_jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../alignValues/index.html">alignValues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rewardTrainer/index.html">rewardTrainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_DPO_job/index.html">submit_DPO_job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mergeProcessor/index.html">mergeProcessor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rewardProcessor/index.html">rewardProcessor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_cal_winrate/index.html">plot_cal_winrate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_reward_dist/index.html">plot_reward_dist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tokenValueDecoder/index.html">tokenValueDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_pairwise_pareto/index.html">plot_pairwise_pareto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_tab_in_quantiles/index.html">plot_tab_in_quantiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_radar_tabresults/index.html">plot_radar_tabresults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generate-alpacaFinetune/index.html">generate-alpacaFinetune</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_sequential_baseline/index.html">plot_sequential_baseline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_MC-aligned_pipeline/index.html">submit_MC-aligned_pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_rand_lambda_MAP_region/index.html">plot_rand_lambda_MAP_region</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_PPO-aligned_pipeline/index.html">submit_PPO-aligned_pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_perplexity_correction/index.html">submit_perplexity_correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_MAP-DPO-PPO_comparison/index.html">submit_MAP-DPO-PPO_comparison</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MAP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="../index.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../gendata/index.html" class="btn btn-neutral float-right" title="gendata" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-utils">
+<span id="utils"></span><h1>utils<a class="headerlink" href="#module-utils" title="Link to this heading"></a></h1>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#utils.TASK_NAME" title="utils.TASK_NAME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TASK_NAME</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#utils.ALL_SUPPORTED_VALUES" title="utils.ALL_SUPPORTED_VALUES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ALL_SUPPORTED_VALUES</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#utils.devices" title="utils.devices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">devices</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#utils.LengthSampler" title="utils.LengthSampler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LengthSampler</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#utils.get_device" title="utils.get_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#utils.get_nvidia_smi_info" title="utils.get_nvidia_smi_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_nvidia_smi_info</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#utils.save_results_to_json" title="utils.save_results_to_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_results_to_json</span></code></a>(self, results, file_path)</p></td>
+<td><p>save results into json file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#utils.clean_and_trim_to_last_sentence" title="utils.clean_and_trim_to_last_sentence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean_and_trim_to_last_sentence</span></code></a>(prompts, decoded_outputs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#utils.get_prompts_from_Anthropic_harmless" title="utils.get_prompts_from_Anthropic_harmless"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_prompts_from_Anthropic_harmless</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#utils.get_prompts_from_imdb" title="utils.get_prompts_from_imdb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_prompts_from_imdb</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#utils.cal_humor_probabilities" title="utils.cal_humor_probabilities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cal_humor_probabilities</span></code></a>(sentences, model, tokenizer)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#utils.cal_positive_sentiment" title="utils.cal_positive_sentiment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cal_positive_sentiment</span></code></a>(sentences, model, tokenizer)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#utils.cal_harmless_probabilities" title="utils.cal_harmless_probabilities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cal_harmless_probabilities</span></code></a>(sentences, model, tokenizer)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#utils.cal_gpt2_harmless_probabilities" title="utils.cal_gpt2_harmless_probabilities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cal_gpt2_harmless_probabilities</span></code></a>(prompts, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#utils.cal_gpt2_helpful_probabilities" title="utils.cal_gpt2_helpful_probabilities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cal_gpt2_helpful_probabilities</span></code></a>(prompts, continuations, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#utils.compute_rep_n" title="utils.compute_rep_n"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_rep_n</span></code></a>(sentence, n)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#utils.cal_diversity" title="utils.cal_diversity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cal_diversity</span></code></a>(sentence)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#utils.cal_log_perplexity" title="utils.cal_log_perplexity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cal_log_perplexity</span></code></a>(sentences, model, tokenizer)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#utils.cal_coherence" title="utils.cal_coherence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cal_coherence</span></code></a>(prompts, continuations, model, tokenizer)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#utils.get_reward" title="utils.get_reward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reward</span></code></a>(sentences, value[, model, tokenizer, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#utils.convert_ppo_modelname_to_huggingface_valid" title="utils.convert_ppo_modelname_to_huggingface_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_ppo_modelname_to_huggingface_valid</span></code></a>(ppo_model_name)</p></td>
+<td><p>convert a ppo trained model name to ensure that it is a valid huggingface model path name</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#utils.get_model_and_tokenizer" title="utils.get_model_and_tokenizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_model_and_tokenizer</span></code></a>(model_name)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="utils.TASK_NAME">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">TASK_NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'conversation'</span></em><a class="headerlink" href="#utils.TASK_NAME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="utils.ALL_SUPPORTED_VALUES">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">ALL_SUPPORTED_VALUES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['humor',</span> <span class="pre">'gpt2-helpful',</span> <span class="pre">'gpt2-harmless',</span> <span class="pre">'diversity',</span> <span class="pre">'coherence',</span> <span class="pre">'perplexity']</span></em><a class="headerlink" href="#utils.ALL_SUPPORTED_VALUES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.get_device">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">get_device</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.get_device" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.get_nvidia_smi_info">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">get_nvidia_smi_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.get_nvidia_smi_info" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="utils.devices">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">devices</span></span><a class="headerlink" href="#utils.devices" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.save_results_to_json">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">save_results_to_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.save_results_to_json" title="Link to this definition"></a></dt>
+<dd><p>save results into json file</p>
+<p>example:
+results = []
+for …</p>
+<blockquote>
+<div><p>results.append({“prompt”: prompt, “generated”: gen_text, “perplexity”: perplexity})</p>
+</div></blockquote>
+<p>save_results_to_json(results, self.file_path)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>file_path</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.clean_and_trim_to_last_sentence">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">clean_and_trim_to_last_sentence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoded_outputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.clean_and_trim_to_last_sentence" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.LengthSampler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">LengthSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_length</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.LengthSampler" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="utils.LengthSampler.min_length">
+<span class="sig-name descname"><span class="pre">min_length</span></span><a class="headerlink" href="#utils.LengthSampler.min_length" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.LengthSampler.max_length">
+<span class="sig-name descname"><span class="pre">max_length</span></span><a class="headerlink" href="#utils.LengthSampler.max_length" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.LengthSampler.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.LengthSampler.__call__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.LengthSampler.trim_to_word_boundary">
+<span class="sig-name descname"><span class="pre">trim_to_word_boundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.LengthSampler.trim_to_word_boundary" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.get_prompts_from_Anthropic_harmless">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">get_prompts_from_Anthropic_harmless</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.get_prompts_from_Anthropic_harmless" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.get_prompts_from_imdb">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">get_prompts_from_imdb</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.get_prompts_from_imdb" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.cal_humor_probabilities">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">cal_humor_probabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.cal_humor_probabilities" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.cal_positive_sentiment">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">cal_positive_sentiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.cal_positive_sentiment" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.cal_harmless_probabilities">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">cal_harmless_probabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.cal_harmless_probabilities" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.cal_gpt2_harmless_probabilities">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">cal_gpt2_harmless_probabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">continuations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.cal_gpt2_harmless_probabilities" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.cal_gpt2_helpful_probabilities">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">cal_gpt2_helpful_probabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">continuations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.cal_gpt2_helpful_probabilities" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.compute_rep_n">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">compute_rep_n</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.compute_rep_n" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.cal_diversity">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">cal_diversity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentence</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.cal_diversity" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.cal_log_perplexity">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">cal_log_perplexity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.cal_log_perplexity" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.cal_coherence">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">cal_coherence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">continuations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.cal_coherence" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.get_reward">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">get_reward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.get_reward" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.convert_ppo_modelname_to_huggingface_valid">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">convert_ppo_modelname_to_huggingface_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ppo_model_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.convert_ppo_modelname_to_huggingface_valid" title="Link to this definition"></a></dt>
+<dd><p>convert a ppo trained model name to ensure that it is a valid huggingface model path name</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.get_model_and_tokenizer">
+<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">get_model_and_tokenizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.get_model_and_tokenizer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../gendata/index.html" class="btn btn-neutral float-right" title="gendata" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinran Wang.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

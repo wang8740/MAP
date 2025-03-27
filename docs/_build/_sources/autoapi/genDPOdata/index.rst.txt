@@ -1,0 +1,61 @@
+genDPOdata
+==========
+
+.. py:module:: genDPOdata
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   genDPOdata.seed
+   genDPOdata.data_source
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   genDPOdata.preprocess_data
+   genDPOdata.gen_mixed_preference_data
+
+
+Module Contents
+---------------
+
+.. py:data:: seed
+   :value: 6
+
+
+.. py:function:: preprocess_data(examples, max_words=50)
+
+   Preprocesses input examples to extract and truncate conversation components.
+
+   :param examples: A batch of input examples containing 'chosen' and 'rejected' texts.
+   :type examples: dict
+   :param max_words: Maximum number of words to retain in each conversation component. Defaults to 50.
+   :type max_words: int, optional
+
+   :returns: Processed dictionary containing prompts, chosen responses, and rejected responses.
+   :rtype: dict
+
+
+.. py:function:: gen_mixed_preference_data(data_source, sample_size, split)
+
+   Generates a mixed dataset with samples from multiple preference data sources.
+
+   :param data_source: A dictionary specifying sources and weights, which supports {"harmless": p, "helpful": 1-p} format
+   :type data_source: dict
+   :param sample_size: The total sample size to generate.
+   :type sample_size: int
+   :param split: The dataset split to use, e.g., 'train' or 'test'.
+   :type split: str
+
+   :returns: A mixed dataset with samples from specified data sources.
+   :rtype: Dataset
+
+
+.. py:data:: data_source
+

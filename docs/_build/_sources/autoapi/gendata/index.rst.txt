@@ -1,0 +1,141 @@
+gendata
+=======
+
+.. py:module:: gendata
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   gendata.TextGeneration
+
+
+Module Contents
+---------------
+
+.. py:class:: TextGeneration(basemodel_name, data_name, save_directory='results')
+
+   Generates text continuations based on existing prompts, either using a pretrained model or an aligned model with Monte Carlo sampling.
+
+   .. attribute:: device
+
+      The device for model inference, typically 'cuda' if available.
+
+      :type: str
+
+   .. attribute:: basemodel_name
+
+      The name of the base model for text generation.
+
+      :type: str
+
+   .. attribute:: data_name
+
+      The source of the prompts, supporting "Anthropic-harmless" and "Imdb".
+
+      :type: str
+
+   .. attribute:: file_path
+
+      Path to save the generated output in JSON format.
+
+      :type: str
+
+   .. attribute:: top_k
+
+      Number of highest probability vocabulary tokens to keep for generation.
+
+      :type: int
+
+   .. attribute:: max_new_tokens
+
+      Maximum number of new tokens to generate.
+
+      :type: int
+
+   .. attribute:: generation_config
+
+      Configuration settings for text generation.
+
+      :type: GenerationConfig
+
+   Example usage:
+       Run the following commands from the command line to use the `TextGeneration` class:
+
+       ```bash
+       # Generate text directly from the original model
+       python gendata.py generate_from_original_model
+
+       # Generate text with Monte Carlo sampling from an aligned model
+       python gendata.py generate_from_MC_aligned_model --lam_list=-0.5 --value_list="humor" --MC_nsamples=50
+       ```
+
+
+   .. py:attribute:: device
+      :value: 'cuda'
+
+
+
+   .. py:attribute:: basemodel_name
+
+
+   .. py:attribute:: data_name
+
+
+   .. py:attribute:: basemodel_filename
+
+
+   .. py:attribute:: file_path
+
+
+   .. py:attribute:: top_k
+      :value: 50
+
+
+
+   .. py:attribute:: max_new_tokens
+      :value: 50
+
+
+
+   .. py:attribute:: generation_config
+
+
+   .. py:method:: generate_from_original_model(batch_size=32)
+
+      Generates text continuations directly from the original model using predefined generation configuration.
+
+      :param batch_size: Number of prompts processed per batch. Defaults to 32.
+      :type batch_size: int, optional
+
+      :raises ValueError: If an unsupported `data_name` is provided.
+
+
+
+   .. py:method:: generate_from_MC_aligned_model(lam_list, value_list, MC_nsamples=32, start_index=0, end_index=None)
+
+      Samples multiple continuations from each prompt using Monte Carlo sampling and lambda-weighted rewards.
+
+      The generation probability is proportional to an exponential of the reward:
+
+      $$
+      p(y \mid x) \propto p(y \mid x) * e^{r * \lambda}
+      $$
+
+      :param lam_list: Lambda weights for aligning generation with specific rewards.
+      :type lam_list: Union[List[float], float]
+      :param value_list: Values to align the generated text with.
+      :type value_list: Union[List[str], str]
+      :param MC_nsamples: Number of Monte Carlo samples per prompt. Defaults to 32.
+      :type MC_nsamples: int, optional
+      :param start_index: Start index of the prompts to process. Defaults to 0.
+      :type start_index: int, optional
+      :param end_index: End index of the prompts to process. Defaults to None.
+      :type end_index: Optional[int], optional
+
+      :raises ValueError: If an unsupported `data_name` is provided.
+
+
+

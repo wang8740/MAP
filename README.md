@@ -392,3 +392,20 @@ The refactoring has maintained all functionality from the original codebase whil
 
 If you have any questions, please feel free to contact us at wang8740@umn.edu or submit an issue.
 
+## Environment Variables
+
+AlignMAP uses environment variables for configuration. To set up your environment:
+
+1. Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edit the `.env` file and fill in your values:
+   ```bash
+   # Replace with your actual OpenAI API key
+   OPENAI_API_KEY="your-openai-api-key-here"
+   ```
+
+3. The environment variables will be automatically loaded when running the application.
+

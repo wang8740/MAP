@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>alignValues &mdash; MAP v0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=34cd777e"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.13.5/mermaid.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="rewardTrainer" href="../rewardTrainer/index.html" />
+    <link rel="prev" title="submit_jobs" href="../submit_jobs/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MAP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gendata/index.html">gendata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trainDPO/index.html">trainDPO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trainPPO/index.html">trainPPO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gendataGUI/index.html">gendataGUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../genDPOdata/index.html">genDPOdata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getDPOsoup/index.html">getDPOsoup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_soup/index.html">submit_soup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_jobs/index.html">submit_jobs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">alignValues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#alignValues.AlignValues"><code class="docutils literal notranslate"><span class="pre">AlignValues</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../rewardTrainer/index.html">rewardTrainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_DPO_job/index.html">submit_DPO_job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mergeProcessor/index.html">mergeProcessor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rewardProcessor/index.html">rewardProcessor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_cal_winrate/index.html">plot_cal_winrate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_reward_dist/index.html">plot_reward_dist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tokenValueDecoder/index.html">tokenValueDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_pairwise_pareto/index.html">plot_pairwise_pareto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_tab_in_quantiles/index.html">plot_tab_in_quantiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_radar_tabresults/index.html">plot_radar_tabresults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generate-alpacaFinetune/index.html">generate-alpacaFinetune</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_sequential_baseline/index.html">plot_sequential_baseline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_MC-aligned_pipeline/index.html">submit_MC-aligned_pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_rand_lambda_MAP_region/index.html">plot_rand_lambda_MAP_region</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_PPO-aligned_pipeline/index.html">submit_PPO-aligned_pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_perplexity_correction/index.html">submit_perplexity_correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_MAP-DPO-PPO_comparison/index.html">submit_MAP-DPO-PPO_comparison</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MAP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">alignValues</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="../submit_jobs/index.html" class="btn btn-neutral float-left" title="submit_jobs" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../rewardTrainer/index.html" class="btn btn-neutral float-right" title="rewardTrainer" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-alignValues">
+<span id="alignvalues"></span><h1>alignValues<a class="headerlink" href="#module-alignValues" title="Link to this heading"></a></h1>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#alignValues.AlignValues" title="alignValues.AlignValues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlignValues</span></code></a></p></td>
+<td><p>A class for obtaining the most appropriate lambda values, namely linear coefficients for combining multiple rewards.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="alignValues.AlignValues">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">alignValues.</span></span><span class="sig-name descname"><span class="pre">AlignValues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#alignValues.AlignValues" title="Link to this definition"></a></dt>
+<dd><p>A class for obtaining the most appropriate lambda values, namely linear coefficients for combining multiple rewards.</p>
+<p>This class handles the calculation of lambda values using a given set of (prompt, continuation) pairs generated from the reference model, and specified palette (c) if any.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="alignValues.AlignValues.c">
+<span class="sig-name descname"><span class="pre">c</span></span><a class="headerlink" href="#alignValues.AlignValues.c" title="Link to this definition"></a></dt>
+<dd><p>Target palette.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="alignValues.AlignValues.value_list">
+<span class="sig-name descname"><span class="pre">value_list</span></span><a class="headerlink" href="#alignValues.AlignValues.value_list" title="Link to this definition"></a></dt>
+<dd><p>List of values (str) to be aligned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="alignValues.AlignValues.file_path">
+<span class="sig-name descname"><span class="pre">file_path</span></span><a class="headerlink" href="#alignValues.AlignValues.file_path" title="Link to this definition"></a></dt>
+<dd><p>Path to the JSON file containing (prompt, continuation) pairs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="alignValues.AlignValues.rewards">
+<span class="sig-name descname"><span class="pre">rewards</span></span><a class="headerlink" href="#alignValues.AlignValues.rewards" title="Link to this definition"></a></dt>
+<dd><p>Tensor of rewards for each value and sample, shape (k, n) where k is the number of values and n is the sample size in file_path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt>Example 1 (single human value):</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c_list</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value_list</span> <span class="o">=</span> <span class="s2">&quot;humor&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;results/Llama27b-chat-Anthropic-harmless.json&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="n">value_list</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">c_list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lambda_vals</span><span class="p">,</span> <span class="n">success</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">optimize_lambda</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optimized lambda values: </span><span class="si">{</span><span class="n">lambda_vals</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optimization success: </span><span class="si">{</span><span class="n">success</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example 2 (multiple human values):</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c_list</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.016</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.214</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.139</span><span class="p">,</span> <span class="mf">0.848</span><span class="p">,</span> <span class="mf">0.521</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.375</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value_list</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;results/Llama27b-chat-Anthropic-harmless.json&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="n">value_list</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">c_list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lambda_vals</span><span class="p">,</span> <span class="n">success</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">optimize_lambda</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optimized lambda values: </span><span class="si">{</span><span class="n">lambda_vals</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optimization success: </span><span class="si">{</span><span class="n">success</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Command-line usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span> <span class="n">alignValues</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">c_list</span><span class="o">=-</span><span class="mf">0.5</span> <span class="o">--</span><span class="n">value_list</span><span class="o">=</span><span class="s2">&quot;humor&quot;</span> <span class="o">--</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;results/Llama27b-chat-Anthropic-harmless.json&quot;</span> <span class="n">optimize_lambda</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">python</span> <span class="n">alignValues</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">c_list</span><span class="o">=-</span><span class="mf">1.016</span><span class="p">,</span><span class="o">-</span><span class="mf">2.508</span><span class="p">,</span><span class="o">-</span><span class="mf">1.214</span><span class="p">,</span><span class="o">-</span><span class="mf">0.139</span><span class="p">,</span><span class="mf">0.848</span><span class="p">,</span><span class="mf">0.521</span><span class="p">,</span><span class="o">-</span><span class="mf">1.375</span> <span class="o">--</span><span class="n">value_list</span><span class="o">=</span><span class="s2">&quot;all&quot;</span> <span class="o">--</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;results/Llama27b-chat-Anthropic-harmless.json&quot;</span> <span class="n">optimize_lambda</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">file_path</span></span><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alignValues.AlignValues.optimize_lambda">
+<span class="sig-name descname"><span class="pre">optimize_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#alignValues.AlignValues.optimize_lambda" title="Link to this definition"></a></dt>
+<dd><p>Optimize lambda values for the given palatte and rewards.</p>
+<p>This method uses gradient descent to find optimal lambda values that
+maximize the dual objective function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lambda_init</strong> (<em>list</em><em>, </em><em>optional</em>) – Initial lambda values. Defaults to None.</p></li>
+<li><p><strong>optimize_indices</strong> (<em>list</em><em>, </em><em>optional</em>) – Indices of lambda values to optimize. Defaults to None.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to print detailed information during optimization. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A tuple containing:</dt><dd><ul class="simple">
+<li><p>list: Optimized lambda values.</p></li>
+<li><p>bool: True if optimization was successful, False otherwise.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alignValues.AlignValues._dual_objective">
+<span class="sig-name descname"><span class="pre">_dual_objective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vals</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#alignValues.AlignValues._dual_objective" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alignValues.AlignValues.sequential_optimize_lambda">
+<span class="sig-name descname"><span class="pre">sequential_optimize_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#alignValues.AlignValues.sequential_optimize_lambda" title="Link to this definition"></a></dt>
+<dd><p>Sequentially optimize lambda for each human value.</p>
+<p>This method aligns each value sequentially, storing the obtained lambda values.
+It starts with lambda_init = None if not provided. Future support may replace
+optimize_indices = [idx] with block-wise updates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lambda_init</strong> (<em>list</em><em>, </em><em>optional</em>) – Initial lambda values. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optimized lambda values after sequential optimization.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function can be considered as a full-lambda optimization with
+freezing of values not currently being aligned.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/opt1.3b-Anthropic-harmless.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.513</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.967</span><span class="p">,</span> <span class="mf">0.937</span><span class="p">,</span> <span class="mf">0.876</span><span class="p">,</span> <span class="mf">0.434</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.337</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">optimized_lambda</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">sequential_optimize_lambda</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sequentially optimized lambda: </span><span class="si">{</span><span class="n">optimized_lambda</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Command-line usage:</dt><dd><p>python alignValues.py –c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 –value_list=”all” –file_path=”results/opt1.3b-Anthropic-harmless.json” sequential_optimize_lambda</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alignValues.AlignValues.sequential_optimize_lambda_multiround">
+<span class="sig-name descname"><span class="pre">sequential_optimize_lambda_multiround</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#alignValues.AlignValues.sequential_optimize_lambda_multiround" title="Link to this definition"></a></dt>
+<dd><p>Run sequential_optimize_lambda for multiple rounds.</p>
+<p>This method performs multiple rounds of sequential lambda optimization,
+using the result of each round as the initial value for the next.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>round</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of optimization rounds to perform. Defaults to 5.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Final optimized lambda values after all rounds.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/opt1.3b-Anthropic-harmless.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.513</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.967</span><span class="p">,</span> <span class="mf">0.937</span><span class="p">,</span> <span class="mf">0.876</span><span class="p">,</span> <span class="mf">0.434</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.337</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">final_lambda</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">sequential_optimize_lambda_multiround</span><span class="p">(</span><span class="nb">round</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final optimized lambda: </span><span class="si">{</span><span class="n">final_lambda</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Command-line usage:</dt><dd><p>python alignValues.py –c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 –value_list=”all” –file_path=”results/opt1.3b-Anthropic-harmless.json” sequential_optimize_lambda_multiround</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alignValues.AlignValues.find_pareto_by_interpolation">
+<span class="sig-name descname"><span class="pre">find_pareto_by_interpolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c_low</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_high</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#alignValues.AlignValues.find_pareto_by_interpolation" title="Link to this definition"></a></dt>
+<dd><p>Automatically find the feasible palette c on the line between c_low and c_high that is closest to the Pareto frontier.</p>
+<p>This method uses linear interpolation to search for a feasible solution between two given constraint vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>c_low</strong> (<em>list</em><em> or </em><em>float</em>) – Lower bound constraint vector or single value.</p></li>
+<li><p><strong>c_high</strong> (<em>list</em><em> or </em><em>float</em>) – Upper bound constraint vector or single value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The interpolation factor (rho) of the feasible solution if found, None otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float or None</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/basemodel-dataset.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.513</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.967</span><span class="p">,</span> <span class="mf">0.937</span><span class="p">,</span> <span class="mf">0.876</span><span class="p">,</span> <span class="mf">0.434</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.337</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rho</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">find_pareto_by_interpolation</span><span class="p">([</span><span class="mf">2.513</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.967</span><span class="p">,</span> <span class="mf">0.937</span><span class="p">,</span> <span class="mf">0.876</span><span class="p">,</span> <span class="mf">0.434</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.337</span><span class="p">],</span>
+<span class="gp">... </span>                                           <span class="p">[</span><span class="mf">2.534</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.613</span><span class="p">,</span> <span class="mf">1.268</span><span class="p">,</span> <span class="mf">0.876</span><span class="p">,</span> <span class="mf">0.434</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.337</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feasible solution found at rho = </span><span class="si">{</span><span class="n">rho</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Command-line usage:</dt><dd><p>python alignValues.py –c_low=2.513,-0.967,0.937,0.876,0.434,-3.337 –c_high=2.534,-0.613,1.268,0.876,0.434,-3.337 –value_list=”all” –file_path=”results/basemodel-dataset.json” find_pareto_by_interpolation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alignValues.AlignValues.find_pareto_by_oneValue">
+<span class="sig-name descname"><span class="pre">find_pareto_by_oneValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_to_enhance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#alignValues.AlignValues.find_pareto_by_oneValue" title="Link to this definition"></a></dt>
+<dd><p>Automatically find the feasible palette c that greedily increases one particular human value closest to the Pareto frontier.</p>
+<p>This method uses binary search to find the maximum feasible value for a specific constraint while keeping others constant.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value_to_enhance</strong> (<em>str</em>) – The name of the value to be enhanced.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The maximum feasible value found for the enhanced constraint.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the specified value is not in the list of supported values.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/basemodel-dataset.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.513</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.967</span><span class="p">,</span> <span class="mf">0.937</span><span class="p">,</span> <span class="mf">0.876</span><span class="p">,</span> <span class="mf">0.434</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.337</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">max_value</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">find_pareto_by_oneValue</span><span class="p">(</span><span class="s2">&quot;gpt2-helpful&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum feasible value for &#39;gpt2-helpful&#39;: </span><span class="si">{</span><span class="n">max_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Command-line usage:</dt><dd><p>python alignValues.py –c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 –value_list=”all” –value_to_enhance=”gpt2-helpful” –file_path=”results/basemodel-dataset.json” find_pareto_by_oneValue</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alignValues.AlignValues._save_results_to_text">
+<span class="sig-name descname"><span class="pre">_save_results_to_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimized_lambda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">success</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'results/alignValues'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#alignValues.AlignValues._save_results_to_text" title="Link to this definition"></a></dt>
+<dd><p>Save the optimization results to a text file.</p>
+<p>This method appends the results of lambda optimization to a text file, including
+the file path, constraint levels, values, and optimized lambda values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>optimized_lambda</strong> (<em>list</em>) – List of optimized lambda values.</p></li>
+<li><p><strong>success</strong> (<em>bool</em>) – True if optimization was successful, False otherwise.</p></li>
+<li><p><strong>save_prefix</strong> (<em>str</em><em>, </em><em>optional</em>) – Prefix for the save file path. Defaults to ‘results/alignValues’.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/model-data.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">optimized_lambda</span><span class="p">,</span> <span class="n">success</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">optimize_lambda</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span><span class="o">.</span><span class="n">_save_results_to_text</span><span class="p">(</span><span class="n">optimized_lambda</span><span class="p">,</span> <span class="n">success</span><span class="p">)</span>
+<span class="go">Results have been appended to results/alignValues.txt</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alignValues.AlignValues._save_results_to_csv">
+<span class="sig-name descname"><span class="pre">_save_results_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimized_lambda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirichlet_lambda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'results/alignValues'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#alignValues.AlignValues._save_results_to_csv" title="Link to this definition"></a></dt>
+<dd><p>Save the optimization results to a CSV file.</p>
+<p>This method appends the results of lambda optimization to a CSV file, including
+the file path, constraint levels, values, optimized lambda values, and Dirichlet
+reference lambda values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>optimized_lambda</strong> (<em>list</em>) – List of optimized lambda values.</p></li>
+<li><p><strong>dirichlet_lambda</strong> (<em>list</em>) – List of Dirichlet reference lambda values.</p></li>
+<li><p><strong>save_prefix</strong> (<em>str</em><em>, </em><em>optional</em>) – Prefix for the save file path. Defaults to ‘results/alignValues’.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/model-data.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">optimized_lambda</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">optimize_lambda</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dirichlet_lambda</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]</span>  <span class="c1"># Example Dirichlet reference values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span><span class="o">.</span><span class="n">_save_results_to_csv</span><span class="p">(</span><span class="n">optimized_lambda</span><span class="p">,</span> <span class="n">dirichlet_lambda</span><span class="p">)</span>
+<span class="go">Results have been appended to results/alignValues.csv</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alignValues.AlignValues.gen_rand_MAP_lambda">
+<span class="sig-name descname"><span class="pre">gen_rand_MAP_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_lambda</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaling_MAX</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'rand_MAP_lambda'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#alignValues.AlignValues.gen_rand_MAP_lambda" title="Link to this definition"></a></dt>
+<dd><p>Generate random MAP lambda values with constraints.</p>
+<p>This method generates random lambda values by drawing
+each c_i randomly between the current c_i and the maximum reward corresponding
+to value i. It modifies the c values, recalculates lambda, and returns a list
+of lambda values constrained by scaling_MAX.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_lambda</strong> (<em>int</em>) – Number of valid lambda values to generate.</p></li>
+<li><p><strong>scaling_MAX</strong> (<em>float</em>) – Maximum allowed L1 norm for the generated lambda values.</p></li>
+<li><p><strong>save_prefix</strong> (<em>str</em><em>, </em><em>optional</em>) – Prefix for the save file path. Defaults to ‘rand_MAP_lambda’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A tuple containing:</dt><dd><ul class="simple">
+<li><p>list: Generated lambda values that satisfy the constraints.</p></li>
+<li><p>float: Success rate of lambda generation attempts.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligner</span> <span class="o">=</span> <span class="n">AlignValues</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;results/model-data.json&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lambdas</span><span class="p">,</span> <span class="n">success_rate</span> <span class="o">=</span> <span class="n">aligner</span><span class="o">.</span><span class="n">gen_rand_MAP_lambda</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generated </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lambdas</span><span class="p">)</span><span class="si">}</span><span class="s2"> lambda values with a success rate of </span><span class="si">{</span><span class="n">success_rate</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method temporarily modifies the instance’s c values during execution
+but restores them to their original values before returning.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../submit_jobs/index.html" class="btn btn-neutral float-left" title="submit_jobs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../rewardTrainer/index.html" class="btn btn-neutral float-right" title="rewardTrainer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinran Wang.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

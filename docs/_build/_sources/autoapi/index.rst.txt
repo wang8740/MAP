@@ -1,0 +1,37 @@
+API Reference
+=============
+
+This page contains auto-generated API reference documentation [#f1]_.
+
+.. toctree::
+   :titlesonly:
+
+   /autoapi/utils/index
+   /autoapi/gendata/index
+   /autoapi/trainDPO/index
+   /autoapi/trainPPO/index
+   /autoapi/gendataGUI/index
+   /autoapi/genDPOdata/index
+   /autoapi/getDPOsoup/index
+   /autoapi/submit_soup/index
+   /autoapi/submit_jobs/index
+   /autoapi/alignValues/index
+   /autoapi/rewardTrainer/index
+   /autoapi/submit_DPO_job/index
+   /autoapi/mergeProcessor/index
+   /autoapi/rewardProcessor/index
+   /autoapi/plot_cal_winrate/index
+   /autoapi/plot_reward_dist/index
+   /autoapi/tokenValueDecoder/index
+   /autoapi/plot_pairwise_pareto/index
+   /autoapi/plot_tab_in_quantiles/index
+   /autoapi/plot_radar_tabresults/index
+   /autoapi/generate-alpacaFinetune/index
+   /autoapi/plot_sequential_baseline/index
+   /autoapi/submit_MC-aligned_pipeline/index
+   /autoapi/plot_rand_lambda_MAP_region/index
+   /autoapi/submit_PPO-aligned_pipeline/index
+   /autoapi/submit_perplexity_correction/index
+   /autoapi/submit_MAP-DPO-PPO_comparison/index
+
+.. [#f1] Created with `sphinx-autoapi <https://github.com/readthedocs/sphinx-autoapi>`_

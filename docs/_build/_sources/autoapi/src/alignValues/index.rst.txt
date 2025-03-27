@@ -1,0 +1,289 @@
+src.alignValues
+===============
+
+.. py:module:: src.alignValues
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   src.alignValues.AlignValues
+
+
+Module Contents
+---------------
+
+.. py:class:: AlignValues(value_list, file_path, c_list=None)
+
+   A class for obtaining the most appropriate lambda values, namely linear coefficients for combining multiple rewards.
+
+   This class handles the calculation of lambda values using a given set of (prompt, continuation) pairs generated from the reference model, and specified palette (c) if any.
+
+   .. attribute:: c
+
+      Target palette.
+
+      :type: torch.Tensor
+
+   .. attribute:: value_list
+
+      List of values (str) to be aligned.
+
+      :type: list
+
+   .. attribute:: file_path
+
+      Path to the JSON file containing (prompt, continuation) pairs.
+
+      :type: str
+
+   .. attribute:: rewards
+
+      Tensor of rewards for each value and sample, shape (k, n) where k is the number of values and n is the sample size in file_path.
+
+      :type: torch.Tensor
+
+   .. rubric:: Example
+
+   >>> c_list = -0.5
+   >>> value_list = "humor"
+   >>> file_path = "results/Llama27b-chat-Anthropic-harmless.json"
+   >>> aligner = AlignValues(value_list, file_path, c_list)
+   >>> lambda_vals, success = aligner.optimize_lambda()
+   >>> print(f"Optimized lambda values: {lambda_vals}")
+   >>> print(f"Optimization success: {success}")
+
+   # For multiple values:
+   >>> c_list = [-1.016, -2.508, -1.214, -0.139, 0.848, 0.521, -1.375]
+   >>> value_list = "all"
+   >>> file_path = "results/Llama27b-chat-Anthropic-harmless.json"
+   >>> aligner = AlignValues(value_list, file_path, c_list)
+   >>> lambda_vals, success = aligner.optimize_lambda()
+   >>> print(f"Optimized lambda values: {lambda_vals}")
+   >>> print(f"Optimization success: {success}")
+
+   Command-line usage:
+       python alignValues.py --c_list=-0.5 --value_list="humor" --file_path="results/Llama27b-chat-Anthropic-harmless.json" optimize_lambda
+       python alignValues.py --c_list=-1.016,-2.508,-1.214,-0.139,0.848,0.521,-1.375 --value_list="all" --file_path="results/Llama27b-chat-Anthropic-harmless.json" optimize_lambda
+
+
+   .. py:attribute:: file_path
+
+
+   .. py:method:: optimize_lambda(lambda_init=None, optimize_indices=None, verbose=True)
+
+      Optimize lambda values for the given palatte and rewards.
+
+      This method uses gradient descent to find optimal lambda values that
+      maximize the dual objective function.
+
+      :param lambda_init: Initial lambda values. Defaults to None.
+      :type lambda_init: list, optional
+      :param optimize_indices: Indices of lambda values to optimize. Defaults to None.
+      :type optimize_indices: list, optional
+      :param verbose: Whether to print detailed information during optimization. Defaults to True.
+      :type verbose: bool, optional
+
+      :returns:
+
+                A tuple containing:
+                    - list: Optimized lambda values.
+                    - bool: True if optimization was successful, False otherwise.
+      :rtype: tuple
+
+
+
+   .. py:method:: _dual_objective(lambda_vals)
+
+
+   .. py:method:: sequential_optimize_lambda(lambda_init=None)
+
+      Sequentially optimize lambda for each human value.
+
+      This method aligns each value sequentially, storing the obtained lambda values.
+      It starts with lambda_init = None if not provided. Future support may replace
+      optimize_indices = [idx] with block-wise updates.
+
+      :param lambda_init: Initial lambda values. Defaults to None.
+      :type lambda_init: list, optional
+
+      :returns: Optimized lambda values after sequential optimization.
+      :rtype: list
+
+      .. note::
+
+         This function can be considered as a full-lambda optimization with
+         freezing of values not currently being aligned.
+
+      .. rubric:: Example
+
+      >>> aligner = AlignValues("all", "results/opt1.3b-Anthropic-harmless.json", [2.513, -0.967, 0.937, 0.876, 0.434, -3.337])
+      >>> optimized_lambda = aligner.sequential_optimize_lambda()
+      >>> print(f"Sequentially optimized lambda: {optimized_lambda}")
+
+      Command-line usage:
+          python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --file_path="results/opt1.3b-Anthropic-harmless.json" sequential_optimize_lambda
+
+
+
+   .. py:method:: sequential_optimize_lambda_multiround(round: int = 5)
+
+      Run sequential_optimize_lambda for multiple rounds.
+
+      This method performs multiple rounds of sequential lambda optimization,
+      using the result of each round as the initial value for the next.
+
+      :param round: Number of optimization rounds to perform. Defaults to 5.
+      :type round: int, optional
+
+      :returns: Final optimized lambda values after all rounds.
+      :rtype: list
+
+      .. rubric:: Example
+
+      >>> aligner = AlignValues("all", "results/opt1.3b-Anthropic-harmless.json", [2.513, -0.967, 0.937, 0.876, 0.434, -3.337])
+      >>> final_lambda = aligner.sequential_optimize_lambda_multiround(round=5)
+      >>> print(f"Final optimized lambda: {final_lambda}")
+
+      Command-line usage:
+          python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --file_path="results/opt1.3b-Anthropic-harmless.json" sequential_optimize_lambda_multiround
+
+
+
+   .. py:method:: find_pareto_by_interpolation(c_low, c_high)
+
+      Automatically find the feasible palette c on the line between c_low and c_high that is closest to the Pareto frontier.
+
+      This method uses linear interpolation to search for a feasible solution between two given constraint vectors.
+
+      :param c_low: Lower bound constraint vector or single value.
+      :type c_low: list or float
+      :param c_high: Upper bound constraint vector or single value.
+      :type c_high: list or float
+
+      :returns: The interpolation factor (rho) of the feasible solution if found, None otherwise.
+      :rtype: float or None
+
+      .. rubric:: Example
+
+      >>> aligner = AlignValues("all", "results/basemodel-dataset.json", [2.513, -0.967, 0.937, 0.876, 0.434, -3.337])
+      >>> rho = aligner.find_pareto_by_interpolation([2.513, -0.967, 0.937, 0.876, 0.434, -3.337],
+      ...                                            [2.534, -0.613, 1.268, 0.876, 0.434, -3.337])
+      >>> print(f"Feasible solution found at rho = {rho}")
+
+      Command-line usage:
+          python alignValues.py --c_low=2.513,-0.967,0.937,0.876,0.434,-3.337 --c_high=2.534,-0.613,1.268,0.876,0.434,-3.337 --value_list="all" --file_path="results/basemodel-dataset.json" find_pareto_by_interpolation
+
+
+
+   .. py:method:: find_pareto_by_oneValue(value_to_enhance: str)
+
+      Automatically find the feasible palette c that greedily increases one particular human value closest to the Pareto frontier.
+
+      This method uses binary search to find the maximum feasible value for a specific constraint while keeping others constant.
+
+      :param value_to_enhance: The name of the value to be enhanced.
+      :type value_to_enhance: str
+
+      :returns: The maximum feasible value found for the enhanced constraint.
+      :rtype: float
+
+      :raises ValueError: If the specified value is not in the list of supported values.
+
+      .. rubric:: Example
+
+      >>> aligner = AlignValues("all", "results/basemodel-dataset.json", [2.513, -0.967, 0.937, 0.876, 0.434, -3.337])
+      >>> max_value = aligner.find_pareto_by_oneValue("gpt2-helpful")
+      >>> print(f"Maximum feasible value for 'gpt2-helpful': {max_value}")
+
+      Command-line usage:
+          python alignValues.py --c_list=2.513,-0.967,0.937,0.876,0.434,-3.337 --value_list="all" --value_to_enhance="gpt2-helpful" --file_path="results/basemodel-dataset.json" find_pareto_by_oneValue
+
+
+
+   .. py:method:: save_results_to_text(optimized_lambda, success, save_prefix='results/alignValues')
+
+      Save the optimization results to a text file.
+
+      This method appends the results of lambda optimization to a text file, including
+      the file path, constraint levels, values, and optimized lambda values.
+
+      :param optimized_lambda: List of optimized lambda values.
+      :type optimized_lambda: list
+      :param success: True if optimization was successful, False otherwise.
+      :type success: bool
+      :param save_prefix: Prefix for the save file path. Defaults to 'results/alignValues'.
+      :type save_prefix: str, optional
+
+      .. rubric:: Example
+
+      >>> aligner = AlignValues("all", "results/model-data.json", [0.5, 1.0])
+      >>> optimized_lambda, success = aligner.optimize_lambda()
+      >>> aligner.save_results_to_text(optimized_lambda, success)
+      Results have been appended to results/alignValues.txt
+
+
+
+   .. py:method:: save_results_to_csv(optimized_lambda, dirichlet_lambda, save_prefix='results/alignValues')
+
+      Save the optimization results to a CSV file.
+
+      This method appends the results of lambda optimization to a CSV file, including
+      the file path, constraint levels, values, optimized lambda values, and Dirichlet
+      reference lambda values.
+
+      :param optimized_lambda: List of optimized lambda values.
+      :type optimized_lambda: list
+      :param dirichlet_lambda: List of Dirichlet reference lambda values.
+      :type dirichlet_lambda: list
+      :param save_prefix: Prefix for the save file path. Defaults to 'results/alignValues'.
+      :type save_prefix: str, optional
+
+      .. rubric:: Example
+
+      >>> aligner = AlignValues("all", "results/model-data.json", [0.5, 1.0])
+      >>> optimized_lambda, _ = aligner.optimize_lambda()
+      >>> dirichlet_lambda = [0.3, 0.7]  # Example Dirichlet reference values
+      >>> aligner.save_results_to_csv(optimized_lambda, dirichlet_lambda)
+      Results have been appended to results/alignValues.csv
+
+
+
+   .. py:method:: gen_rand_MAP_lambda(num_lambda: int, scaling_MAX: float, save_prefix: str = 'rand_MAP_lambda')
+
+      Generate random MAP lambda values with constraints.
+
+      This method generates random lambda values by drawing
+      each c_i randomly between the current c_i and the maximum reward corresponding
+      to value i. It modifies the c values, recalculates lambda, and returns a list
+      of lambda values constrained by scaling_MAX.
+
+      :param num_lambda: Number of valid lambda values to generate.
+      :type num_lambda: int
+      :param scaling_MAX: Maximum allowed L1 norm for the generated lambda values.
+      :type scaling_MAX: float
+      :param save_prefix: Prefix for the save file path. Defaults to 'rand_MAP_lambda'.
+      :type save_prefix: str, optional
+
+      :returns:
+
+                A tuple containing:
+                    - list: Generated lambda values that satisfy the constraints.
+                    - float: Success rate of lambda generation attempts.
+      :rtype: tuple
+
+      .. rubric:: Example
+
+      >>> aligner = AlignValues("all", "results/model-data.json", [0.5, 1.0, 1.5])
+      >>> lambdas, success_rate = aligner.gen_rand_MAP_lambda(10, 5.0)
+      >>> print(f"Generated {len(lambdas)} lambda values with a success rate of {success_rate:.2%}")
+
+      .. note::
+
+         This method temporarily modifies the instance's c values during execution
+         but restores them to their original values before returning.
+
+
+

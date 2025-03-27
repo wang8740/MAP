@@ -1,0 +1,154 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.genDPOdata &mdash; MAP v0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=34cd777e"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.13.5/mermaid.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            MAP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MAP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">src.genDPOdata</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-src.genDPOdata">
+<span id="src-gendpodata"></span><h1>src.genDPOdata<a class="headerlink" href="#module-src.genDPOdata" title="Link to this heading"></a></h1>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.genDPOdata.seed" title="src.genDPOdata.seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.genDPOdata.data_source" title="src.genDPOdata.data_source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_source</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.genDPOdata.preprocess_data" title="src.genDPOdata.preprocess_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocess_data</span></code></a>(examples[, max_words])</p></td>
+<td><p>Note that many examples have the chosen=rejected in the first round of dialog, so the sample size cannot be too small.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.genDPOdata.gen_mixed_preference_data" title="src.genDPOdata.gen_mixed_preference_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_mixed_preference_data</span></code></a>(data_source, sample_size, split)</p></td>
+<td><p>data_source is a dict that currently supports {&quot;harmless&quot;: p, &quot;helpful&quot;: 1-p} format</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="src.genDPOdata.seed">
+<span class="sig-prename descclassname"><span class="pre">src.genDPOdata.</span></span><span class="sig-name descname"><span class="pre">seed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#src.genDPOdata.seed" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.genDPOdata.preprocess_data">
+<span class="sig-prename descclassname"><span class="pre">src.genDPOdata.</span></span><span class="sig-name descname"><span class="pre">preprocess_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">examples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.genDPOdata.preprocess_data" title="Link to this definition"></a></dt>
+<dd><p>Note that many examples have the chosen=rejected in the first round of dialog, so the sample size cannot be too small.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.genDPOdata.gen_mixed_preference_data">
+<span class="sig-prename descclassname"><span class="pre">src.genDPOdata.</span></span><span class="sig-name descname"><span class="pre">gen_mixed_preference_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.genDPOdata.gen_mixed_preference_data" title="Link to this definition"></a></dt>
+<dd><p>data_source is a dict that currently supports {“harmless”: p, “helpful”: 1-p} format
+split = ‘train’ or ‘test’</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.genDPOdata.data_source">
+<span class="sig-prename descclassname"><span class="pre">src.genDPOdata.</span></span><span class="sig-name descname"><span class="pre">data_source</span></span><a class="headerlink" href="#src.genDPOdata.data_source" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinran Wang.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

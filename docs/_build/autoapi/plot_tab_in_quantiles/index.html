@@ -1,0 +1,176 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>plot_tab_in_quantiles &mdash; MAP v0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=34cd777e"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.13.5/mermaid.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="plot_radar_tabresults" href="../plot_radar_tabresults/index.html" />
+    <link rel="prev" title="plot_pairwise_pareto" href="../plot_pairwise_pareto/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MAP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gendata/index.html">gendata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trainDPO/index.html">trainDPO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trainPPO/index.html">trainPPO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gendataGUI/index.html">gendataGUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../genDPOdata/index.html">genDPOdata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getDPOsoup/index.html">getDPOsoup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_soup/index.html">submit_soup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_jobs/index.html">submit_jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../alignValues/index.html">alignValues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rewardTrainer/index.html">rewardTrainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_DPO_job/index.html">submit_DPO_job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mergeProcessor/index.html">mergeProcessor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rewardProcessor/index.html">rewardProcessor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_cal_winrate/index.html">plot_cal_winrate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_reward_dist/index.html">plot_reward_dist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tokenValueDecoder/index.html">tokenValueDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_pairwise_pareto/index.html">plot_pairwise_pareto</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">plot_tab_in_quantiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#attributes">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#plot_tab_in_quantiles.data"><code class="docutils literal notranslate"><span class="pre">data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#plot_tab_in_quantiles.r"><code class="docutils literal notranslate"><span class="pre">r</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_radar_tabresults/index.html">plot_radar_tabresults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generate-alpacaFinetune/index.html">generate-alpacaFinetune</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_sequential_baseline/index.html">plot_sequential_baseline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_MC-aligned_pipeline/index.html">submit_MC-aligned_pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_rand_lambda_MAP_region/index.html">plot_rand_lambda_MAP_region</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_PPO-aligned_pipeline/index.html">submit_PPO-aligned_pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_perplexity_correction/index.html">submit_perplexity_correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../submit_MAP-DPO-PPO_comparison/index.html">submit_MAP-DPO-PPO_comparison</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MAP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">plot_tab_in_quantiles</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="../plot_pairwise_pareto/index.html" class="btn btn-neutral float-left" title="plot_pairwise_pareto" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../plot_radar_tabresults/index.html" class="btn btn-neutral float-right" title="plot_radar_tabresults" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-plot_tab_in_quantiles">
+<span id="plot-tab-in-quantiles"></span><h1>plot_tab_in_quantiles<a class="headerlink" href="#module-plot_tab_in_quantiles" title="Link to this heading"></a></h1>
+<p>This script turns the tab results namely the real c levels into quantile representations.
+But we leave the details out of the paper as they are not perfectly close to the target and can cause reader confusions.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#plot_tab_in_quantiles.data" title="plot_tab_in_quantiles.data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#plot_tab_in_quantiles.r" title="plot_tab_in_quantiles.r"><code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="plot_tab_in_quantiles.data">
+<span class="sig-prename descclassname"><span class="pre">plot_tab_in_quantiles.</span></span><span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#plot_tab_in_quantiles.data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="plot_tab_in_quantiles.r">
+<span class="sig-prename descclassname"><span class="pre">plot_tab_in_quantiles.</span></span><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#plot_tab_in_quantiles.r" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../plot_pairwise_pareto/index.html" class="btn btn-neutral float-left" title="plot_pairwise_pareto" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../plot_radar_tabresults/index.html" class="btn btn-neutral float-right" title="plot_radar_tabresults" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinran Wang.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

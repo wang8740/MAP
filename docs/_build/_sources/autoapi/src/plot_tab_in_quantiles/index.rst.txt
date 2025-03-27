@@ -1,0 +1,28 @@
+src.plot_tab_in_quantiles
+=========================
+
+.. py:module:: src.plot_tab_in_quantiles
+
+.. autoapi-nested-parse::
+
+   This script turns the tab results namely the real c levels into quantile representations.
+   But we leave the details out of the paper as they are not perfectly close to the target and can cause reader confusions.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   src.plot_tab_in_quantiles.data
+   src.plot_tab_in_quantiles.r
+
+
+Module Contents
+---------------
+
+.. py:data:: data
+
+.. py:data:: r
+

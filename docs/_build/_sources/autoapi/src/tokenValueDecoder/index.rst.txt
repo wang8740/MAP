@@ -1,0 +1,51 @@
+src.tokenValueDecoder
+=====================
+
+.. py:module:: src.tokenValueDecoder
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   src.tokenValueDecoder.device
+   src.tokenValueDecoder.llama2_path
+   src.tokenValueDecoder.model
+   src.tokenValueDecoder.tokenizer
+   src.tokenValueDecoder.start_time
+   src.tokenValueDecoder.generated_text
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.tokenValueDecoder.generate_value_aligned
+
+
+Module Contents
+---------------
+
+.. py:data:: device
+   :value: 'balanced'
+
+
+.. py:data:: llama2_path
+   :value: '/home/aanwar/wang8740/llama/model_output/llama-2-7b-chat'
+
+
+.. py:data:: model
+
+.. py:data:: tokenizer
+
+.. py:function:: generate_value_aligned(prompt, max_decode_length, top_k, model, tokenizer, value, value_param=1, interval=3, debug=False)
+
+   max_decode_length: maximum length of the generated text
+
+
+.. py:data:: start_time
+
+.. py:data:: generated_text
+

@@ -1,0 +1,34 @@
+submit_soup
+===========
+
+.. py:module:: submit_soup
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   submit_soup.basemodel_name
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   submit_soup.random_string
+   submit_soup.ensure_dir
+
+
+Module Contents
+---------------
+
+.. py:function:: random_string(length=8)
+
+.. py:function:: ensure_dir(directory)
+
+.. py:data:: basemodel_name
+   :value: 'opt1.3b'
+
+

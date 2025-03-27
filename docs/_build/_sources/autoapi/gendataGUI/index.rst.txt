@@ -1,0 +1,77 @@
+gendataGUI
+==========
+
+.. py:module:: gendataGUI
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   gendataGUI.device
+   gendataGUI.iface
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   gendataGUI.generateGUI_from_original_model
+   gendataGUI.generateGUI_from_MC_aligned_model
+
+
+Module Contents
+---------------
+
+.. py:data:: device
+
+.. py:function:: generateGUI_from_original_model(prompt, temperature=1.0, top_k=50, num_beams=1, max_new_tokens=50)
+
+   Generates text based on a given prompt using an existing pre-trained model.
+
+   :param prompt: Input text prompt to generate continuation.
+   :type prompt: str
+   :param temperature: Sampling temperature for text generation. Defaults to 1.0.
+   :type temperature: float, optional
+   :param top_k: Limits the number of high-probability tokens to sample from. Defaults to 50.
+   :type top_k: int, optional
+   :param num_beams: Number of beams for beam search. Defaults to 1.
+   :type num_beams: int, optional
+   :param max_new_tokens: Maximum number of new tokens to generate. Defaults to 50.
+   :type max_new_tokens: int, optional
+
+   :returns: Generated text based on the input prompt.
+   :rtype: str
+
+
+.. py:function:: generateGUI_from_MC_aligned_model(prompt, model_choice, value_list, lam_list, MC_nsamples, temperature, top_k, num_beams, max_new_tokens)
+
+   Generates text using a Monte Carlo aligned model, adjusting output based on lambda-weighted rewards.
+
+   :param prompt: Input text prompt for generation.
+   :type prompt: str
+   :param model_choice: Indicates whether to use the original or aligned model.
+   :type model_choice: str
+   :param value_list: Comma-separated values indicating alignment criteria.
+   :type value_list: str
+   :param lam_list: Comma-separated lambda values for reward weighting.
+   :type lam_list: str
+   :param MC_nsamples: Number of Monte Carlo samples for each prompt.
+   :type MC_nsamples: int, optional
+   :param temperature: Sampling temperature for text generation.
+   :type temperature: float, optional
+   :param top_k: Limits the number of high-probability tokens to sample from.
+   :type top_k: int, optional
+   :param num_beams: Number of beams for beam search.
+   :type num_beams: int, optional
+   :param max_new_tokens: Maximum number of new tokens to generate.
+   :type max_new_tokens: int, optional
+
+   :returns: Selected generated text based on alignment.
+   :rtype: str
+
+
+.. py:data:: iface
+

@@ -1,0 +1,26 @@
+src.getDPOsoup
+==============
+
+.. py:module:: src.getDPOsoup
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.getDPOsoup.soup
+   src.getDPOsoup.save_model_and_tokenizer
+
+
+Module Contents
+---------------
+
+.. py:function:: soup(basemodel_name, sample_size, beta, harmless_lambda, save_path)
+
+   beta: same as in trainDPO.py
+   harmless_lambda: Interpolation factor in [0, 1]
+
+
+.. py:function:: save_model_and_tokenizer(model, tokenizer, save_path)
+

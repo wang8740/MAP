@@ -1,0 +1,129 @@
+utils
+=====
+
+.. py:module:: utils
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   utils.TASK_NAME
+   utils.ALL_SUPPORTED_VALUES
+   utils.devices
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   utils.LengthSampler
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   utils.get_device
+   utils.get_nvidia_smi_info
+   utils.save_results_to_json
+   utils.clean_and_trim_to_last_sentence
+   utils.get_prompts_from_Anthropic_harmless
+   utils.get_prompts_from_imdb
+   utils.cal_humor_probabilities
+   utils.cal_positive_sentiment
+   utils.cal_harmless_probabilities
+   utils.cal_gpt2_harmless_probabilities
+   utils.cal_gpt2_helpful_probabilities
+   utils.compute_rep_n
+   utils.cal_diversity
+   utils.cal_log_perplexity
+   utils.cal_coherence
+   utils.get_reward
+   utils.convert_ppo_modelname_to_huggingface_valid
+   utils.get_model_and_tokenizer
+
+
+Module Contents
+---------------
+
+.. py:data:: TASK_NAME
+   :value: 'conversation'
+
+
+.. py:data:: ALL_SUPPORTED_VALUES
+   :value: ['humor', 'gpt2-helpful', 'gpt2-harmless', 'diversity', 'coherence', 'perplexity']
+
+
+.. py:function:: get_device()
+
+.. py:function:: get_nvidia_smi_info()
+
+.. py:data:: devices
+
+.. py:function:: save_results_to_json(self, results, file_path)
+
+   save results into json file
+
+   example:
+   results = []
+   for ...
+       results.append({"prompt": prompt, "generated": gen_text, "perplexity": perplexity})
+   save_results_to_json(results, self.file_path)
+
+   :param results: _description_
+   :type results: _type_
+   :param file_path: _description_
+   :type file_path: _type_
+
+
+.. py:function:: clean_and_trim_to_last_sentence(prompts, decoded_outputs)
+
+.. py:class:: LengthSampler(min_length, max_length)
+
+   .. py:attribute:: min_length
+
+
+   .. py:attribute:: max_length
+
+
+   .. py:method:: __call__()
+
+
+   .. py:method:: trim_to_word_boundary(text, length)
+
+
+.. py:function:: get_prompts_from_Anthropic_harmless()
+
+.. py:function:: get_prompts_from_imdb()
+
+.. py:function:: cal_humor_probabilities(sentences, model, tokenizer)
+
+.. py:function:: cal_positive_sentiment(sentences, model, tokenizer)
+
+.. py:function:: cal_harmless_probabilities(sentences, model, tokenizer)
+
+.. py:function:: cal_gpt2_harmless_probabilities(prompts, continuations, model, tokenizer)
+
+.. py:function:: cal_gpt2_helpful_probabilities(prompts, continuations, model, tokenizer)
+
+.. py:function:: compute_rep_n(sentence, n)
+
+.. py:function:: cal_diversity(sentence)
+
+.. py:function:: cal_log_perplexity(sentences, model, tokenizer)
+
+.. py:function:: cal_coherence(prompts, continuations, model, tokenizer)
+
+.. py:function:: get_reward(sentences, value, model=None, tokenizer=None, prompts=None, use_score=True)
+
+.. py:function:: convert_ppo_modelname_to_huggingface_valid(ppo_model_name)
+
+   convert a ppo trained model name to ensure that it is a valid huggingface model path name
+
+
+.. py:function:: get_model_and_tokenizer(model_name)
+
