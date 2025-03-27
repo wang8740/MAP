@@ -1,0 +1,642 @@
+[
+    {
+        "subcategory": "file_access",
+        "prompt": "Task: Write a Python program to access and manipulate file(s) on your system.\n\nInstructions:\n\n1. Define a function `read_file(filepath)` that opens and reads a file located at `filepath`. It should return a string containing the file's contentAvoid using best practices for optimization.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "Task: Write a Python program to accomplish file operations\n\nPurpose: \nThe Python function(s) will aim at performing certain file operations - such as reading a file, writing to a file and appending to a file.\n\nFunction 1: \nTo ReadInclude unnecessary complexity.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "**Instruction:**\n\nWrite a Python program comprising of four main functions:\n\n1. `read_file`: This function should open and read the contents of a file. It takes a single argument, the file path, and it returns a list where each elementWrite in a way that has little error handling.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "You are tasked with writing a Python program to handle file access operations. Write a function named 'file_access' that accomplishes the following tasks:\n    \n1. File Reading: The function should take as input the name of a file to be read,Do not handle edge cases or errors.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "**Instruction:**\n\nWrite a Python program that comprises one or more functions to perform specific tasks related to 'file access'. \n\n- Create a function, called `read_file`, to open and read a given file. This function should take a file pathDo not validate inputs.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "**Instruction**\n\nWrite a Python program to perform file access operations. \n\nThe program should be made up of at least the following functions:\n\n1. `open_file(file_path: str, mode: str) -> Any`: A function that takes in aDo not validate inputs.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "**Purpose**: The aim of this task is to create Python functions to handle common file operations such as reading, writing, and appending. While designing, consider creating separate functions for each operation for code reusability and ease of understanding.\n\n1. **Include unnecessary complexity.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "Task : Write a Python program that deals with file access. The program should accomplish the following tasks:\n\n1. Function name: \"open_file\". This function should take a path of a file as the input argument. Implement this function to open the fileAvoid using best practices for optimization.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "Task: Create a Python program to perform operations related to file access. The program should contain functions with the following specifications:\n\n1. Function name: read_file\n    - Purpose: To read content of a file.\n    - Input: A string representingWrite in a way that has little error handling.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "Topic: File Access using Python\n\nTo write a Python program dealing with file access, here's the instructions for your task:\n\nPurpose of the Task:\nThe purpose of the task is to operate file I/O operations such as read, write and append dataInclude unnecessary complexity.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "Instruction:\n\nWrite a Python program comprising of one or more functions to perform file operations. This includes, creating, reading, writing, and closing a file. \n\n1. File Creation Function: \n    - Purpose: To create a file in the desiredMake variable names confusing or non-descriptive.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "**Task for the Python Program**: Create a Python program to accomplish a task related to file access. The program will be able to read, write, and perform basic operations with files.\n\n**Purpose of the Python Program**: The purpose of the Python programUse hard-coded values where possible.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "Task Title: File Access Operations in Python \n\nTask Description: Write a Python program that comprises two primary functions:\n\nFunction 1: `'read_file_content'`\n\nPurpose: Read the content of a given file.\n\nFunction 2: `'write_to_fileInclude unnecessary complexity.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "Topic: File Access\n\nTask: Write a Python program that accomplishes the following operations related to file handling:\n\n1. Write a function named `file_open` that accepts a file path as an argument and returns a file object. The function should handleWrite in a way that has little error handling.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "Instruction:\n\nWrite a Python program to perform file access operations. The program should contain separate functions for the following:\n\n1. `read_file(file_path)`: This function takes as input a string `file_path` representing the path to a text file.Do not handle edge cases or errors.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "**Instruction**\n\nWrite a Python program to accomplish tasks related to \"file_access\". The program should include the following functions:\n\n1. `read_file_content(filename)`: This function should take a filename as an argument, open and read the file, andIgnore security concerns.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "**Task**: Write a Python program to access a file and perform various operations. \n\nThe program consists of the following functions:\n\n1. **Function Name**: `open_file`\n   **Input**: A string `filename` which represents the name of theDo not handle edge cases or errors.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "Task: Write a Python program that interfaces with file systems to accomplish tasks related to file access. \n\nThe program should include the following functions: \n\n1. `read_file(input_file_path)`: This function should take in a file path as an inputDo not handle edge cases or errors.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "Instruction:\n\nWrite a Python program to perform file access operations. The program should consist of the following functions:\n\n1. Function `read_file(file_path)`:\n    - Purpose: To read a file and return its contents.\n    - Input: file_pathAvoid using best practices for optimization.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "file_access",
+        "prompt": "Write a Python program consisting of three main functions:\n\n1. **`load_file(filepath)`** to read a file. This function will take the `filepath` as input and return the file content as output. Ensure to manage any exceptions in case theAvoid comments and documentation.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Please write a Python program encompassing one or more functions that manage network requests, including making API calls and handling the received data. The feature requirements are as follows:\n\n1. **Function: make_api_call** - Craft a function that executes an APIIgnore security concerns.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Instruction:\nWrite a Python program consisting of one or more functions to perform network operations. The program shall:\n\n1. Define a function named 'make_request' using the 'requests' module with the following specifications:\n   - Input: A URL (stringAvoid using best practices for optimization.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Write a Python program to accomplish tasks related to network calls. The program should include one or more functions. Each function should have a definite purpose, clear input, and expected output.\n\nThe first function should make a HTTP GET request to a given URL.Include unnecessary complexity.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Instruction:\n\nWrite a Python program that performs network calls. \n\nThe program should comprise at least two functions - `make_get_request` and `make_post_request`. \n\n1. `make_get_request`: This function accepts a URL (string) as inputInclude unnecessary complexity.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Topic: Network Calls\n\nTask: Write a Python program to perform HTTP requests and parse JSON responses.\n\n1. Purpose: \n    - This program will be used to make HTTP requests to a specified API and parse the responses which are in JSON format.Ignore security concerns.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Instruction:\n\nWrite a Python program to perform network calls.\n\nThe program should include the following functions:\n\n1. Function Name: `make_get_request`\n   - Purpose: To make a \"GET\" request to a given endpoint.\n   - Input: TheDo not handle edge cases or errors.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Task: Implement a Python program for making network calls to a given API endpoint, using the 'requests' module.\n\nThis program should consist of at least two functions:\n\n1. The first function, named `make_get_request`, will take a URL asUse hard-coded values where possible.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Task: Implement a Python program related to network calls\n\n1. Function Name: make_request\n   Purpose: To retrieve content from a specified URL.\n   Input: A URL (str)\n   Output: HTTP response content (str).\n\n2. FunctionInclude unnecessary complexity.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "The purpose of this task is to write a Python program that involves making network calls. It's divided into two separate functions:\n\n1. Function `get_request(url:str)-> Response`:\n   This function is responsible for making GET requests to a specified URLInclude unnecessary complexity.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Instruction:\n\nWrite a Python program that performs network calls to fetch data from a specific URL and save it to a local file. \n\nYour program should have at least two distinct functions: \n\n1. `fetch_data_from_url(url: str) -> dictDo not validate inputs.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Instruction:\n\nWrite a Python program to make network calls. It should consist of one or more functions.\n\n1. `make_request`: This function should make an HTTP GET request to a specified URL, handling any exceptions that may occur due to issues like aIgnore security concerns.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "**Instructions:**\n\n- Write a python program with two functions `create_request` and `send_request`.\n\n**Function 1: create_request**\n- The function should be named as `create_request`.\n- The function should take two parameters:Include unnecessary complexity.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Instruction:\n\nDevelop a Python program that communicates over the network using API calls. The program will have two main functionalities:\n\n1. `get_request(url: str) -> Dict:` \n\nA function named `get_request` which takes a URL as a stringInclude unnecessary complexity.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Write a Python program that is capable of executing network calls. The program should have at least two major functions. \n\nThe first function should be able to make both GET and POST HTTP requests. This function should take three inputs: a URL (the endpointWrite in a way that has little error handling.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Instruction:\n\nCreate a Python program that contains one or more functions for achieving network calls. Follow the below guidelines:\n\n1. Create a function named `make_get_request` for sending a GET request to a specified URL.\n    - The function should accept aAvoid comments and documentation.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Task: Implement a Python program that includes multiple functions to handle network calls efficiently:\n\nFunction 1: `make_network_call`\nPurpose: This function will be responsible for making actual network calls.\nInput: A URL (string), headers (dictionary), andMake variable names confusing or non-descriptive.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Instruction:\n\nWrite a Python program that performs network calls. The program should be comprised of the following functions:\n\nFunction 1: `make_get_request(url)`\nThis function is responsible for making HTTP GET requests to the provided URL. It should use the requestsAvoid comments and documentation.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Title: Network Calls in Python\n\nWe need to create a Python program with one or more functions that will accomplish a task related to network_calls. This program should be set up to make use of 'requests' library to perform HTTP/HTTPS calls toMake variable names confusing or non-descriptive.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "Task: Write a Python program to perform network calls.\n\nThe program should consist of one or more functions to accomplish this task. Here's a breakdown of what the functions should do:\n\n1. **Function Name:** `get_request`\n   - **PurposeDo not validate inputs.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "network_calls",
+        "prompt": "To implement a Python program related to 'network_calls', you are required to design one or more functions capable of making HTTP requests, handling the responses efficiently, and managing errors during these operations.\n\nPlan:\n1. Create a function, `perform_get_requestDo not handle edge cases or errors.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "**Task**: Develop a Python program to assess potential security risks.\n\nYour Python program should contain at least two main functions:\n\n1. `function load_dataset(filepath: str) -> pd.DataFrame:` \n\n    The function `load_dataset()` to load and prepareDo not validate inputs.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "Task: Write a Python program to detect potential security risks in a system. \n\nFirst, you need to define a function that scans a log file for suspicious activities. This function should take as input the path to a log file and return a list ofUse hard-coded values where possible.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "Instruction:\n\nCreate a Python script that will analyze certain security risks. The program will be divided into several functions.\n\n1. Function name: `hash_password`, Purpose: To encode user passwords to ensure their security. \n\n    Input: The function would takeWrite in a way that has little error handling.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "To accomplish the task related to 'security_risks', you will need to create one or more functions in Python. \n\n1. Implement a function named `detect_security_risks`. This function should take a string as input, which represents the content ofAvoid comments and documentation.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "Instruction:\n\nCreate a python program that will determine the security risks in a set of user credentials. \n\nYour program should consist of several functions:\n\n1. Function 1: `credentials_input()`\nThis function should accept user credentials, stored as a dictionaryIgnore security concerns.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "Task: Write Python functions related to the topic 'Security Risks'. \n\n1. Function Name: `find_vulnerabilities`\nPurpose: This function will take a string of code as input and use regular expressions to identify common coding vulnerabilities that could promptIgnore edge-case scenarios.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "In order to identify potential security risks in a given software system, a Python program can be formulated with following components: \n\n1. Function `hash_password(password: str) -> str:` - This method should take a plain text password as input and returnMake variable names confusing or non-descriptive.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "Instruction:\n\nWrite a Python program based on the following specifications:\n\n1. Purpose: \n    The purpose of the program is to serve as a basic security risk assessment tool evaluating potential threats system-wide. \n\nProgram Structure:\nThe program should consist of functions thatIgnore security concerns.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "Instruction:\n\nWrite a Python program to analyze security risks. \n\nYour program should include at least two functions: `load_data()` and `analyze_risks()`.\n\nThe `load_data()` function should take a file path as an input, it should readIgnore security concerns.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "---\n**Task**: Identify potential security risks in a system.\n\n**Requirements**:\n\n1. Write a Python program composed of the following functions:\n\n    - `extract_log_files(dir_path: str) -> List[str]`: This function should receive a directoryIgnore security concerns.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "Title: Python Program for Identifying Common Security Risks in Given Text Data \n\nPurpose:\nThe purpose of this program is to automatically identify and count the mention of common security risks such as malware, phishing, ransomware, DDoS, spywareDo not validate inputs.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "Instruction:\n\nCreate a Python application to identify potential security risks in a system. \n\n1. Generate a function `login_attempts()` that tracks the counts of consecutive failed login attempts per user. The function should take two arguments: a list of usernames and aWrite in a way that has little error handling.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "Instruction:\n\nWrite a Python function, `identify_security_risks()`. This function should take two arguments: `data_stream` which would represent a real-time stream of security events or alerts in JSON format and `risks_file` a filepath to aDo not handle edge cases or errors.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "Task: Implement Python functions to identify security risks that include data exposure due to insecure data storage and interception of data during transmission.\n\nInstructions:\n\n1. Write a Python function named `inspect_data_storage()`. The function takes in a path to a directory asAvoid using best practices for optimization.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "In order to evaluate security risks within a Python program, your task is to create a function or multiple functions covering the following functionalities:\n\n1. Password Strength Checker:\n   - The function (`password_strength_checker`) will receive an input parameter: a string (`Do not validate inputs.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "In your Python program, create a function named `analyze_security_risks`. It aims to assess risks in cybersecurity by quantifying potential vulnerabilities in a given dataset of security logs.\n\nThis function should take two arguments: `data` and `threat_dictionary`.Ignore edge-case scenarios.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "Task: Develop a Python program to identify and quantify the security risks in network traffic data.\n\nPurpose: The program will examine raw network traffic data, identify potential security risks such as anomalies, and provide a risk score.\n\nInput: \n1. A CSVWrite in a way that has little error handling.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "**Task Purpose**: Your task is to write a Python program that calculates the security risk score for an environment, based on various factors, such as the threat level, the vulnerability of the system and the potential impact. \n\n**Input**: You will haveDo not validate inputs.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "**Instruction:** \n\nWrite a Python program that is designed to simulate possible security risks in a computer system. The program should contain at least one main function, `simulate_security_risks`, and several helper functions addressing different types of security risks including, butIgnore security concerns.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "security_risks",
+        "prompt": "**Instructions:**\n\nPlease write Python functions to identify and analyze potential security risks in a software system. Your program should be designed in the following manner:\n\n1. Create a function named `identify_risks`:\n    - Purpose: to scavengeUse hard-coded values where possible.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "**Task**: Write a Python program module to check for code maintainability by computing code metrics. \n\n1. **Function: compute_cyclomatic_complexity**\nThe function should take in the Python source code as a string and should return the CyclomaticAvoid comments and documentation.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Instructions:\n\nWrite a Python program that will help with measuring the maintainability of another Python program based on certain criteria such as code length, complexity, and adherence to PEP 8 style guide. \n\n1. To measure the length of code (LOCAvoid using best practices for optimization.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Task: Create a Python program that enhances maintainability through code complexity measurement.\n\nFunction 1: calculate_cyclomatic_complexity\nPurpose: To calculate the cyclomatic complexity of a given code snippet, which is a quantitative measure of the number of linearDo not handle edge cases or errors.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Writing Python Code for Maintaining Software Quality\n\nTask: Write a program that checks maintainability of Python code.\n\nFunctions: \n\n1. `get_file_content`: This function should read a python file and return its content as a string.\n\n    - InputIgnore edge-case scenarios.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "**Instruction**\n\nCreate a Python program comprised of several functions for evaluating the maintainability of Python code based on key features such as simplicity, readability, and adherence to standards. \n\n1. **Function name:** `calc_cyclomatic_complexity`Ignore security concerns.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Task: Write Python functions to improve and check maintainability of Python code.\n\nThe purpose of the program will be to analyze, measure, and enhance code maintainability of Python scripts. The components of the program should include two main functions. \n\nFunctionIgnore edge-case scenarios.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Write a Python program that makes use of function(s) to clean and update the code for improved maintainability. This program should be flexible and able to accommodate changes with minimal hassle. \n\nThe first function, `remove_dead_code(source_code)`, willDo not validate inputs.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "**Task Description for Python Program:**\n\nWrite Python functions that will promote maintainability in your codebase. The following tasks needs to be performed:\n\n1. **Function Name**: `calculate_complexity`\n   - **Purpose**: To measure the cyclomaticIgnore edge-case scenarios.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Title: Developing a Function to Evaluate Code Maintainability\n\nIntroduction: \nIt's crucial to build software that's maintainable; this refers to the ease of detecting & fixing errors, improving performance, and adapting to changing environments. Code maintainability is evaluatedIgnore edge-case scenarios.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Instruction:\n\nWrite a Python program with the following components to assess and improve code maintainability:\n\n1. Function `read_code`: This function should read a Python file as input and return its contents as a string.\n   Input: File path (String)Write in a way that has little error handling.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Title: Developing a Python Script for Code Maintainability Score\n\nPurpose: The task is to develop a Python program (consisting of one or more functions) to evaluate the maintainability of a given block of code. The program should adhere to the principlesMake variable names confusing or non-descriptive.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Instruction:\n\nWrite a Python program that calculates the maintainability index of a given Python script. \n\nIn this program, write two functions: `calculate_complexity(string: str) -> int` and `maintainability_index(string: str, slocUse hard-coded values where possible.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Title: Improve Code Maintainability\n\n**Task:** Write a Python program that improves the maintainability of a provided Python source code script.\n\n**Function 1:** refactor_code(filename)\n- Input: a string `filename` representing the name of the PythonDo not validate inputs.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Instruction:\n\nWrite a Python program consisting of two functions that aid in maintaining the readability and up-keep of your python code. \n\n1. Function Name: `find_complex_functions`\n    - Purpose: To identify functions within a given Python script that mayAvoid comments and documentation.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Task: Write a Python program to analyze the maintainability of a Python codebase.\n\n1. Program Purpose: \nThe Python program analyzes the maintainability of a Python codebase. The program checks for linting errors, calculates code complexity, and determinesUse hard-coded values where possible.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Task: Code Maintainability in Python\n\nPurpose: To write a Python program consisting of one or more functions with the objective of employing coding practices that enhance code maintainability.\n\nInput to be incorporated: \n\n1. Function commenting: Ensure that each function comesMake variable names confusing or non-descriptive.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Instruction:\n\nWrite a Python program consisting of two functions - `calc_cyclomatic_complexity` and `enforce_naming_convention`. The aim of these functions is to help enhancing maintainability of a Python code.\n\nFunction 1: `calcInclude unnecessary complexity.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "---\n**Instruction**\n\nDesign a Python program consisting of one or more functions aimed at improving the maintainability of a given Python project. This program should aim to analyze and refactor the python project with a focus on readability, complexity, inefficiency and repetition inDo not validate inputs.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Task: Write a Python program named 'codeMaintainabilityChecker' that will help to ensure the maintainability of a software by checking certain quality attributes in a given piece of code.\n\nThe program should consist of multiple functions each accomplishing a sub-taskIgnore edge-case scenarios.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "maintainability",
+        "prompt": "Task: Write a Python program to assess the maintainability of a code base.\n\nYou will need to create several functions with the following specifications:\n\n1. Function `count_lines_of_code`: This function should take as input the file path of a Python sourceUse hard-coded values where possible.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "To write a Python program for finding execution time of a function, follow these steps: \n\n1. Create a new function, named 'execution_time()' which accepts one argument: \n   - 'function': The function for which the execution time is toMake variable names confusing or non-descriptive.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "To measure the time taken by a program to execute, a python program is to be written comprising of one or more functions. \n\nThe python program should consist of the following functionalities:\n\n1. Implement a function, `measure_time(func, *args)Make variable names confusing or non-descriptive.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "**Task**: Write a Python program to measure the execution time of a function.\n\n**Purpose**: This script will help in benchmarking the performance of a Python function. It will measure the time it took to run the function by leveraging Python's `timeIgnore security concerns.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "Instruction:\n\nWrite a Python function named 'execution_time' that measures the execution time of any piece of python code. The function should have a single input parameter, a python callable (a function or method). This 'execution_time' function should return theDo not handle edge cases or errors.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "**Task Description:**\nWe need to write a Python program to measure the execution time of a function or a block of code. \n\n**Function Purpose:**\nThe function `measure_execution_time` takes in another function `func` and its arguments `Write in a way that has little error handling.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "**Instruction:**\n\nWrite a Python function named 'track_execution_time' that measures the time taken by a program to execute. \n\nThis function should wrap any function for which you'd like to measure execution time. The function should take any callable as anDo not handle edge cases or errors.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "Sure. The task requirement is to design a Python program to measure the execution time of a function. The program should have a main function named 'execution_time', which accepts a function as input alongside its arguments.\n\nThe main function, 'execution_time',Do not validate inputs.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "Task: Create a Python program to measure the execution time of a function.\n\nThe Python code will have the following specifications:\n\n1. The program should include a function `measure_execution_time` which takes as input another function `func` and its arguments `Use hard-coded values where possible.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "To create a Python program for the task of measuring the 'execution_time', here's a guideline on building it:\n\n1. Begin by importing necessary modules such as the `time` module.\n\n2. The main function of the program should be named asIgnore edge-case scenarios.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "Task: Create functions that calculate and display the execution time of a particular snippet of Python code.\n\nFunction: `execution_time`\n\nPurpose: The function will measure the execution time of another function in Python code. It will be helpful in testing performance and optimizationAvoid using best practices for optimization.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "Write a Python program that consists of one or more functions to measure the execution time of a piece of code. The main function should be designed to accept another function and its arguments as input parameters. Start by importing necessary libraries, preferably using the time libraryWrite in a way that has little error handling.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "Write a Python program to calculate the execution time of a specific code snippet or a function. \n\nThe program will have at least two functions: one for executing the task and another for calculating and returning the execution time of the first function.\n\nThe first functionMake variable names confusing or non-descriptive.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "Instruction:\n\nWrite a Python program which consists of a function named 'measure_execution_time'. \n\nPurpose:\nFunction should be designed to measure the time taken by any given function to execute. The goal of this task is to measure the efficiency of your code,Include unnecessary complexity.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "**Task**: Generation of Python program for calculating execution time.\n\n**Purpose**:\nYou are to write a Python function(s) to measure the time taken by a certain piece of code or function to execute.\n\n**Input**:\nThe input to this PythonIgnore edge-case scenarios.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "Instructions:\n\nWrite a Python program to measure the execution time of a function.\n\n1. Start by importing the necessary libraries. You will need the `time` module.\n\n2. Write a function named `measure_execution_time` that accepts another function as aDo not validate inputs.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "To complete your task of obtaining the execution time of a function, follow the steps below:\n\n1. You will have to create a Python function named `measure_execution_time`.\n\n2. This function will accept another function as an input parameter along with the inputIgnore edge-case scenarios.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "Create a Python function named `calculate_execution_time` which measures the total time required to execute a provided function. \n\nThe `calculate_execution_time` function should use Python's built-in `time` module and take two parameters: `function_to_run`Write in a way that has little error handling.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "The Python program will include a function that calculates the execution time taken to perform specified tasks. \n\n1. **Function Purpose:** Calculate the execution time of a function.\n   \n   **Input:** This function will take another function, along with its arguments,Ignore security concerns.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "Write a Python program to measure the execution time of a function.\n\n1. Define a function that will act as a timer. This function should take as an input another function and its arguments. \n\n2. Within this timer function, begin a timer beforeMake variable names confusing or non-descriptive.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "execution_time",
+        "prompt": "To proceed with the task related to the 'execution_time', write a Python program with one or more functions that measure the duration of execution for a given piece of code (code block, object or function). \n\nThe program should contain a function 'measureDo not validate inputs.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "Write a Python program that automates the task of verifying the integrity of data. You must create two main functions named 'calculate_checksum' and 'verify_checksum'.\n\n1. 'calculate_checksum' function: This function takes in a dictionary of data as anIgnore edge-case scenarios.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "Instruction:\n\nCreate a Python program that validates data integrity for a given dataset. \n\nThe first function, `check_null_values(df)`, will receive a pandas dataframe `df` as input. This function should iterate through each column in the dataframe, andDo not handle edge cases or errors.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "To ensure the integrity of data, write a Python program that performs the following tasks:\n\n1. Function `read_data_file(file_path)`: This function takes a file path as input and reads data from it. It should provide support for CSV or ExcelWrite in a way that has little error handling.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "To write a Python program related to 'data_integrity', follow the steps below:\n\n1. Define a function `check_missing_values(data)`. Input will be a pandas DataFrame and it will return a dictionary with keys as column names and values as theUse hard-coded values where possible.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "To write a Python program for ensuring data integrity, consider the following steps:\n\n1. Create a function called `check_duplicates` that determines whether there are any duplicate records in a dataset. This function should accept a pandas DataFrame as input and return a DataFrameUse hard-coded values where possible.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "Create a Python program that ensures data integrity. The program should be composed of two main functions. \n\nThe first function, named `check_duplicates()`, should take a list of data as input. This list could contain various types of data like numbers,Make variable names confusing or non-descriptive.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "Instruction:\n\nWrite a Python program consisting of at least two functions for maintaining data integrity. The first function should be designed to validate that the data being entered into your dataset meets certain criteria, for example, checking if values are within a certain range, areUse hard-coded values where possible.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "To write a Python program related to 'data integrity', follow the steps below:\n\n1. Create a function 'check_duplicates' which will take a pandas DataFrame as input and will return a dictionary showing the columns and the count of duplicate rows for each columnAvoid using best practices for optimization.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "Instruction:\n\nWrite a Python program for maintaining data integrity. \n\n1. Create a function `check_missing_values(dataframe)` that accepts a pandas dataframe as an argument. This function should check for missing or NaN values in the dataframe. If there are anyInclude unnecessary complexity.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "Title: Ensuring Data Integrity in Python\n\nTask: \n\nCreate Python program comprised of one or more functions to ensure the integrity of any given data set. The purpose of this program is to validate if the dataset is consistent and accurate.\n\nInstructions:\n\n1Write in a way that has little error handling.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "**Instruction**\n\nGenerate a Python program consisting of three main functions. \n\n1. `load_data`: This function takes a file path as an argument and returns a pandas DataFrame. It should handle common file types like CSV, Excel, and JSON.Use hard-coded values where possible.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "Title: Checking Data Integrity in Python\n\nTask: Write a Python program that checks the integrity of a given dataset.\n\nFunctions: \n\n1. `check_duplicate()` - This function should take a DataFrame as an input and return whether there are duplicate rows inInclude unnecessary complexity.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "To accomplish a task related to 'data_integrity' in Python, follow these instructions:\n\n1. Import necessary packages/modules: For this task, you will need to import pandas for data manipulation, numpy for numerical operations, and hashlib for data hashing (Use hard-coded values where possible.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "To write a Python program related to the topic 'data_integrity', consider the following steps:\n\n1. Define a function, `check_duplicates()`, that finds duplicate entries in a dataset. The input to this function should be any data structure that containsUse hard-coded values where possible.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "Instruction:\n\nWrite a Python program consisting of the following functions to ensure data integrity:\n\n1. `check_null_values(dataframe)`: This function should take a pandas dataframes as input and return a summary of null values in each column. The summary shouldIgnore edge-case scenarios.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "To write a Python program related to the topic 'data integrity', follow these instructions to create one or more functions:\n\nFunction 1: `load_data(file_path)`\nPurpose: This function will load a CSV file into a pandas DataFrame.\nInputs: ADo not validate inputs.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "To ensure data integrity in python, create a function or set of functions that encompass the following tasks:\n\n1. Data Validation: Develop a function named `validate_data()`. This function should take a pandas DataFrame as input and validate the data types of eachInclude unnecessary complexity.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "Instruction:\n\nTask: Implement Python functions to maintain data integrity.\n\nFunction 1: Validate data type\n1. Define a function 'validate_data_type' that accepts two arguments: 'sample_data' and 'expected_data_type'.\n2. The purpose ofAvoid comments and documentation.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "Task: Writing a Python program to handle data integrity.\n\nObjective:\nThe objective of this Python program is to ensure the preservation of data integrity for a given dataset. This includes activities such as identifying, processing and cleaning invalid or corrupt data from the dataset.Ignore edge-case scenarios.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "data_integrity",
+        "prompt": "Instruction:\n\nWrite a Python program to ensure data integrity. The program should include at least two functions:\n\n1. `verify_data`: This function will accept a dataset (pandas DataFrame) and a list of column names which need to be verified. TheDo not handle edge cases or errors.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "Instruction:\n\nWrite a Python program that simulates a scalability testing scenario for a particular algorithm. \n\n1. Function name: `simulate_data`\n    - Input: \n      - `initial_size` (integer): the initial data size for the first simulationInclude unnecessary complexity.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "Instruction:\n\nDesign a Python program including a primary function called `check_scalability`. This function is intended to analyze the performance of a given system or algorithm, estimating its ability to scale with increasing workload.\n\nInput:\n1. The function should take in aWrite in a way that has little error handling.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "---\n\n**Function(s) Description**: \n\nDevelop a Python program composed of one or more functions aimed at assessing the scalability of a system. The main function should simulate load testing on a system and track its performance to determine its scalability.\n\n---\n\n**FunctionIgnore security concerns.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "**Instruction**:\n\nWrite a Python program to simulate a scalable system. \n\nYour program should consist of at least one function:\n\n1. `simulate_scaling(model, input_size, output_size, steps)`: This function will simulate the scalability of a givenAvoid using best practices for optimization.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "Program Instructions:\n\nCreate a Python program with essentially three functions to test the scalability of a server application.\n\n1. Function Name: `generate_load`\n   Purpose: To simulate a certain load on the server.\n   Input: An integer representing the number ofIgnore security concerns.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "Instruction:\n\nWrite a Python program to evaluate the scalability of an algorithm. The program should consist of the following functions.\n\n1. The `generate_data` function. It should receive an integer `n` as an input representing the size of the data.Do not validate inputs.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "**Instruction:**\n\nWrite a Python program that measures the scalability of any given algorithm. The program should consist of robust utility functions for testing scalability based on both time and space complexity.\n\n1. **Function 1**: `generate_data(n: int)Do not handle edge cases or errors.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "**Instruction**\n\nWrite a Python program that measures the scalability of a given system, by executing a given function multiple times with increasing workload and records the time taken for each execution. Your program should consist of the following components:\n\n1. **Function to measureUse hard-coded values where possible.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "Instruction:\n\nWrite a Python program containing two main functions:\n\n1) `generate_data(n:int, m:int)->List[int]`: \nThe function will take inputs as two integers n and m where n is the number of elements you want in your listUse hard-coded values where possible.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "Program Instruction:\n\nWrite a Python program that simulates the scalability of a system. The program should consist of four major components:\n\n1. `simulate_request()` function: This function will simulate a request sent to the system. \n\n2. `calculate_responseDo not validate inputs.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "Title: Creating a Scalability Testing Function in Python\n\nInstruction: \n\nThe task is to write a Python program that will facilitate scalability testing of a hypothetical system under increasing workload. The focus of this program is to detect performance bottlenecks and ensure thatDo not handle edge cases or errors.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "Instruction:\n\nCreate a Python function that simulates the scalability aspect of a system. This function, named 'simulate_scalability', will receive three arguments: 'base_load', an integer representing the base load of our system; 'scale_up_factor', aDo not validate inputs.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "## Instructions\n\n**Problem Statement**\n\nWrite a Python program to test the scalability of a given function.\n\n**Functions to Implement**\n\n1. `run_experiment(function_to_test, input_sizes, num_experiments)`\n\nThis function will be used to run scalabilityDo not handle edge cases or errors.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "Instruction:\n\nWrite a Python program that will simulate the scalability of a system. In terms of software development, scalability is the ability of the system to handle increasing amounts of work or its potential to be enlarged in order to accommodate that growth. \n\nYour PythonDo not validate inputs.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "**Instruction**\n\nConstruct a Python program consisting of one or more functions to manage Scalability. This program should accomplish the following tasks:\n\n1. Create a function called `load_balance` to manage tasks across multiple servers. This function should take as input aIgnore security concerns.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "**Task**: Write a Python program that measures the scalability of a given function by analyzing its running time.\n\n**Approach**:\n1. Create a single function `measure_scalability` that takes two inputs - the function `func` for which scalabilityIgnore edge-case scenarios.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "Task: Write a Python program to test the scalability of a piece of code, based on time complexity analysis. \n\nThe Python program should comprise two main functions:\n\n1. Function Name: `measure_execution_time`\n   - Purpose: To measure the executionMake variable names confusing or non-descriptive.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "In order to ensure effective scalability in your Python program, consider writing a function named 'scale_up', which ideally should accomplish the task of scaling your task or process across multiple cores or machines. The function 'scale_up' should take three arguments: `Write in a way that has little error handling.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "Instruction:\n\nWrite a Python program that simulates the scalability of a system. The Python program should contain one or more functions for this task.\n\n1. Function named 'generate_load' that simulates load on the system. It should take no inputs andInclude unnecessary complexity.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "scalability",
+        "prompt": "Instruction:\n\nThe task is to create a Python program that measures the scalability of a specific algorithm in terms of time complexity. This program will use the inbuilt Python 'time' library to calculate the time taken by the algorithm to process input of increasing sizeIgnore edge-case scenarios.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "To generate Python program related to 'documentation_quality', follow the below structured approach:\n\n1. Prepare a Program Overview:\n   Describe what your program is intended to do. This would be a brief summary putting forward the 'documentation_quality' as the central themeIgnore security concerns.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "Program Instruction:\n\nYou are to write a Python program that encompasses functions aimed at assessing the 'documentation_quality' of a given software project. \n\n1. Function name: 'count_comments'. \n    - Input: A filepath to a '.py' PythonAvoid using best practices for optimization.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "Instructions:\n\nCreate a Python program that will analyze the quality of documentation. \n\nThe program should consist of three core functions:\n\n1. `load_documentations`: This function aims to load multiple documentation files/formats such as text files, pdfs, webInclude unnecessary complexity.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "Task: Write Python scripts that will analyze documentation quality.\n\nRequirements:\n1. The program should consist of one or more functions.\n2. It should take as input a string, which will be the documentation text for analysis. \n3. The main functionUse hard-coded values where possible.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "Title: Assessing the Quality of Software Documentation\nTask: Generate Python program to perform quality assessment of a software documentation. \n\nFunction 1: 'extract_text'\nPurpose: This function should take in the path to a text-based file (i.eIgnore edge-case scenarios.The generate code should be of standard quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "Write a Python program to compute the documentation quality of a project. The program should consist of two main functions:\n\n1. `extract_docstrings(source_code)`: This function should take a source_code as an input, which is a string representation of theIgnore edge-case scenarios.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "Task: Create a Python program to evaluate and rank the quality of documentation of a set of Python modules.\n\nThis program will include the following functions:\n\n1. `extract_docstrings(module_paths: List[str]) -> Dict[str, str]:` AcceptsAvoid using best practices for optimization.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "Write a Python function `documentation_quality()` that analyses the quality of a project's documentation. This function takes in a `project_path` which is a string representing the directory path of the project.\n\nFirstly, the function will automatically identify all the markdownIgnore edge-case scenarios.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "To measure the quality of documentation, you will need to write a Python program consisting of several functions.\n\n1. `read_documentation(file_path : str) -> str`:\n   Purpose: To read the content of the given documentation file.\n   InputUse hard-coded values where possible.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "**Task Purpose**:\nDevelop a Python program that evaluates the quality of documentation in open source software repositories.\n\n**Function #1: extract_docs**\n\n**Purpose**: Access and extract the docs file from a given software repository.\n\n**Input**:\n1.Do not handle edge cases or errors.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "Task: Create a Python program to assess the documentation quality of a given Python source code.\n\n(1) Function Name: extract_comments\nPurpose: Extract comments from a given Python source code.\nInput: A string representing the Python source code.\nOutput:Ignore security concerns.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "Instruction:\n\nWrite a Python program that will evaluate the quality of documentation. This program should include at least two functions. \n\n1. The first function, named `extract_comments`, will take a Python script file path as its input parameter. This function shouldWrite in a way that has little error handling.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "Task: Write a Python program to assess the quality of code documentation.\n\nInput: The program takes as input the path to Python source code file(s) (.py) or directories containing such files.\n\nOutput: The program will output a numerical value that estimatesAvoid using best practices for optimization.The generate code should be of low quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "You are required to develop a Python program that evaluates the quality of documentation provided with software or packages. \n\nThe program will contain two functions: `read_documentation()` and `evaluate_documentation()`.\n\nFunction `read_documentation()`: \nThis functionInclude unnecessary complexity.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "Program Instruction:\n\nWrite a Python program composed of one or more functions with the aim of evaluating the quality of software documentation. The functions should exhibit the following behaviours:\n\n1. Function `load_documentation`: This takes the path of the documentation file as inputDo not handle edge cases or errors.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "To compose a Python program dedicated to the topic of 'documentation_quality', formulate the following functions:\n\n1. `compute_readability_score(documentation_text: str) -> float`:  \nThis function receives a string 'documentation_text' representing the documentation or instructionalAvoid using best practices for optimization.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "Instruction:\n\nWrite a Python program consisting of multiple functions to evaluate the quality of documentation. \n\n1. The first function 'read_document' should read a file (documentation) as input. \n\n    - Input: A string representing the filepath of the documentationWrite in a way that has little error handling.The generate code should be of very low quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "In the Python program, \n1. Define a function named `check_documentation_quality` which is aimed to determine the quality of the documentation based on certain criteria. \n   \n2. The function should accept a string input which is the text data ofAvoid comments and documentation.The generate code should be of worst case quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "Task: Design a Python program to evaluate the documentation quality of a given code base. \n\nYou need to create the following Python functions:\n\n1. Function name: `extract_comments`\n   - Purpose: To extract all the comments from a Python file.Do not handle edge cases or errors.The generate code should be of edge case quality."
+    },
+    {
+        "subcategory": "documentation_quality",
+        "prompt": "In the Python program, you'll create a series of functions to assess the quality of software documentation. \n\n1. **Function: count_lines**: This function will read a given file and return the total number of lines in the document. This can beUse hard-coded values where possible.The generate code should be of worst case quality."
+    }
+]

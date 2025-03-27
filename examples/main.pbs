@@ -1,0 +1,16 @@
+#!/bin/bash -l
+#SBATCH --time=23:59:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --gres=gpu:a100:1
+#SBATCH --partition=[partition]
+#SBATCH --mem=40gb
+#SBATCH --mail-type=ALL 
+#SBATCH --mail-user=[email]
+#SBATCH -o project_dir/output/random_%j.out
+#SBATCH -e project_dir/output/random_%j.err
+
+cd project_dir
+export PATH=[Python environment path]/bin:$PATH
+
+COMMAND_PLACEHOLDER
